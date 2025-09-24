@@ -1,0 +1,19 @@
+form {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-width: 400px;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+}
+
+form button {
+  width: 90%;
+  align-self: center;
+}

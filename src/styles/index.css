@@ -1,0 +1,30 @@
+*,
+::after,
+::before {
+  box-sizing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #3a7bd5;
+  --secondary: #5a4eda;
+  --accent: #d59439;
+  --neutral-100: #f4f5f6;
+  --neutral-900: #2f3337;
+  --text: #111111;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--neutral-100);
+  color: var(--text);
+  max-width: 1024px;
+  margin: auto;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
