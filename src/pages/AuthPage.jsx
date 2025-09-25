@@ -1,6 +1,11 @@
 import { Outlet } from "react-router";
-import "../styles/AuthPage.css";
+import Page from "./Page.jsx";
+import "../styles/App.css";
 
 export default function AuthPage() {
-  return <Outlet />;
+  return (
+    <Page>
+      <Outlet />
+    </Page>
+  );
 }

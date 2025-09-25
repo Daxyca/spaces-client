@@ -1,5 +1,5 @@
 import "../styles/AuthPage.css";
-import Page from "./PageC.jsx";
+import Page from "./Page.jsx";
 import { useAuth } from "../AuthProvider.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";

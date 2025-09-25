@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
-import Page from "./PageC.jsx";
+import Page from "./Page.jsx";
 import { Link } from "react-router";
 
 const PROFILE_FIELDS = [
@@ -45,18 +45,16 @@ export default function ProfilePage() {
 
   return (
     <Page>
-      <main className="main">
-        {!user || !profile.id ? null : mode === "View" ? (
-          <ProfileContent profile={profile} setMode={setMode} />
-        ) : mode === "Edit" ? (
-          <ProfileForm
-            profile={profile}
-            setProfile={setProfile}
-            setMode={setMode}
-            user={user}
-          />
-        ) : null}
-      </main>
+      {!user || !profile.id ? null : mode === "View" ? (
+        <ProfileContent profile={profile} setMode={setMode} />
+      ) : mode === "Edit" ? (
+        <ProfileForm
+          profile={profile}
+          setProfile={setProfile}
+          setMode={setMode}
+          user={user}
+        />
+      ) : null}
     </Page>
   );
 }

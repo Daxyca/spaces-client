@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import Page from "./PageC.jsx";
+import Page from "./Page.jsx";
 import { useEffect } from "react";
 
 export default function ConnectionsPage() {
@@ -7,13 +7,11 @@ export default function ConnectionsPage() {
 
   return (
     <Page>
-      <main className="main">
-        <Link to="/">Back to home</Link>
-        <h2>Connections</h2>
-        <Link to="">Not Followed</Link>
-        <Link to="following">Following</Link>
-        <Link to="followers">Followers</Link>
-      </main>
+      <Link to="/">Back to home</Link>
+      <h2>Connections</h2>
+      <Link to="">Not Followed</Link>
+      <Link to="following">Following</Link>
+      <Link to="followers">Followers</Link>
     </Page>
   );
 }

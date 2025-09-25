@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import routes from "./routes.jsx";
+import routes from "./routes/index.jsx";
 import { useAuth } from "./AuthProvider.jsx";
 import { useEffect } from "react";
 
