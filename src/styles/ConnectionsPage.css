@@ -1,0 +1,10 @@
+.connections-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.connections-left {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+}
