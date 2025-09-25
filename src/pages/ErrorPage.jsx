@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import Page from "./Page.jsx";
+import Page from "./PageC.jsx";
 
 export default function ErrorPage() {
   return (

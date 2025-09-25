@@ -1,15 +1,12 @@
 import "../styles/App.css";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
-import { Outlet } from "react-router";
 
-export default function Page() {
+export default function Page({ children }) {
   return (
     <>
       <Header />
-      <main className="main">
-        <Outlet />
-      </main>
+      {children}
       <Footer />
     </>
   );

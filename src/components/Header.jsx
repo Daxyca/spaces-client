@@ -13,6 +13,7 @@ export default function Header() {
           <NavListItem href="/" name="Home" />
           {user ? (
             <>
+              <NavListItem href="/connections" name="Connections" />
               <NavListItem href="/profile" name={user.username} />
               <NavListItem href="/logout" name="Logout" />
             </>

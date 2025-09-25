@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
-import Page from "./Page.jsx";
+import Page from "./PageC.jsx";
 import { Link } from "react-router";
 
 const PROFILE_FIELDS = [

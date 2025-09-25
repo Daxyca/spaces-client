@@ -1,5 +1,5 @@
 import "../styles/AuthPage.css";
-import Page from "./Page.jsx";
+import Page from "./PageC.jsx";
 import { useAuth } from "../AuthProvider.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
@@ -35,11 +35,5 @@ export default function LoginPage() {
     }
   }, []);
 
-  return (
-    <Page>
-      <main className="main">
-        <p>Logged out successfully!</p>
-      </main>
-    </Page>
-  );
+  return <p>Logged out successfully!</p>;
 }
