@@ -10,7 +10,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
       return;
     } else {
       const submit = async () => {
@@ -33,7 +35,11 @@ export default function LoginPage() {
         submit();
       }
     }
-  }, []);
+  }, [user]);
 
-  return <p>Logged out successfully!</p>;
+  return (
+    <Page>
+      <p>Logged out successfully!</p>
+    </Page>
+  );
 }
