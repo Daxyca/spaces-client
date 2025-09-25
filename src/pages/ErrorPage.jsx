@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Page from "./Page.jsx";
 
 export default function ErrorPage() {
@@ -5,7 +6,7 @@ export default function ErrorPage() {
     <Page>
       <main className="main">
         <h2>404 Page Not Found</h2>
-        <a href="/">Back to home</a>
+        <Link to="/">Back to home</Link>
       </main>
     </Page>
   );

@@ -18,8 +18,8 @@ export default function Header() {
             </>
           ) : (
             <>
-              <NavListItem href="/register" name="Register" />
-              <NavListItem href="/login" name="Login" />
+              <NavListItem href="/auth/register" name="Register" />
+              <NavListItem href="/auth/login" name="Login" />
             </>
           )}
         </ul>

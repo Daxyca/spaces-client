@@ -1,9 +1,7 @@
-import "../styles/Form.css";
-import Page from "./Page.jsx";
-import { useAuth } from "../AuthProvider.jsx";
+import { useAuth } from "../../AuthProvider.jsx";
 import { useNavigate } from "react-router";
 
-export default function LoginPage() {
+export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -33,16 +31,6 @@ export default function LoginPage() {
     submit();
   }
 
-  return (
-    <Page>
-      <main className="main">
-        <LoginForm handleLoginSubmit={handleLoginSubmit} />
-      </main>
-    </Page>
-  );
-}
-
-function LoginForm({ handleLoginSubmit }) {
   return (
     <>
       <form onSubmit={handleLoginSubmit} method="post">

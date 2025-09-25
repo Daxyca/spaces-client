@@ -1,8 +1,6 @@
-import "../styles/Form.css";
 import { useNavigate } from "react-router";
-import Page from "./Page.jsx";
 
-export default function RegisterPage() {
+export default function RegisterForm() {
   const navigate = useNavigate();
 
   function handleRegisterSubmit(event) {
@@ -30,16 +28,6 @@ export default function RegisterPage() {
     submit();
   }
 
-  return (
-    <Page>
-      <main className="main">
-        <RegisterForm handleRegisterSubmit={handleRegisterSubmit} />
-      </main>
-    </Page>
-  );
-}
-
-function RegisterForm({ handleRegisterSubmit }) {
   return (
     <>
       <form onSubmit={handleRegisterSubmit} method="post">

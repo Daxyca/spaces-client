@@ -1,7 +1,8 @@
 import HomePage from "./pages/HomePage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import RegisterPage from "./pages/RegisterPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
+import AuthPage from "./pages/AuthPage.jsx";
+import RegisterForm from "./components/Auth/RegisterForm.jsx";
+import LoginForm from "./components/Auth/LoginForm.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 
@@ -12,19 +13,25 @@ const routes = [
     errorElement: <ErrorPage />,
   },
   {
-    path: "register",
-    element: <RegisterPage />,
+    path: "/auth",
+    element: <AuthPage />,
+    children: [
+      {
+        path: "register",
+        element: <RegisterForm />,
+      },
+      {
+        path: "login",
+        element: <LoginForm />,
+      },
+    ],
   },
   {
-    path: "login",
-    element: <LoginPage />,
-  },
-  {
-    path: "logout",
+    path: "/logout",
     element: <LogoutPage />,
   },
   {
-    path: "profile",
+    path: "/profile",
     element: <ProfilePage />,
   },
 ];

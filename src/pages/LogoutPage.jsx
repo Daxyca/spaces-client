@@ -1,8 +1,7 @@
-import "../styles/Form.css";
+import "../styles/AuthPage.css";
 import Page from "./Page.jsx";
 import { useAuth } from "../AuthProvider.jsx";
 import { useEffect } from "react";
-import ErrorPage from "./ErrorPage.jsx";
 import { useNavigate } from "react-router";
 
 export default function LoginPage() {
