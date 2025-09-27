@@ -3,8 +3,15 @@
   grid-template-columns: 1fr 2fr;
 }
 
-.connections-left {
-  display: grid;
+.connections-container > div {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   padding-top: 1rem;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }

@@ -1,8 +1,21 @@
+import { useLoaderData } from "react-router";
+import ProfileCard from "./ProfileCard.jsx";
+
 export default function Following() {
+  const data = useLoaderData();
+
+  if (!data) {
+    return;
+  }
+
+  const profileKey = "following";
+
   return (
     <>
-      <h3>Following</h3>
-      <p>FollowSomeone</p>
+      <h3>Following ({data.follows.length})</h3>
+      {data.follows.map((follow) => (
+        <ProfileCard key={follow[profileKey].id} profile={follow[profileKey]} />
+      ))}
     </>
   );
 }
