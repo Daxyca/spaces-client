@@ -19,9 +19,9 @@ export default function LoginForm() {
           credentials: "include",
           body: JSON.stringify({ username, password }),
         });
-        const data = await res.json();
-        if (data.login) {
-          login(data.user);
+        const json = await res.json();
+        if (json) {
+          login(json.data);
           navigate("/");
         }
       } catch (err) {

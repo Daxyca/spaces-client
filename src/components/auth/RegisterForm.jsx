@@ -17,9 +17,9 @@ export default function RegisterForm() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, email, password }),
         });
-        const data = await res.json();
-        if (data.register) {
-          navigate("/login");
+        const json = await res.json();
+        if (json) {
+          navigate("/auth/login");
         }
       } catch (err) {
         console.error(err);

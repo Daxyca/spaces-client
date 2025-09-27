@@ -22,9 +22,9 @@ export default function LoginPage() {
             method: "DELETE",
             credentials: "include",
           });
-          const data = await res.json();
-          if (!data.logout) {
-            console.log("Could not log out successfully on the server.");
+          const json = await res.json();
+          if (json.error) {
+            throw new Error(json.error.message);
           }
           logout();
         } catch (err) {
