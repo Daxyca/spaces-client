@@ -9,12 +9,17 @@ export default function Following() {
   }
 
   const profileKey = "following";
+  const buttonText = "Unfollow";
 
   return (
     <>
       <h3>Following ({data.follows.length})</h3>
       {data.follows.map((follow) => (
-        <ProfileCard key={follow[profileKey].id} profile={follow[profileKey]} />
+        <ProfileCard
+          key={follow[profileKey].id}
+          profile={follow[profileKey]}
+          buttonText={buttonText}
+        />
       ))}
     </>
   );

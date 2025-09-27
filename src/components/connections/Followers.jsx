@@ -9,12 +9,17 @@ export default function Followers() {
   }
 
   const profileKey = "follower";
+  const buttonText = "Remove";
 
   return (
     <>
       <h3>Followers ({data.follows.length})</h3>
       {data.follows.map((follow) => (
-        <ProfileCard key={follow[profileKey].id} profile={follow[profileKey]} />
+        <ProfileCard
+          key={follow[profileKey].id}
+          profile={follow[profileKey]}
+          buttonText={buttonText}
+        />
       ))}
     </>
   );

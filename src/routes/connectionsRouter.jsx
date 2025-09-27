@@ -2,7 +2,8 @@ import ConnectionsPage from "../pages/ConnectionsPage.jsx";
 import NotFollowed from "../components/connections/NotFollowed.jsx";
 import Following from "../components/connections/Following.jsx";
 import Follower from "../components/connections/Followers.jsx";
-import Requests from "../components/connections/Requests.jsx";
+import PendingRequests from "../components/connections/PendingRequests.jsx";
+import FollowersRequests from "../components/connections/FollowersRequests.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import * as connectionsLoader from "../loaders/connectionsLoader.js";
@@ -23,21 +24,27 @@ export default {
       HydrateFallback: () => null,
     },
     {
-      path: "Following",
+      path: "following",
       element: <Following />,
       loader: connectionsLoader.followingLoader,
       HydrateFallback: () => null,
     },
     {
-      path: "Followers",
+      path: "followers",
       element: <Follower />,
       loader: connectionsLoader.followersLoader,
       HydrateFallback: () => null,
     },
     {
-      path: "Requests",
-      element: <Requests />,
-      loader: connectionsLoader.requestsLoader,
+      path: "followers/requests",
+      element: <FollowersRequests />,
+      loader: connectionsLoader.followersRequestsLoader,
+      HydrateFallback: () => null,
+    },
+    {
+      path: "following/requests",
+      element: <PendingRequests />,
+      loader: connectionsLoader.pendingRequestsLoader,
       HydrateFallback: () => null,
     },
   ],
