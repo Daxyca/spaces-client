@@ -8,6 +8,26 @@ export default function FollowersRequests() {
     return;
   }
 
+  function handleButtonClick(event) {
+    const button = event.currentTarget;
+    const sendFollowRequest = async () => {
+      try {
+        const endpoint =
+          import.meta.env.VITE_API_URL + "/follow/" + button.dataset.id;
+        const res = await fetch(endpoint, {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        });
+        const json = await res.json();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    sendFollowRequest();
+    button.disabled = true;
+  }
+
   const profileKey = "follower";
   const buttonText = "Accept";
 
@@ -20,6 +40,7 @@ export default function FollowersRequests() {
             key={follow[profileKey].id}
             profile={follow[profileKey]}
             buttonText={buttonText}
+            handleButtonClick={handleButtonClick}
           />
         ))
       ) : (
