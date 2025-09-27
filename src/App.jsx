@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const router = createBrowserRouter(routes);
 
 export default function App() {
-  const { user, login } = useAuth({});
+  const { user, login, logout } = useAuth({});
 
   useEffect(() => {
     if (!localStorage.getItem("login")) {
@@ -19,15 +19,15 @@ export default function App() {
         const res = await fetch(endpoint, {
           credentials: "include",
         });
-        if (!res.ok) {
-          return null;
-        }
         const json = await res.json();
         const refetchUser = json.data;
         if (!user && refetchUser) {
           login(refetchUser);
+        } else if (!user) {
+          logout();
         }
       } catch (err) {
+        logout();
         console.error(err);
       }
     };
