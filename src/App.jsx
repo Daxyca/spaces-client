@@ -10,7 +10,7 @@ export default function App() {
   const { user, login } = useAuth({});
 
   useEffect(() => {
-    if (user) {
+    if (!localStorage.getItem("login")) {
       return;
     }
     const fetchUser = async () => {
@@ -19,8 +19,14 @@ export default function App() {
         const res = await fetch(endpoint, {
           credentials: "include",
         });
-        const data = await res.json();
-        login(data.user);
+        if (!res.ok) {
+          return null;
+        }
+        const json = await res.json();
+        const refetchUser = json.data;
+        if (!user && refetchUser) {
+          login(refetchUser);
+        }
       } catch (err) {
         console.error(err);
       }
