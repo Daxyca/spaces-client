@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
 import Page from "./Page.jsx";
 import { Link } from "react-router";
+import { useLoaderData } from "react-router-dom";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -17,27 +18,13 @@ export default function ProfilePage() {
   const { user } = useAuth();
   const [mode, setMode] = useState("View"); // View or Edit
   const [profile, setProfile] = useState({});
+  const data = useLoaderData();
 
   useEffect(() => {
-    if (!user) {
-      return;
+    if (data.get) {
+      setProfile(data.profile);
     }
-    const getProfile = async () => {
-      try {
-        const endpoint = import.meta.env.VITE_API_URL + "/profile";
-        const res = await fetch(endpoint, {
-          credentials: "include",
-        });
-        const data = await res.json();
-        if (data.get) {
-          setProfile(data.profile);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getProfile();
-  }, [user]);
+  }, [user, data]);
 
   if (!user) {
     return;
@@ -104,8 +91,6 @@ function ProfileForm({ setMode, profile, setProfile }) {
       if (value) {
         newProfile[field] = value;
       }
-      console.log(field);
-      console.log(value);
     }
 
     const updateProfilePost = async () => {
@@ -121,9 +106,9 @@ function ProfileForm({ setMode, profile, setProfile }) {
           body: JSON.stringify(newProfile),
         });
 
-        const data = await res.json();
+        const json = await res.json();
 
-        if (data.update) {
+        if (json.update) {
           setProfile(newProfile);
           setMode("View");
         }
@@ -147,7 +132,7 @@ function ProfileForm({ setMode, profile, setProfile }) {
       </button>
       <form onSubmit={handleFormSubmit}>
         <label>
-          Display Name:{" "}
+          Display Name:
           <input
             type="text"
             name="displayName"
@@ -156,7 +141,7 @@ function ProfileForm({ setMode, profile, setProfile }) {
           />
         </label>
         <label>
-          First Name:{" "}
+          First Name:
           <input
             type="text"
             name="firstName"
@@ -165,7 +150,7 @@ function ProfileForm({ setMode, profile, setProfile }) {
           />
         </label>
         <label>
-          Last Name:{" "}
+          Last Name:
           <input
             type="text"
             name="lastName"
@@ -174,7 +159,7 @@ function ProfileForm({ setMode, profile, setProfile }) {
           />
         </label>
         <label>
-          Birth Date:{" "}
+          Birth Date:
           <input
             type="date"
             name="birthDate"
@@ -185,11 +170,11 @@ function ProfileForm({ setMode, profile, setProfile }) {
           />
         </label>
         <label>
-          Bio:{" "}
-          <input type="text" name="bio" id=" bio" defaultValue={profile.bio} />
+          Bio:
+          <input type="text" name="bio" id="bio" defaultValue={profile.bio} />
         </label>
         <label>
-          Sex at Birth:{" "}
+          Sex at Birth:
           <input
             type="text"
             name="sexAtBirth"
@@ -198,11 +183,11 @@ function ProfileForm({ setMode, profile, setProfile }) {
           />
         </label>
         <label>
-          Location:{" "}
+          Location:
           <input
             type="text"
             name="location"
-            id=" location"
+            id="location"
             defaultValue={profile.location}
           />
         </label>

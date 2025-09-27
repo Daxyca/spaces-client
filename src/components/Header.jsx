@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className="header">
       <h1 className="header-heading">
-        <Link to="/">D Mailer</Link>
+        <Link to="/">Spaces</Link>
       </h1>
       <nav className="nav">
         <ul className="nav-list">
@@ -14,7 +14,7 @@ export default function Header() {
           {user ? (
             <>
               <NavListItem href="/connections" name="Connections" />
-              <NavListItem href="/profile" name={user.username} />
+              <NavListItem href="/profile" name={user.displayName} />
               <NavListItem href="/logout" name="Logout" />
             </>
           ) : (
