@@ -5,6 +5,7 @@ import ProfilePage from "../pages/ProfilePage.jsx";
 
 import authRoutes from "./authRoutes.jsx";
 import connectionsRouter from "./connectionsRouter.jsx";
+import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import profileLoader from "../loaders/profileLoader.js";
 
@@ -18,11 +19,19 @@ const routes = [
   connectionsRouter,
   {
     path: "/logout",
-    element: <LogoutPage />,
+    element: (
+      <ProtectedRoute>
+        <LogoutPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/profile",
-    element: <ProfilePage />,
+    element: (
+      <ProtectedRoute>
+        <ProfilePage />
+      </ProtectedRoute>
+    ),
     loader: profileLoader,
     HydrateFallback: () => null,
   },
