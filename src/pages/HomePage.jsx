@@ -20,8 +20,8 @@ export default function HomePage() {
 
   const handlePostFormSubmit = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(event.currentTarget);
+    const form = event.target;
+    const formData = new FormData(form);
     const content = formData.get("content");
     const createPost = async () => {
       try {
