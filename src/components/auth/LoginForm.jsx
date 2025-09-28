@@ -33,7 +33,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <form onSubmit={handleLoginSubmit} method="post">
+      <form className="auth-form" onSubmit={handleLoginSubmit} method="post">
         <h2>Login</h2>
         <label htmlFor="username">
           Username:

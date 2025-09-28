@@ -1,5 +1,8 @@
-form {
+.auth-form {
   align-self: center;
+}
+
+form {
   display: flex;
   flex-direction: column;
   width: fit-content;

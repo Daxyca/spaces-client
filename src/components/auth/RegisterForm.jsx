@@ -30,7 +30,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <form onSubmit={handleRegisterSubmit} method="post">
+      <form className="auth-form" onSubmit={handleRegisterSubmit} method="post">
         <h2>Register</h2>
         <label htmlFor="username">
           Username:
