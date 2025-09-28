@@ -10,6 +10,7 @@ export default function NotFollowed() {
 
   function handleButtonClick(event) {
     const button = event.currentTarget;
+    button.disabled = true;
     const sendFollowRequest = async () => {
       try {
         const endpoint =
@@ -19,13 +20,16 @@ export default function NotFollowed() {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
         });
-        const json = await res.json();
+        if (res.ok) {
+          const json = await res.json();
+        } else {
+          button.disabled = false;
+        }
       } catch (err) {
         console.error(err);
       }
     };
     sendFollowRequest();
-    button.disabled = true;
   }
 
   const buttonText = "Follow";
