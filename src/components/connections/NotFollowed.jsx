@@ -20,7 +20,6 @@ export default function NotFollowed() {
           headers: { "Content-Type": "application/json" },
         });
         const json = await res.json();
-        console.log(json);
       } catch (err) {
         console.error(err);
       }
