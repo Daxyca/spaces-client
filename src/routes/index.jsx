@@ -7,6 +7,7 @@ import authRoutes from "./authRoutes.jsx";
 import connectionsRouter from "./connectionsRouter.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
+import postsLoader from "../loaders/postsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
 
 const routes = [
