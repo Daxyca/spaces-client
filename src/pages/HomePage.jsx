@@ -40,6 +40,7 @@ export default function HomePage() {
               content,
               id: prev.length,
               author: { displayName: user.displayName },
+              _count: { likes: 0 },
             },
             ...prev,
           ]);
@@ -51,7 +52,26 @@ export default function HomePage() {
     createPost();
   };
 
-  const handleLikeButtonClick = (event) => {};
+  const handleLikeUnlikeClick = async (event, liked) => {
+    const likeBtn = event.currentTarget;
+    const postId = likeBtn.dataset.id;
+    const likePost = async () => {
+      try {
+        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${postId}/like`;
+        const res = await fetch(endpoint, {
+          method: liked ? "DELETE" : "POST",
+          credentials: "include",
+        });
+        const json = await res.json();
+        if (json.like || json.unlike) {
+          return json;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    return await likePost();
+  };
 
   return (
     <Page>
@@ -74,7 +94,8 @@ export default function HomePage() {
         <PostCard
           post={post}
           key={post.id}
-          handleLikeButtonClick={handleLikeButtonClick}
+          alreadyLiked={post.likes.length > 0 ? true : false}
+          handleLikeUnlikeClick={handleLikeUnlikeClick}
         />
       ))}
     </Page>
