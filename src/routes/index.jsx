@@ -12,7 +12,13 @@ import profileLoader from "../loaders/profileLoader.js";
 const routes = [
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
+    loader: postsLoader,
+    HydrateFallback: () => null,
     errorElement: <ErrorPage />,
   },
   authRoutes,

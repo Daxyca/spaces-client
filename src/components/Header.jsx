@@ -10,9 +10,9 @@ export default function Header() {
       </h1>
       <nav className="nav">
         <ul className="nav-list">
-          <NavListItem href="/" name="Home" />
           {user ? (
             <>
+              <NavListItem href="/" name="Home" />
               <NavListItem href="/connections" name="Connections" />
               <NavListItem href="/profile" name={user.displayName} />
               <NavListItem href="/logout" name="Logout" />
