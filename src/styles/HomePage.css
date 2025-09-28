@@ -1,3 +1,11 @@
 .home-heading {
   margin-bottom: 1rem;
 }
+
+.comment-card .comment-author-name {
+  font-weight: bold;
+}
+
+.comment-card .comment-content {
+  margin-left: 1rem;
+}
