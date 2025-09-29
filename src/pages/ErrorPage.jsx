@@ -5,7 +5,6 @@ export default function ErrorPage() {
   return (
     <Page>
       <h2>404 Page Not Found</h2>
-      <Link to="/">Back to home</Link>
     </Page>
   );
 }

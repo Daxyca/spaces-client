@@ -8,7 +8,6 @@ export default function ConnectionsPage() {
 
   return (
     <Page>
-      <Link to="/">Back to home</Link>
       <h2>Connections</h2>
       <div className="connections-container">
         <div className="connections-left">
