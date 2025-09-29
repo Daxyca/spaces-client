@@ -10,6 +10,16 @@ import ProtectedRoute from "../ProtectedRoute.jsx";
 import postsLoader from "../loaders/postsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
 
+const profileEntries = {
+  element: (
+    <ProtectedRoute>
+      <ProfilePage />
+    </ProtectedRoute>
+  ),
+  loader: profileLoader,
+  HydrateFallback: () => null,
+};
+
 const routes = [
   {
     path: "/",
@@ -34,13 +44,11 @@ const routes = [
   },
   {
     path: "/profile",
-    element: (
-      <ProtectedRoute>
-        <ProfilePage />
-      </ProtectedRoute>
-    ),
-    loader: profileLoader,
-    HydrateFallback: () => null,
+    ...profileEntries,
+  },
+  {
+    path: "/profile/:userId",
+    ...profileEntries,
   },
 ];
 

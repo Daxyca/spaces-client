@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
+import { Link } from "react-router";
 
 export default function PostCard({
   post,
@@ -63,7 +64,9 @@ export default function PostCard({
 
   return (
     <div className="post-card">
-      <h4 className="post-author-name">{post.author.displayName}</h4>
+      <h4 className="post-author-name">
+        <Link to={`/profile/${post.author.id}`}>{post.author.displayName}</Link>
+      </h4>
       <p className="post-content">{post.content}</p>
       <form>
         <button

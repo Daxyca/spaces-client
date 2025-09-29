@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
 import Page from "./Page.jsx";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import PostCard from "../components/PostCard.jsx";
 import "../styles/ProfilePage.css";
 
@@ -16,6 +16,7 @@ const PROFILE_FIELDS = [
 ];
 
 export default function ProfilePage() {
+  const { userId } = useParams();
   const { user } = useAuth();
   const [mode, setMode] = useState("View"); // View or Edit
   const [profile, setProfile] = useState({});
@@ -23,17 +24,23 @@ export default function ProfilePage() {
 
   useEffect(() => {
     setProfile(data.profile);
-  }, []);
+  }, [data]);
 
-  if (!data) {
+  if (!data || !user) {
     return;
   }
+
+  const isCurrentUser = !userId || userId === user.id;
 
   return (
     <Page>
       {!user || !profile.id ? null : mode === "View" ? (
-        <ProfileContent profile={profile} setMode={setMode} />
-      ) : mode === "Edit" ? (
+        <ProfileContent
+          profile={profile}
+          setMode={isCurrentUser ? setMode : () => {}}
+          isCurrentUser={isCurrentUser}
+        />
+      ) : isCurrentUser && mode === "Edit" ? (
         <ProfileForm
           profile={profile}
           setProfile={setProfile}
@@ -45,7 +52,7 @@ export default function ProfilePage() {
   );
 }
 
-function ProfileContent({ setMode, profile }) {
+function ProfileContent({ setMode, profile, isCurrentUser }) {
   const [picture, setPicture] = useState(profile.picture);
   const handleChangeModeClick = () => {
     setMode("Edit");
@@ -63,7 +70,6 @@ function ProfileContent({ setMode, profile }) {
           body: formData,
         });
         const json = await res.json();
-        console.log({ json });
         if (json.picture) {
           setPicture(json.picture);
         }
@@ -95,8 +101,6 @@ function ProfileContent({ setMode, profile }) {
     return await likePost();
   };
 
-  console.log(profile.posts);
-
   return (
     <>
       <h2 className="home-heading">Profile</h2>
@@ -112,23 +116,27 @@ function ProfileContent({ setMode, profile }) {
           ) : (
             "No picture"
           )}
-          <form
-            onSubmit={handlePictureFormSubmit}
-            method="post"
-            encType="multipart/form-data"
-          >
-            Change Picture:
-            <input type="file" name="picture" required />
-            <button type="submit">Upload</button>
-          </form>
+          {isCurrentUser ? (
+            <>
+              <form
+                onSubmit={handlePictureFormSubmit}
+                method="post"
+                encType="multipart/form-data"
+              >
+                Change Picture:
+                <input type="file" name="picture" required />
+                <button type="submit">Upload</button>
+              </form>
 
-          <button
-            className="button accent"
-            type="button"
-            onClick={handleChangeModeClick}
-          >
-            Edit
-          </button>
+              <button
+                className="button accent"
+                type="button"
+                onClick={handleChangeModeClick}
+              >
+                Edit
+              </button>
+            </>
+          ) : null}
           <p>Display Name: {profile.displayName}</p>
           <p>First Name: {profile.firstName}</p>
           <p>Last Name: {profile.lastName}</p>
@@ -176,7 +184,6 @@ function ProfileForm({ setMode, profile, setProfile }) {
     const updateProfile = async () => {
       try {
         const endpoint = import.meta.env.VITE_API_URL + `/profile`;
-
         const res = await fetch(endpoint, {
           method: "PATCH",
           headers: {
