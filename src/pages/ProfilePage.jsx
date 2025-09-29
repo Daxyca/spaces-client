@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
 import Page from "./Page.jsx";
-import { Link } from "react-router";
 import { useLoaderData } from "react-router-dom";
 
 const PROFILE_FIELDS = [
@@ -21,12 +20,10 @@ export default function ProfilePage() {
   const data = useLoaderData();
 
   useEffect(() => {
-    if (data.get) {
-      setProfile(data.profile);
-    }
-  }, [user, data]);
+    setProfile(data.profile);
+  }, []);
 
-  if (!user) {
+  if (!data) {
     return;
   }
 
@@ -47,14 +44,57 @@ export default function ProfilePage() {
 }
 
 function ProfileContent({ setMode, profile }) {
+  const [picture, setPicture] = useState(profile.picture);
   const handleChangeModeClick = () => {
     setMode("Edit");
   };
 
+  function handlePictureFormSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const updatePicturePost = async () => {
+      try {
+        const endpoint = `${import.meta.env.VITE_API_URL}/profile/picture`;
+        const res = await fetch(endpoint, {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        });
+        const json = await res.json();
+        console.log({ json });
+        if (json.picture) {
+          setPicture(json.picture);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    updatePicturePost();
+  }
+
   return (
     <>
-      <Link to="/">Go back to home</Link>
       <h2 className="home-heading">Profile</h2>
+      {picture ? (
+        <div className="profile-picture-container">
+          <img
+            src={import.meta.env.VITE_API_BASE_URL + picture}
+            alt="Your profile picture"
+          />
+        </div>
+      ) : (
+        "No picture"
+      )}
+      <form
+        onSubmit={handlePictureFormSubmit}
+        method="post"
+        encType="multipart/form-data"
+      >
+        Change Picture:
+        <input type="file" name="picture" required />
+        <button type="submit">Upload</button>
+      </form>
+
       <button
         className="button accent"
         type="button"
@@ -66,7 +106,7 @@ function ProfileContent({ setMode, profile }) {
       <p>First Name: {profile.firstName}</p>
       <p>Last Name: {profile.lastName}</p>
       <p>Birth Date: {profile.birthDate}</p>
-      <p>Bio: {profile.bio}</p>
+      <p>Bio: {profile.bio || "No bio..."}</p>
       <p>Sex at Birth: {profile.sexAtBirth}</p>
       <p>Location: {profile.location}</p>
     </>
@@ -93,7 +133,7 @@ function ProfileForm({ setMode, profile, setProfile }) {
       }
     }
 
-    const updateProfilePost = async () => {
+    const updateProfile = async () => {
       try {
         const endpoint = import.meta.env.VITE_API_URL + `/profile`;
 
@@ -105,9 +145,7 @@ function ProfileForm({ setMode, profile, setProfile }) {
           credentials: "include",
           body: JSON.stringify(newProfile),
         });
-
         const json = await res.json();
-
         if (json.update) {
           setProfile(newProfile);
           setMode("View");
@@ -116,12 +154,11 @@ function ProfileForm({ setMode, profile, setProfile }) {
         console.error(err);
       }
     };
-    updateProfilePost();
+    updateProfile();
   };
 
   return (
     <>
-      <Link to="/">Go back to home</Link>
       <h2 className="home-heading">Profile</h2>
       <button
         className="button accent"
