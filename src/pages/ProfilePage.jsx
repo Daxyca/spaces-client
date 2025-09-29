@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider.jsx";
 import Page from "./Page.jsx";
 import { useLoaderData } from "react-router-dom";
+import PostCard from "../components/PostCard.jsx";
+import "../styles/ProfilePage.css";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -72,43 +74,81 @@ function ProfileContent({ setMode, profile }) {
     updatePicturePost();
   }
 
+  const handleLikeUnlikeClick = async (event, liked) => {
+    const likeBtn = event.currentTarget;
+    const postId = likeBtn.dataset.id;
+    const likePost = async () => {
+      try {
+        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${postId}/like`;
+        const res = await fetch(endpoint, {
+          method: liked ? "DELETE" : "POST",
+          credentials: "include",
+        });
+        const json = await res.json();
+        if (json.like || json.unlike) {
+          return json;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    return await likePost();
+  };
+
+  console.log(profile.posts);
+
   return (
     <>
       <h2 className="home-heading">Profile</h2>
-      {picture ? (
-        <div className="profile-picture-container">
-          <img
-            src={import.meta.env.VITE_API_BASE_URL + picture}
-            alt="Your profile picture"
-          />
-        </div>
-      ) : (
-        "No picture"
-      )}
-      <form
-        onSubmit={handlePictureFormSubmit}
-        method="post"
-        encType="multipart/form-data"
-      >
-        Change Picture:
-        <input type="file" name="picture" required />
-        <button type="submit">Upload</button>
-      </form>
+      <div className="profile-container">
+        <div className="profile-left">
+          {picture ? (
+            <div className="profile-picture-container">
+              <img
+                src={import.meta.env.VITE_API_BASE_URL + picture}
+                alt="Your profile picture"
+              />
+            </div>
+          ) : (
+            "No picture"
+          )}
+          <form
+            onSubmit={handlePictureFormSubmit}
+            method="post"
+            encType="multipart/form-data"
+          >
+            Change Picture:
+            <input type="file" name="picture" required />
+            <button type="submit">Upload</button>
+          </form>
 
-      <button
-        className="button accent"
-        type="button"
-        onClick={handleChangeModeClick}
-      >
-        Edit
-      </button>
-      <p>Display Name: {profile.displayName}</p>
-      <p>First Name: {profile.firstName}</p>
-      <p>Last Name: {profile.lastName}</p>
-      <p>Birth Date: {profile.birthDate}</p>
-      <p>Bio: {profile.bio || "No bio..."}</p>
-      <p>Sex at Birth: {profile.sexAtBirth}</p>
-      <p>Location: {profile.location}</p>
+          <button
+            className="button accent"
+            type="button"
+            onClick={handleChangeModeClick}
+          >
+            Edit
+          </button>
+          <p>Display Name: {profile.displayName}</p>
+          <p>First Name: {profile.firstName}</p>
+          <p>Last Name: {profile.lastName}</p>
+          <p>Birth Date: {profile.birthDate}</p>
+          <p>Bio: {profile.bio || "No bio..."}</p>
+          <p>Sex at Birth: {profile.sexAtBirth}</p>
+          <p>Location: {profile.location}</p>
+        </div>
+        <div className="profile-right">
+          <h3>User posts</h3>
+          {profile.posts.map((post) => (
+            <PostCard
+              post={post}
+              key={post.id}
+              alreadyLiked={post.likes.length > 0 ? true : false}
+              handleLikeUnlikeClick={handleLikeUnlikeClick}
+            />
+          ))}
+        </div>
+      </div>
     </>
   );
 }
