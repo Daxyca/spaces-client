@@ -34,16 +34,14 @@ export default function HomePage() {
         });
         const json = await res.json();
         if (json) {
+          const newPost = {
+            ...json.post,
+            _count: { likes: 0 },
+            likes: [],
+            comments: [],
+          };
           form.reset();
-          setPosts((prev) => [
-            {
-              content,
-              id: prev.length,
-              author: { displayName: user.displayName },
-              _count: { likes: 0 },
-            },
-            ...prev,
-          ]);
+          setPosts((prev) => [newPost, ...prev]);
         }
       } catch (err) {
         console.error(err);
