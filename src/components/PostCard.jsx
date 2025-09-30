@@ -7,7 +7,6 @@ export default function PostCard({
   handleLikeUnlikeClick,
   alreadyLiked,
 }) {
-  const { user } = useAuth();
   const [likes, setLikes] = useState(post._count.likes);
   const [liked, setLiked] = useState(alreadyLiked);
   const [comments, setComments] = useState(post.comments);
@@ -46,14 +45,7 @@ export default function PostCard({
         const json = await res.json();
         if (json) {
           form.reset();
-          setComments((prev) => [
-            {
-              content,
-              id: prev.length,
-              author: { displayName: user.displayName },
-            },
-            ...prev,
-          ]);
+          setComments((prev) => [...prev, json.comment]);
         }
       } catch (err) {
         console.error(err);
@@ -64,6 +56,17 @@ export default function PostCard({
 
   return (
     <div className="post-card">
+      <div className="profile-picture-container">
+        <img
+          src={
+            import.meta.env.VITE_API_BASE_URL +
+            (post.author.picture
+              ? post.author.picture
+              : "/pictures/default.jpg")
+          }
+          alt="Your profile picture"
+        />
+      </div>
       <h4 className="post-author-name">
         <Link to={`/profile/${post.author.id}`}>{post.author.displayName}</Link>
       </h4>
@@ -103,6 +106,12 @@ export default function PostCard({
 function CommentCard({ comment }) {
   return (
     <div className="comment-card card">
+      <div className="profile-picture-container">
+        <img
+          src={import.meta.env.VITE_API_BASE_URL + comment.author.picture}
+          alt="Your profile picture"
+        />
+      </div>
       <p className="comment-author-name">{comment.author.displayName}</p>
       <p className="comment-content">{comment.content}</p>
     </div>

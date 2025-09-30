@@ -109,7 +109,10 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
           {picture ? (
             <div className="profile-picture-container">
               <img
-                src={import.meta.env.VITE_API_BASE_URL + picture}
+                src={
+                  import.meta.env.VITE_API_BASE_URL +
+                  (picture ? picture : "/pictures/default.jpg")
+                }
                 alt="Your profile picture"
               />
             </div>
