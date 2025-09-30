@@ -58,6 +58,10 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
     setMode("Edit");
   };
 
+  useEffect(() => {
+    setPicture(profile.picture);
+  }, [profile.picture]);
+
   function handlePictureFormSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -103,9 +107,9 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
 
   return (
     <>
-      <h2 className="home-heading">Profile</h2>
       <div className="profile-container">
         <div className="profile-left">
+          <h2 className="home-heading">Profile</h2>
           {picture ? (
             <div className="profile-picture-container">
               <img
@@ -149,7 +153,7 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
           <p>Location: {profile.location}</p>
         </div>
         <div className="profile-right">
-          <h3>User posts</h3>
+          <h3>{profile.displayName}'s Posts</h3>
           {profile.posts.map((post) => (
             <PostCard
               post={post}
