@@ -7,8 +7,10 @@ import authRoutes from "./authRoutes.jsx";
 import connectionsRouter from "./connectionsRouter.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
-import postsLoader from "../loaders/postsLoader.js";
+import * as postsLoader from "../loaders/postsLoader.js";
+import feedsLoader from "../loaders/feedsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
+import Posts from "../components/Posts.jsx";
 
 const profileEntries = {
   element: (
@@ -28,9 +30,23 @@ const routes = [
         <HomePage />
       </ProtectedRoute>
     ),
-    loader: postsLoader,
+    loader: feedsLoader,
     HydrateFallback: () => null,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Posts />,
+        loader: postsLoader.mainFeed,
+        HydrateFallback: () => null,
+      },
+      {
+        path: "/feeds/:feedName",
+        element: <Posts />,
+        loader: postsLoader.customFeed,
+        HydrateFallback: () => null,
+      },
+    ],
   },
   authRoutes,
   connectionsRouter,

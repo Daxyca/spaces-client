@@ -1,5 +1,5 @@
-.home-heading {
-  margin-bottom: 1rem;
+.create-post-form {
+  align-self: center;
 }
 
 .comment-card .comment-author-name {
@@ -8,4 +8,16 @@
 
 .comment-card .comment-content {
   margin-left: 1rem;
+}
+
+.home-main-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.home-main-container > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
 }

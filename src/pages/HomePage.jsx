@@ -1,101 +1,37 @@
-import { useLoaderData } from "react-router";
+import { Link, Outlet, useLoaderData, useParams } from "react-router";
 import "../styles/HomePage.css";
 import Page from "./Page.jsx";
-import PostCard from "../components/PostCard.jsx";
 import { useEffect, useState } from "react";
-import { useAuth } from "../AuthProvider.jsx";
 
 export default function HomePage() {
-  const { user } = useAuth();
-  const data = useLoaderData();
-  const [posts, setPosts] = useState();
+  const data = useLoaderData(); // feeds
+  const { feedName } = useParams();
+  const [feeds, setFeeds] = useState(null);
 
   useEffect(() => {
-    setPosts(data.posts);
+    setFeeds(data);
   }, []);
 
-  if (!posts) {
+  if (!feeds) {
     return;
   }
 
-  const handlePostFormSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    const content = formData.get("content");
-    const createPost = async () => {
-      try {
-        const endpoint = import.meta.env.VITE_API_URL + "/posts";
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ content }),
-        });
-        const json = await res.json();
-        if (json) {
-          const newPost = {
-            ...json.post,
-            _count: { likes: 0 },
-            likes: [],
-            comments: [],
-          };
-          form.reset();
-          setPosts((prev) => [newPost, ...prev]);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    createPost();
-  };
-
-  const handleLikeUnlikeClick = async (event, liked) => {
-    const likeBtn = event.currentTarget;
-    const postId = likeBtn.dataset.id;
-    const likePost = async () => {
-      try {
-        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${postId}/like`;
-        const res = await fetch(endpoint, {
-          method: liked ? "DELETE" : "POST",
-          credentials: "include",
-        });
-        const json = await res.json();
-        if (json.like || json.unlike) {
-          return json;
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    return await likePost();
-  };
-
   return (
     <Page>
-      <h2 className="home-heading">Posts</h2>
-      <form onSubmit={handlePostFormSubmit} method="post">
-        <h3>Create Post</h3>
-        <textarea
-          name="content"
-          id="post-content"
-          cols={50}
-          placeholder="Create a post..."
-          required
-        ></textarea>
-        <button className="button" type="submit">
-          Post
-        </button>
-      </form>
-      <h3>Feed</h3>
-      {posts.map((post) => (
-        <PostCard
-          post={post}
-          key={post.id}
-          alreadyLiked={post.likes.length > 0 ? true : false}
-          handleLikeUnlikeClick={handleLikeUnlikeClick}
-        />
-      ))}
+      <div className="home-main-container">
+        <div className="home-left-container">
+          <h3 className="feeds-heading">Feeds</h3>
+          <Link to="/">Main Feed</Link>
+          {feeds.map((feed) => (
+            <Link key={feed.id} to={`/feeds/${feed.name}`}>
+              {feed.name}
+            </Link>
+          ))}
+        </div>
+        <div className="home-right-container">
+          <Outlet context={{ feedName }} />
+        </div>
+      </div>
     </Page>
   );
 }
