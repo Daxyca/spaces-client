@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 export default function Posts() {
   const data = useLoaderData();
   const { feedName } = useOutletContext();
-  console.log({ feedName });
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
@@ -14,6 +13,17 @@ export default function Posts() {
 
   if (!posts) {
     return;
+  }
+
+  if (data.length === 0) {
+    return (
+      <>
+        <h3 className="posts-heading">
+          {feedName ? `${feedName} ` : null} Posts
+        </h3>
+        <p>No posts to see here...</p>
+      </>
+    );
   }
 
   const handleLikeUnlikeClick = async (event, liked) => {
@@ -71,7 +81,7 @@ export default function Posts() {
 
   return (
     <>
-      <h3 className="posts-heading">Posts</h3>
+      <h3 className="posts-heading">{feedName ? `${feedName} ` : null}Posts</h3>
       {!feedName ? (
         <form
           className="create-post-form"
