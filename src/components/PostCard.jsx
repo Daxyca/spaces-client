@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuth } from "../AuthProvider.jsx";
 import { Link } from "react-router";
 
 export default function PostCard({
@@ -112,7 +111,12 @@ function CommentCard({ comment }) {
           alt="Your profile picture"
         />
       </div>
-      <p className="comment-author-name">{comment.author.displayName}</p>
+      <Link
+        to={`/profile/${comment.author.id}`}
+        className="comment-author-name"
+      >
+        {comment.author.displayName}
+      </Link>
       <p className="comment-content">{comment.content}</p>
     </div>
   );
