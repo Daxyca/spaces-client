@@ -10,7 +10,7 @@ export default function App() {
   const { user, login, logout } = useAuth({});
 
   useEffect(() => {
-    if (!localStorage.getItem("login")) {
+    if (user || !localStorage.getItem("login")) {
       return;
     }
     const fetchUser = async () => {
@@ -32,7 +32,7 @@ export default function App() {
       }
     };
     fetchUser();
-  }, []);
+  }, [user]);
 
   return <RouterProvider router={router} />;
 }

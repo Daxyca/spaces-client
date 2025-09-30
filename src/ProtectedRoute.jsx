@@ -4,7 +4,10 @@ import { useAuth } from "./AuthProvider.jsx";
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
 
-  if (!user && !localStorage.getItem("login")) {
+  if (
+    !localStorage.getItem("login") ||
+    (!user && !localStorage.getItem("login"))
+  ) {
     return <Navigate to="/auth/login" replace />;
   }
 
