@@ -107,7 +107,12 @@ function CommentCard({ comment }) {
     <div className="comment-card card">
       <div className="profile-picture-container">
         <img
-          src={import.meta.env.VITE_API_BASE_URL + comment.author.picture}
+          src={
+            import.meta.env.VITE_API_BASE_URL +
+            (comment.author.picture
+              ? comment.author.picture
+              : "/pictures/default.jpg")
+          }
           alt="Your profile picture"
         />
       </div>
