@@ -86,7 +86,7 @@ export default function Feed() {
                 <input
                   type="checkbox"
                   name="ids"
-                  id={user.displayName}
+                  id={user.id}
                   value={user.id}
                   checked={checked[user.id]}
                   onChange={handleCheckboxChange}
