@@ -1,20 +1,33 @@
 import { Link, Outlet, useLoaderData, useParams } from "react-router";
 import Page from "./Page.jsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function FeedsPage() {
   const data = useLoaderData(); // feeds
   const { feedName } = useParams();
-  const [feeds, setFeeds] = useState(null);
+  const [feeds, setFeeds] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    setFeeds(data);
-    if (data.length > 0) {
-      feedName;
+    if (!data) {
+      return;
     }
-  }, [data]);
+    setFeeds(data.feeds);
+    if (!feedName) {
+      return;
+    }
+    const currentFeeds = feeds.length > 0 ? feeds : data.feeds;
+    const feedUsers = currentFeeds
+      .filter((feed) => feed.name === feedName)[0]
+      .users.map((user) => ({ ...user, isInFeed: true }));
+    const feedUserIds = feedUsers.map((user) => user.id);
+    const usersFollowed = data.follows
+      .map((follow) => ({ ...follow.following, isInFeed: false }))
+      .filter((user) => !feedUserIds.includes(user.id));
+    setUsers([...feedUsers, ...usersFollowed]);
+  }, [feedName]);
 
-  if (!feeds) {
+  if (!data) {
     return;
   }
 
@@ -33,8 +46,12 @@ export default function FeedsPage() {
           body: JSON.stringify({ name }),
         });
         const json = await res.json();
+        if (json.error) {
+          throw Error(json.error.message);
+        }
         if (json) {
-          setFeeds((prevFeed) => [...prevFeed, json]);
+          data.feeds.push(json);
+          setFeeds((prevFeed) => [...prevFeed]);
           form.reset();
         }
       } catch (err) {
@@ -42,14 +59,6 @@ export default function FeedsPage() {
       }
     };
     createFeed();
-  };
-
-  const handleSaveFormSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleDeleteFormSubmit = (event) => {
-    event.preventDefault();
   };
 
   return (
@@ -60,7 +69,6 @@ export default function FeedsPage() {
             Feeds
             <Link to="/"> Done</Link>
           </h3>
-
           {feeds.map((feed) => (
             <Link key={feed.id} to={`/edit/feeds/${feed.name}`}>
               {feed.name}
@@ -74,19 +82,11 @@ export default function FeedsPage() {
           </form>
         </div>
         <div className="right-container">
-          <h3>
-            {feedName ? feedName : "Nothing to see here... Create a feed."}
-          </h3>
-          <form name="save" onSubmit={handleSaveFormSubmit} method="post">
-            <button name="save" type="submit">
-              Save
-            </button>
-          </form>
-          <form name="delete" onSubmit={handleDeleteFormSubmit} method="post">
-            <button name="delete" type="submit">
-              Delete
-            </button>
-          </form>
+          {feeds.length > 0 ? (
+            <Outlet context={{ users, feedName }} />
+          ) : (
+            "Create a feed below"
+          )}
         </div>
       </div>
     </Page>

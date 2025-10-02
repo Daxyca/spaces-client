@@ -10,8 +10,10 @@ import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import * as postsLoader from "../loaders/postsLoader.js";
 import * as feedsLoader from "../loaders/feedsLoader.js";
+import * as connectionsLoader from "../loaders/connectionsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
 import Posts from "../components/Posts.jsx";
+import Feed from "../components/Feed.jsx";
 
 const profileEntries = {
   element: (
@@ -59,12 +61,10 @@ const routes = [
     children: [
       {
         path: ":feedName",
-        element: <Posts />,
-        loader: postsLoader.customFeed,
-        HydrateFallback: () => null,
+        element: <Feed />,
       },
     ],
-    loader: feedsLoader.feedsLoader,
+    loader: feedsLoader.feedsAndFollowersLoader,
     HydrateFallback: () => null,
   },
   authRoutes,
