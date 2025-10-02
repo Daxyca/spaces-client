@@ -2,13 +2,14 @@ import HomePage from "../pages/HomePage.jsx";
 import ErrorPage from "../pages/ErrorPage.jsx";
 import LogoutPage from "../pages/LogoutPage.jsx";
 import ProfilePage from "../pages/ProfilePage.jsx";
+import FeedsPage from "../pages/FeedsPage.jsx";
 
 import authRoutes from "./authRoutes.jsx";
 import connectionsRouter from "./connectionsRouter.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import * as postsLoader from "../loaders/postsLoader.js";
-import feedsLoader from "../loaders/feedsLoader.js";
+import * as feedsLoader from "../loaders/feedsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
 import Posts from "../components/Posts.jsx";
 
@@ -30,7 +31,7 @@ const routes = [
         <HomePage />
       </ProtectedRoute>
     ),
-    loader: feedsLoader,
+    loader: feedsLoader.feedsLoader,
     HydrateFallback: () => null,
     errorElement: <ErrorPage />,
     children: [
@@ -41,12 +42,30 @@ const routes = [
         HydrateFallback: () => null,
       },
       {
-        path: "/feeds/:feedName",
+        path: "feeds/:feedName",
         element: <Posts />,
         loader: postsLoader.customFeed,
         HydrateFallback: () => null,
       },
     ],
+  },
+  {
+    path: "/edit/feeds",
+    element: (
+      <ProtectedRoute>
+        <FeedsPage />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: ":feedName",
+        element: <Posts />,
+        loader: postsLoader.customFeed,
+        HydrateFallback: () => null,
+      },
+    ],
+    loader: feedsLoader.feedsLoader,
+    HydrateFallback: () => null,
   },
   authRoutes,
   connectionsRouter,
