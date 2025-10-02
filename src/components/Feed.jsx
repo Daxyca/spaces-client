@@ -25,7 +25,28 @@ export default function Feed() {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
-    const ids = formData.getAll("ids");
+    const userIds = formData.getAll("ids");
+    const updateFeedUsers = async () => {
+      try {
+        const endpoint = `${import.meta.env.VITE_API_URL}/feeds/${feedName}`;
+        const res = await fetch(endpoint, {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userIds }),
+        });
+        const json = await res.json();
+        if (json.like || json.unlike) {
+          return json;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    updateFeedUsers();
   };
 
   const handleDeleteFormSubmit = (event) => {
@@ -54,25 +75,38 @@ export default function Feed() {
         <button name="save" type="submit">
           Save
         </button>
-        {users.map((user) => {
-          if (doneUserIds.includes(user.id)) {
-            return null;
-          }
-          doneUserIds.push(user.id);
-          return (
-            <Fragment key={user.id}>
-              <input
-                type="checkbox"
-                name="ids"
-                id={user.displayName}
-                value={user.id}
-                checked={checked[user.id]}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor={user.displayName}>{user.displayName}</label>
-            </Fragment>
-          );
-        })}
+        <ul>
+          {users.map((user) => {
+            if (doneUserIds.includes(user.id)) {
+              return null;
+            }
+            doneUserIds.push(user.id);
+            return (
+              <li key={user.id}>
+                <input
+                  type="checkbox"
+                  name="ids"
+                  id={user.displayName}
+                  value={user.id}
+                  checked={checked[user.id]}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor={user.displayName}>
+                  <div className="profile-picture-container">
+                    <img
+                      src={
+                        import.meta.env.VITE_API_BASE_URL +
+                        (user.picture ? user.picture : "/pictures/default.jpg")
+                      }
+                      alt="Your profile picture"
+                    />
+                  </div>
+                  {user.displayName}
+                </label>
+              </li>
+            );
+          })}
+        </ul>
       </form>
     </>
   );
