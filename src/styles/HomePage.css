@@ -12,7 +12,7 @@
 
 .home-main-container {
   display: grid;
-  grid-template-columns: minmax(15ch, 1fr) 5fr;
+  grid-template-columns: 1fr 5fr;
   gap: 1rem;
 }
 
@@ -21,4 +21,22 @@
   flex-direction: column;
   gap: 1rem;
   padding-top: 1rem;
+}
+
+@media only screen and (max-width: 720px) {
+  .home-main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .home-left-container {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-left-container > * {
+    align-self: center;
+  }
 }
