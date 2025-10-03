@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import Image from "./Image.jsx";
 
 export default function PostCard({
   post,
@@ -53,19 +54,11 @@ export default function PostCard({
     createComment();
   }
 
+  const postPicture = post.author.picture;
+
   return (
     <div className="post-card">
-      <div className="profile-picture-container">
-        <img
-          src={
-            import.meta.env.VITE_API_BASE_URL +
-            (post.author.picture
-              ? post.author.picture
-              : "/pictures/default.jpg")
-          }
-          alt="Your profile picture"
-        />
-      </div>
+      <Image picture={post.author.picture} />
       <h4 className="post-author-name">
         <Link to={`/profile/${post.author.id}`}>{post.author.displayName}</Link>
       </h4>
@@ -105,17 +98,7 @@ export default function PostCard({
 function CommentCard({ comment }) {
   return (
     <div className="comment-card card">
-      <div className="profile-picture-container">
-        <img
-          src={
-            import.meta.env.VITE_API_BASE_URL +
-            (comment.author.picture
-              ? comment.author.picture
-              : "/pictures/default.jpg")
-          }
-          alt="Your profile picture"
-        />
-      </div>
+      <Image picture={comment.author.picture} />
       <Link
         to={`/profile/${comment.author.id}`}
         className="comment-author-name"

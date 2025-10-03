@@ -54,6 +54,7 @@ export default function ProfilePage() {
 
 function ProfileContent({ setMode, profile, isCurrentUser }) {
   const [picture, setPicture] = useState(profile.picture);
+
   const handleChangeModeClick = () => {
     setMode("Edit");
   };
@@ -110,19 +111,7 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
       <div className="profile-container">
         <div className="profile-left">
           <h2 className="home-heading">Profile</h2>
-          {picture ? (
-            <div className="profile-picture-container">
-              <img
-                src={
-                  import.meta.env.VITE_API_BASE_URL +
-                  (picture ? picture : "/pictures/default.jpg")
-                }
-                alt="Your profile picture"
-              />
-            </div>
-          ) : (
-            "No picture"
-          )}
+          <Image picture={picture} />
           {isCurrentUser ? (
             <>
               <form

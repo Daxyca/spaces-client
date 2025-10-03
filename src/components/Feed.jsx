@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
+import Image from "./Image.jsx";
 
 export default function Feed() {
   const { users, feedName } = useOutletContext();
@@ -91,16 +92,8 @@ export default function Feed() {
                   checked={checked[user.id]}
                   onChange={handleCheckboxChange}
                 />
-                <label htmlFor={user.displayName}>
-                  <div className="profile-picture-container">
-                    <img
-                      src={
-                        import.meta.env.VITE_API_BASE_URL +
-                        (user.picture ? user.picture : "/pictures/default.jpg")
-                      }
-                      alt="Your profile picture"
-                    />
-                  </div>
+                <label htmlFor={user.id}>
+                  <Image picture={user.picture} />
                   {user.displayName}
                 </label>
               </li>
