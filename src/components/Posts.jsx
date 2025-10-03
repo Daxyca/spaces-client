@@ -5,9 +5,12 @@ import { useEffect, useState } from "react";
 export default function Posts() {
   const data = useLoaderData();
   const { feedName } = useOutletContext();
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    if (!data || data.error) {
+      return;
+    }
     setPosts(data);
   }, [data]);
 

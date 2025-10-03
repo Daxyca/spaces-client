@@ -31,6 +31,12 @@ export default function LoginForm() {
     submit();
   }
 
+  const handleGithubFormSubmit = (event) => {
+    event.preventDefault();
+    localStorage.setItem("login", "true");
+    event.target.submit();
+  };
+
   return (
     <>
       <form className="auth-form" onSubmit={handleLoginSubmit} method="post">
@@ -58,6 +64,14 @@ export default function LoginForm() {
         <button className="button accent" type="submit">
           Login
         </button>
+      </form>
+      <form
+        className="auth-form"
+        action={import.meta.env.VITE_API_URL + "/auth/github"}
+        onSubmit={handleGithubFormSubmit}
+        method="get"
+      >
+        <button type="submit">Login with Github</button>
       </form>
     </>
   );

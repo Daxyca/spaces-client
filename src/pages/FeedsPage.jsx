@@ -82,11 +82,7 @@ export default function FeedsPage() {
           </form>
         </div>
         <div className="right-container">
-          {feeds.length > 0 ? (
-            <Outlet context={{ users, feedName }} />
-          ) : (
-            "Create a feed below"
-          )}
+          {feeds.length > 0 ? <Outlet context={{ users, feedName }} /> : ""}
         </div>
       </div>
     </Page>

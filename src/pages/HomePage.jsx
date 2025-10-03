@@ -6,13 +6,16 @@ import { useEffect, useState } from "react";
 export default function HomePage() {
   const data = useLoaderData(); // feeds
   const { feedName } = useParams();
-  const [feeds, setFeeds] = useState(null);
+  const [feeds, setFeeds] = useState([]);
 
   useEffect(() => {
+    if (!data || data.error) {
+      return;
+    }
     setFeeds(data);
   }, [data]);
 
-  if (!feeds) {
+  if (!data) {
     return;
   } else if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
     return <Navigate to="/404" replace />;
