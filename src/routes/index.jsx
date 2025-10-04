@@ -12,6 +12,8 @@ import * as postsLoader from "../loaders/postsLoader.js";
 import * as feedsLoader from "../loaders/feedsLoader.js";
 import * as connectionsLoader from "../loaders/connectionsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
+import protectedLoader from "../loaders/protectedLoader.js";
+
 import Posts from "../components/Posts.jsx";
 import Feed from "../components/Feed.jsx";
 
@@ -21,7 +23,7 @@ const profileEntries = {
       <ProfilePage />
     </ProtectedRoute>
   ),
-  loader: profileLoader,
+  loader: protectedLoader(profileLoader),
   HydrateFallback: () => null,
 };
 
@@ -33,20 +35,20 @@ const routes = [
         <HomePage />
       </ProtectedRoute>
     ),
-    loader: feedsLoader.feedsLoader,
+    loader: protectedLoader(feedsLoader.feedsLoader),
     HydrateFallback: () => null,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Posts />,
-        loader: postsLoader.mainFeed,
+        loader: protectedLoader(postsLoader.mainFeed),
         HydrateFallback: () => null,
       },
       {
         path: "feeds/:feedName",
         element: <Posts />,
-        loader: postsLoader.customFeed,
+        loader: protectedLoader(postsLoader.customFeed),
         HydrateFallback: () => null,
       },
     ],
@@ -64,7 +66,7 @@ const routes = [
         element: <Feed />,
       },
     ],
-    loader: feedsLoader.feedsAndFollowersLoader,
+    loader: protectedLoader(feedsLoader.feedsAndFollowersLoader),
     HydrateFallback: () => null,
   },
   authRoutes,
