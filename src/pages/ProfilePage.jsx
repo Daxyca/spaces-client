@@ -4,6 +4,7 @@ import Page from "./Page.jsx";
 import { useLoaderData, useParams } from "react-router-dom";
 import PostCard from "../components/PostCard.jsx";
 import "../styles/ProfilePage.css";
+import Image from "../components/Image.jsx";
 
 const PROFILE_FIELDS = [
   "displayName",
