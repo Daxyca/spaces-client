@@ -6,6 +6,7 @@ export default function PostCard({
   post,
   handleLikeUnlikeClick,
   alreadyLiked,
+  currentUserPicture,
 }) {
   const [likes, setLikes] = useState(post._count.likes);
   const [liked, setLiked] = useState(alreadyLiked);
@@ -54,11 +55,16 @@ export default function PostCard({
     createComment();
   }
 
-  const postPicture = post.author.picture;
-
   return (
     <div className="post-card">
-      <Image picture={post.author.picture} />
+      <Image
+        picture={
+          post.author.picture?.split("?")[0] ===
+          currentUserPicture?.split("?")[0]
+            ? currentUserPicture
+            : post.author.picture
+        }
+      />
       <h4 className="post-author-name">
         <Link to={`/profile/${post.author.id}`}>{post.author.displayName}</Link>
       </h4>
@@ -77,7 +83,11 @@ export default function PostCard({
 
       <h5 className="comments-heading">Comments</h5>
       {comments.map((comment) => (
-        <CommentCard key={comment.id} comment={comment} />
+        <CommentCard
+          key={comment.id}
+          comment={comment}
+          currentUserPicture={currentUserPicture}
+        />
       ))}
 
       <form onSubmit={handleSubmitComment} method="post" data-postid={post.id}>
@@ -95,10 +105,17 @@ export default function PostCard({
   );
 }
 
-function CommentCard({ comment }) {
+function CommentCard({ comment, currentUserPicture }) {
   return (
     <div className="comment-card card">
-      <Image picture={comment.author.picture} />
+      <Image
+        picture={
+          comment.author.picture?.split("?")[0] ===
+          currentUserPicture?.split("?")[0]
+            ? currentUserPicture
+            : comment.author.picture
+        }
+      />
       <Link
         to={`/profile/${comment.author.id}`}
         className="comment-author-name"

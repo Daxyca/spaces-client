@@ -148,6 +148,7 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
             <PostCard
               post={post}
               key={post.id}
+              currentUserPicture={picture}
               alreadyLiked={post.likes.length > 0 ? true : false}
               handleLikeUnlikeClick={handleLikeUnlikeClick}
             />
