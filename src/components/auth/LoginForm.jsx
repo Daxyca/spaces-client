@@ -57,7 +57,7 @@ export default function LoginForm() {
           placeholder="Password"
           required
         />
-        <button className="button accent" type="submit">
+        <button className="button alt" type="submit">
           Login
         </button>
       </form>

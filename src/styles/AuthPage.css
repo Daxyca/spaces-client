@@ -1,12 +1,11 @@
 .auth-form-container {
-  margin-top: 20vh;
-  margin-bottom: 20vh;
   max-width: 400px;
-  margin-inline: auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  scale: 1.5;
 }
 
 .auth-heading {
@@ -15,7 +14,6 @@
 
 .auth-description {
   color: var(--primary);
-  margin-bottom: 0.5rem;
 }
 
 .auth-form {
@@ -34,7 +32,7 @@
 .auth-form > input {
   width: 100%;
   align-self: center;
-  padding: 0.25rem;
+  padding: 0.375rem;
 }
 
 .visually-hidden {
@@ -54,7 +52,7 @@
 }
 
 @media only screen and (max-width: 720px) {
-  html {
-    font-size: 12px;
+  .auth-form-container {
+    scale: 1.2;
   }
 }

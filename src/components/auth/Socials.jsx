@@ -6,15 +6,18 @@ export default function Socials({ loginForm = true }) {
   };
 
   return (
-    <form
-      className="auth-form github-form"
-      action={import.meta.env.VITE_API_URL + "/auth/github"}
-      onSubmit={handleGithubFormSubmit}
-      method="get"
-    >
-      <button type="submit">
-        {loginForm ? "Login" : "Register"} with Github
-      </button>
-    </form>
+    <>
+      <hr style={{ width: "100%" }} />
+      <form
+        className="auth-form github-form"
+        action={import.meta.env.VITE_API_URL + "/auth/github"}
+        onSubmit={handleGithubFormSubmit}
+        method="get"
+      >
+        <button type="submit">
+          {loginForm ? "Login" : "Register"} with Github
+        </button>
+      </form>
+    </>
   );
 }

@@ -48,7 +48,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent);
+  color: var(--secondary);
 }
 
 .button {
@@ -81,7 +81,7 @@ button {
 
 button:hover {
   box-shadow: 0px 0px 2px rgb(255, 255, 255);
-  transform: scale(1.02);
+  opacity: 0.85;
 }
 
 .profile-picture-container {
