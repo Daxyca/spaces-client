@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import Image from "./Image.jsx";
 
@@ -20,6 +20,10 @@ export default function Feed() {
 
   if (users.length === 0) {
     return <h3>You are not following anyone.</h3>;
+  }
+
+  if (checked.length === 0) {
+    return;
   }
 
   const handleSaveFormSubmit = (event) => {
@@ -89,7 +93,7 @@ export default function Feed() {
                   name="ids"
                   id={user.id}
                   value={user.id}
-                  checked={checked[user.id]}
+                  checked={checked[user.id] ? true : false}
                   onChange={handleCheckboxChange}
                 />
                 <label htmlFor={user.id}>

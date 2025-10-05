@@ -65,6 +65,11 @@ export default function FeedsPage() {
     createFeed();
   };
 
+  const inFeed = users.reduce(
+    (obj, user) => ((obj[user.id] = user.isInFeed), obj),
+    {}
+  );
+
   return (
     <Page>
       <div className="main-container">
@@ -86,7 +91,11 @@ export default function FeedsPage() {
           </form>
         </div>
         <div className="right-container">
-          {feeds.length > 0 ? <Outlet context={{ users, feedName }} /> : ""}
+          {feeds.length > 0 ? (
+            <Outlet context={{ users, feedName, inFeed }} />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </Page>
