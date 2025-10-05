@@ -19,7 +19,7 @@ body {
   font-family: "Inter", sans-serif;
   background: var(--neutral-100);
   color: var(--text);
-  max-width: 1024px;
+  max-width: 720px;
   margin: auto;
 }
 

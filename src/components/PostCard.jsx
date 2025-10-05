@@ -56,18 +56,25 @@ export default function PostCard({
   }
 
   return (
-    <div className="post-card">
-      <Image
-        picture={
-          post.author.picture?.split("?")[0] ===
-          currentUserPicture?.split("?")[0]
-            ? currentUserPicture
-            : post.author.picture
-        }
-      />
-      <h4 className="post-author-name">
-        <Link to={`/profile/${post.author.id}`}>{post.author.displayName}</Link>
-      </h4>
+    <div className="post-card card">
+      <div className="post-info-container">
+        <Image
+          picture={
+            post.author.picture?.split("?")[0] ===
+            currentUserPicture?.split("?")[0]
+              ? currentUserPicture
+              : post.author.picture
+          }
+        />
+        <div className="post-author-time">
+          <h4 className="post-author-name">
+            <Link to={`/profile/${post.author.id}`}>
+              {post.author.displayName}
+            </Link>
+          </h4>
+          <p className="post-create-time">{post.createdAt}</p>
+        </div>
+      </div>
       <p className="post-content">{post.content}</p>
       <form>
         <button
@@ -107,21 +114,27 @@ export default function PostCard({
 
 function CommentCard({ comment, currentUserPicture }) {
   return (
-    <div className="comment-card card">
-      <Image
-        picture={
-          comment.author.picture?.split("?")[0] ===
-          currentUserPicture?.split("?")[0]
-            ? currentUserPicture
-            : comment.author.picture
-        }
-      />
-      <Link
-        to={`/profile/${comment.author.id}`}
-        className="comment-author-name"
-      >
-        {comment.author.displayName}
-      </Link>
+    <div className="comment-card">
+      <div className="comment-info-container">
+        <Image
+          picture={
+            comment.author.picture?.split("?")[0] ===
+            currentUserPicture?.split("?")[0]
+              ? currentUserPicture
+              : comment.author.picture
+          }
+        />
+
+        <div className="comment-author-time">
+          <Link
+            to={`/profile/${comment.author.id}`}
+            className="comment-author-name"
+          >
+            {comment.author.displayName}
+          </Link>
+          <p className="comment-create-time">{comment.createdAt}</p>
+        </div>
+      </div>
       <p className="comment-content">{comment.content}</p>
     </div>
   );

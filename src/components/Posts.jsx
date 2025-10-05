@@ -84,17 +84,19 @@ export default function Posts() {
 
   return (
     <>
-      <h3 className="posts-heading">{feedName ? `${feedName} ` : null}Posts</h3>
+      <h3 className="posts-heading">{feedName ? `${feedName} Posts` : null}</h3>
       {!feedName ? (
         <form
           className="create-post-form"
           onSubmit={handlePostFormSubmit}
           method="post"
         >
-          <h3 className="home-heading">Create Post</h3>
+          <label className="visually-hidden" htmlFor="create-post-content">
+            Create post: post content:
+          </label>
           <textarea
             name="content"
-            id="post-content"
+            id="create-post-content"
             cols={50}
             placeholder="Create a post..."
             required
