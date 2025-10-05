@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -37,35 +37,45 @@ export default function RegisterForm() {
   return (
     <>
       <form className="auth-form" onSubmit={handleRegisterSubmit} method="post">
-        <h2>Register</h2>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            id="username"
-            minLength="3"
-            required
-          />
+        <label className="visually-hidden" htmlFor="username">
+          Username:{" "}
         </label>
-        <label htmlFor="email">
-          Email:
-          <input type="email" name="email" id="email" required />
+        <input
+          type="text"
+          name="username"
+          id="username"
+          minLength="3"
+          placeholder="Username"
+          required
+        />
+        <label className="visually-hidden" htmlFor="email">
+          Email:{" "}
         </label>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            id="password"
-            minLength="3"
-            required
-          />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          required
+        />
+        <label className="visually-hidden" htmlFor="password">
+          Password:{" "}
         </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          minLength="3"
+          placeholder="Password"
+          required
+        />
         <button className="button accent" type="submit">
           Register
         </button>
       </form>
+      <p>
+        <Link to="/auth/login">Already have an account?</Link>
+      </p>
       <form
         className="auth-form"
         action={import.meta.env.VITE_API_URL + "/auth/github"}

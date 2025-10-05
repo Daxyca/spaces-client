@@ -1,22 +1,38 @@
-.auth-form {
-  align-self: center;
-}
-
-form {
+.auth-form-container {
+  margin-top: 20vh;
+  max-width: 400px;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  width: fit-content;
-  max-width: 400px;
   align-items: center;
   gap: 0.5rem;
 }
 
-form label {
+.auth-form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-form button {
-  width: 90%;
+.auth-form > * {
+  width: 100%;
   align-self: center;
+}
+
+.auth-form > input {
+  width: 100%;
+  align-self: center;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }

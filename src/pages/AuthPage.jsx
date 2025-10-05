@@ -1,11 +1,12 @@
 import { Outlet } from "react-router";
-import Page from "./Page.jsx";
 import "../styles/App.css";
 
 export default function AuthPage() {
   return (
-    <Page>
+    <div className="auth-form-container">
+      <h1 className="auth-heading">Spaces</h1>
+      <p className="auth-subheading">Your space, your place</p>
       <Outlet />
-    </Page>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useAuth } from "../../AuthProvider.jsx";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -40,24 +40,23 @@ export default function LoginForm() {
   return (
     <>
       <form className="auth-form" onSubmit={handleLoginSubmit} method="post">
-        <h2>Login</h2>
         <label htmlFor="username">
-          Username:
           <input
             type="text"
             name="username"
             id="username"
             minLength="3"
+            placeholder="Username"
             required
           />
         </label>
         <label htmlFor="password">
-          Password:
           <input
             type="password"
             name="password"
             id="password"
             minLength="3"
+            placeholder="Password"
             required
           />
         </label>
@@ -65,6 +64,9 @@ export default function LoginForm() {
           Login
         </button>
       </form>
+      <p>
+        <Link to="/auth/register">Create a new account</Link>
+      </p>
       <form
         className="auth-form"
         action={import.meta.env.VITE_API_URL + "/auth/github"}
