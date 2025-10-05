@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router";
+import Socials from "./Socials.jsx";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -27,12 +28,6 @@ export default function RegisterForm() {
     };
     submit();
   }
-
-  const handleGithubFormSubmit = (event) => {
-    event.preventDefault();
-    localStorage.setItem("login", "true");
-    event.target.submit();
-  };
 
   return (
     <>
@@ -73,17 +68,10 @@ export default function RegisterForm() {
           Register
         </button>
       </form>
+      <Socials loginForm={false} />
       <p>
         <Link to="/auth/login">Already have an account?</Link>
       </p>
-      <form
-        className="auth-form"
-        action={import.meta.env.VITE_API_URL + "/auth/github"}
-        onSubmit={handleGithubFormSubmit}
-        method="get"
-      >
-        <button type="submit">Sign up with Github</button>
-      </form>
     </>
   );
 }

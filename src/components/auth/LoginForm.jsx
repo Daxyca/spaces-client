@@ -1,5 +1,6 @@
 import { useAuth } from "../../AuthProvider.jsx";
 import { Link, useNavigate } from "react-router";
+import Socials from "./Socials.jsx";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -31,50 +32,39 @@ export default function LoginForm() {
     submit();
   }
 
-  const handleGithubFormSubmit = (event) => {
-    event.preventDefault();
-    localStorage.setItem("login", "true");
-    event.target.submit();
-  };
-
   return (
     <>
       <form className="auth-form" onSubmit={handleLoginSubmit} method="post">
-        <label htmlFor="username">
-          <input
-            type="text"
-            name="username"
-            id="username"
-            minLength="3"
-            placeholder="Username"
-            required
-          />
+        <label className="visually-hidden" htmlFor="username">
+          Username:{" "}
         </label>
-        <label htmlFor="password">
-          <input
-            type="password"
-            name="password"
-            id="password"
-            minLength="3"
-            placeholder="Password"
-            required
-          />
+        <input
+          type="text"
+          name="username"
+          id="username"
+          minLength="3"
+          placeholder="Username"
+          required
+        />
+        <label className="visually-hidden" htmlFor="password">
+          Password:{" "}
         </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          minLength="3"
+          placeholder="Password"
+          required
+        />
         <button className="button accent" type="submit">
           Login
         </button>
       </form>
+      <Socials loginForm={true} />
       <p>
         <Link to="/auth/register">Create a new account</Link>
       </p>
-      <form
-        className="auth-form"
-        action={import.meta.env.VITE_API_URL + "/auth/github"}
-        onSubmit={handleGithubFormSubmit}
-        method="get"
-      >
-        <button type="submit">Login with Github</button>
-      </form>
     </>
   );
 }
