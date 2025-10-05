@@ -34,7 +34,6 @@ const routes = [
         <HomePage />
       </ProtectedRoute>
     ),
-    loader: protectedLoader(feedsLoader.feedsLoader),
     HydrateFallback: () => null,
     errorElement: <ErrorPage />,
     children: [

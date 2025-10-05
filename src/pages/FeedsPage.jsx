@@ -9,17 +9,27 @@ export default function FeedsPage() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (!data) {
+    if (!data.feeds) {
       return;
     }
     setFeeds(data.feeds);
     if (!feedName) {
       return;
     }
+    if (data.feeds.length === 0) {
+      return;
+    }
     const currentFeeds = feeds.length > 0 ? feeds : data.feeds;
-    const feedUsers = currentFeeds
-      .filter((feed) => feed.name === feedName)[0]
-      .users.map((user) => ({ ...user, isInFeed: true }));
+    const filteredFeeds = currentFeeds.filter(
+      (feed) => feed.name === feedName
+    )[0];
+    if (!filteredFeeds) {
+      return;
+    }
+    const feedUsers = filteredFeeds.users.map((user) => ({
+      ...user,
+      isInFeed: true,
+    }));
     const feedUserIds = feedUsers.map((user) => user.id);
     const usersFollowed = data.follows
       .map((follow) => ({ ...follow.following, isInFeed: false }))
@@ -74,10 +84,7 @@ export default function FeedsPage() {
     <Page>
       <div className="main-container">
         <div className="left-container">
-          <h3 className="feeds-heading">
-            Feeds
-            <Link to="/"> Done</Link>
-          </h3>
+          <h3 className="feeds-heading">Feeds List</h3>
           {feeds.map((feed) => (
             <Link key={feed.id} to={`/feeds/${feed.name}/edit`}>
               {feed.name}
@@ -94,7 +101,7 @@ export default function FeedsPage() {
           {feeds.length > 0 ? (
             <Outlet context={{ users, feedName, inFeed }} />
           ) : (
-            ""
+            "No feeds created. Create a feed first."
           )}
         </div>
       </div>

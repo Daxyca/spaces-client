@@ -14,12 +14,10 @@ export default function Feed() {
     );
   }, [users]);
 
-  if (!feedName) {
-    return <h3>Nothing to see here... Create a feed.</h3>;
-  }
-
   if (users.length === 0) {
-    return <h3>You are not following anyone.</h3>;
+    return (
+      <p>You are not following anyone. Follow users in the Connections page.</p>
+    );
   }
 
   if (checked.length === 0) {
@@ -70,7 +68,7 @@ export default function Feed() {
 
   return (
     <>
-      <h3>{feedName ? feedName : "Nothing to see here... Create a feed."}</h3>
+      <h3>{`Included users in ${feedName}`}</h3>
       <form name="delete" onSubmit={handleDeleteFormSubmit} method="post">
         <button name="delete" type="submit">
           Delete
