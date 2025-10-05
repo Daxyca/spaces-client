@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../AuthProvider.jsx";
+import { useAuth } from "../AuthContext.js";
 import Page from "./Page.jsx";
 import { useLoaderData, useParams } from "react-router-dom";
 import PostCard from "../components/PostCard.jsx";

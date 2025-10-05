@@ -22,6 +22,10 @@ export default function NotFollowed() {
         });
         if (res.ok) {
           const json = await res.json();
+          if (json.error) {
+            button.disabled = false;
+            throw new Error(json.error);
+          }
         } else {
           button.disabled = false;
         }

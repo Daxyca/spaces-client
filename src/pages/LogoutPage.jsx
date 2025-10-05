@@ -1,6 +1,6 @@
 import "../styles/AuthPage.css";
 import Page from "./Page.jsx";
-import { useAuth } from "../AuthProvider.jsx";
+import { useAuth } from "../AuthContext.js";
 import { useEffect } from "react";
 import { Navigate } from "react-router";
 
@@ -28,7 +28,7 @@ export default function LoginPage() {
       }
     };
     submit();
-  }, []);
+  }, [user, logout]);
 
   if (!user) {
     return <Navigate to="/auth/login" replace />;

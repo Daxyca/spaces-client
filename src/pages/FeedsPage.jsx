@@ -25,7 +25,7 @@ export default function FeedsPage() {
       .map((follow) => ({ ...follow.following, isInFeed: false }))
       .filter((user) => !feedUserIds.includes(user.id));
     setUsers([...feedUsers, ...usersFollowed]);
-  }, [feedName]);
+  }, [data, feedName, feeds]);
 
   if (!data) {
     return;

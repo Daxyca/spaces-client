@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from "./routes/index.jsx";
-import { useAuth } from "./AuthProvider.jsx";
+import { useAuth } from "./AuthContext.js";
 import { useEffect } from "react";
 
 const router = createBrowserRouter(routes);
@@ -32,7 +32,7 @@ export default function App() {
       }
     };
     fetchUser();
-  }, [user]);
+  }, [user, login, logout]);
 
   return <RouterProvider router={router} />;
 }

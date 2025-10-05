@@ -20,6 +20,10 @@ export default function FollowersRequests() {
           headers: { "Content-Type": "application/json" },
         });
         const json = await res.json();
+        if (json.error) {
+          button.disabled = false;
+          throw new Error(json.error);
+        }
       } catch (err) {
         console.error(err);
       }

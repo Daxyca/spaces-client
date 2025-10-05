@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { useAuth } from "../AuthProvider.jsx";
+import { useAuth } from "../AuthContext.js";
 
 export default function Header() {
   const { user } = useAuth();

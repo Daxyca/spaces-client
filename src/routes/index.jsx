@@ -10,7 +10,6 @@ import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import * as postsLoader from "../loaders/postsLoader.js";
 import * as feedsLoader from "../loaders/feedsLoader.js";
-import * as connectionsLoader from "../loaders/connectionsLoader.js";
 import profileLoader from "../loaders/profileLoader.js";
 import protectedLoader from "../loaders/protectedLoader.js";
 

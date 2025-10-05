@@ -1,4 +1,4 @@
-import { useAuth } from "../../AuthProvider.jsx";
+import { useAuth } from "../../AuthContext.js";
 import { Link, useNavigate } from "react-router";
 import Socials from "./Socials.jsx";
 
