@@ -12,6 +12,10 @@
   font-size: 1.625rem;
 }
 
+.header-heading > a:hover {
+  text-decoration: none;
+}
+
 .main {
   flex-grow: 1;
   flex-shrink: 0;
@@ -37,6 +41,30 @@
   padding: 0.5rem;
 }
 
+.nav-center-list-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1;
+  height: 2rem;
+  max-width: 8ch;
+}
+
+.nav-center-link {
+  background-color: var(--neutral-100);
+  display: block;
+  width: 15ch;
+  text-align: center;
+  font-weight: normal;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+.nav-center-list-item:hover {
+  overflow: unset;
+}
+
 .footer {
   color: var(--neutral-100);
   background-color: var(--neutral-900);
@@ -51,6 +79,7 @@ a {
 
 a:hover {
   color: var(--secondary);
+  text-decoration: underline;
 }
 
 .button {
@@ -116,6 +145,14 @@ button:hover {
   gap: 0.25rem;
 }
 
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 1rem;
+  width: 80%;
+}
+
 .post-info-container,
 .comment-info-container {
   display: grid;
@@ -144,4 +181,16 @@ button:hover {
   .main-container > .left-container > * {
     align-self: center;
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
