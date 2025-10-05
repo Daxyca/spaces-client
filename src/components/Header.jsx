@@ -3,6 +3,7 @@ import { useAuth } from "../AuthProvider.jsx";
 
 export default function Header() {
   const { user } = useAuth();
+
   return (
     <header className="header">
       <h1 className="header-heading">
@@ -12,9 +13,16 @@ export default function Header() {
         <nav className="nav">
           <ul className="nav-list">
             <NavListItem href="/" name="Home" />
+            <NavListItem href="/feeds" name="Feeds" />
             <NavListItem href="/connections" name="Connections" />
+          </ul>
+        </nav>
+      ) : null}
+      {user ? (
+        <nav className="nav">
+          <ul className="nav-list">
             <NavListItem href="/profile" name={user.displayName} />
-            <NavListItem href="/logout" name="Logout" />
+            <NavListItem href="/auth/logout" name="Logout" />
           </ul>
         </nav>
       ) : null}

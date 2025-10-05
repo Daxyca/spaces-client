@@ -1,10 +1,10 @@
-import { Link, Outlet, useLoaderData, useParams } from "react-router";
+import { Link, Navigate, Outlet, useLoaderData, useParams } from "react-router";
 import Page from "./Page.jsx";
 import { useEffect, useState } from "react";
 
 export default function FeedsPage() {
   const data = useLoaderData(); // feeds
-  const { feedName } = useParams();
+  let { feedName } = useParams();
   const [feeds, setFeeds] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -29,6 +29,10 @@ export default function FeedsPage() {
 
   if (!data) {
     return;
+  }
+
+  if (!feedName && feeds.length > 0) {
+    return <Navigate to={`/feeds/${feeds[0].name}/edit`} replace />;
   }
 
   const handleCreateFeedSubmit = (event) => {
@@ -70,7 +74,7 @@ export default function FeedsPage() {
             <Link to="/"> Done</Link>
           </h3>
           {feeds.map((feed) => (
-            <Link key={feed.id} to={`/edit/feeds/${feed.name}`}>
+            <Link key={feed.id} to={`/feeds/${feed.name}/edit`}>
               {feed.name}
             </Link>
           ))}

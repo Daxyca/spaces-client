@@ -46,7 +46,7 @@ const routes = [
         HydrateFallback: () => null,
       },
       {
-        path: "feeds/:feedName",
+        path: "feeds/:feedName/posts",
         element: <Posts />,
         loader: protectedLoader(postsLoader.customFeed),
         HydrateFallback: () => null,
@@ -54,7 +54,7 @@ const routes = [
     ],
   },
   {
-    path: "/edit/feeds",
+    path: "feeds",
     element: (
       <ProtectedRoute>
         <FeedsPage />
@@ -62,7 +62,7 @@ const routes = [
     ),
     children: [
       {
-        path: ":feedName",
+        path: ":feedName/edit",
         element: <Feed />,
       },
     ],
@@ -72,7 +72,7 @@ const routes = [
   authRoutes,
   connectionsRouter,
   {
-    path: "/logout",
+    path: "/auth/logout",
     element: (
       <ProtectedRoute>
         <LogoutPage />

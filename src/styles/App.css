@@ -1,8 +1,8 @@
 .header {
   display: flex;
   justify-content: space-between;
-  background-color: var(--neutral-100);
   padding: 0.5rem 1rem;
+  font-weight: bold;
 }
 
 .header-heading {
@@ -13,7 +13,7 @@
 .main {
   flex-grow: 1;
   flex-shrink: 0;
-  padding: 1rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
 }

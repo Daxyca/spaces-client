@@ -28,8 +28,12 @@ export default function HomePage() {
           <h3 className="feeds-heading">
             Feeds{" "}
             <Link
-              to={`/edit/feeds${
-                feedName ? `/${feedName}` : feeds[0] ? `/${feeds[0].name}` : ``
+              to={`/feeds${
+                feedName
+                  ? `/${feedName}/edit`
+                  : feeds[0]
+                  ? `/${feeds[0].name}/edit`
+                  : ``
               }`}
             >
               Edit
@@ -38,7 +42,7 @@ export default function HomePage() {
 
           <Link to="/">Main Feed</Link>
           {feeds.map((feed) => (
-            <Link key={feed.id} to={`/feeds/${feed.name}`}>
+            <Link key={feed.id} to={`/feeds/${feed.name}/posts`}>
               {feed.name}
             </Link>
           ))}
