@@ -48,7 +48,6 @@ export default function Feed() {
         console.error(err);
       }
     };
-
     updateFeedUsers();
   };
 
@@ -68,25 +67,53 @@ export default function Feed() {
 
   return (
     <>
-      <h3>{`Included users in ${feedName}`}</h3>
-      <form name="delete" onSubmit={handleDeleteFormSubmit} method="post">
-        <button name="delete" type="submit">
-          Delete
-        </button>
-      </form>
-      <form name="save" onSubmit={handleSaveFormSubmit} method="post">
-        <button name="save" type="submit">
-          Save
-        </button>
-        <ul>
+      <header className="feed-header">
+        <div className="feed-header-left">
+          <h3 className="feed-name-heading">{`Included users in ${feedName}`}</h3>
+          <button
+            className="button accent"
+            name="delete"
+            type="submit"
+            form="delete-feed-form"
+          >
+            Delete Feed
+          </button>
+        </div>
+        <form
+          className="delete-feed-form"
+          id="delete-feed-form"
+          name="delete"
+          onSubmit={handleDeleteFormSubmit}
+          method="post"
+        ></form>
+        <div className="feed-header-right">
+          <button
+            className="button secondary"
+            name="save"
+            type="submit"
+            form="save-feed-form"
+          >
+            Save Changes
+          </button>
+        </div>
+      </header>
+      <form
+        className="save-feed-form"
+        id="save-feed-form"
+        name="save"
+        onSubmit={handleSaveFormSubmit}
+        method="post"
+      >
+        <ul className="feed-users-list">
           {users.map((user) => {
             if (doneUserIds.includes(user.id)) {
               return null;
             }
             doneUserIds.push(user.id);
             return (
-              <li key={user.id}>
+              <li className="feed-users-list-item" key={user.id}>
                 <input
+                  className="feed-users-checkbox"
                   type="checkbox"
                   name="ids"
                   id={user.id}
@@ -94,7 +121,7 @@ export default function Feed() {
                   checked={checked[user.id] ? true : false}
                   onChange={handleCheckboxChange}
                 />
-                <label htmlFor={user.id}>
+                <label className="feed-users-label" htmlFor={user.id}>
                   <Image picture={user.picture} />
                   {user.displayName}
                 </label>
@@ -102,6 +129,14 @@ export default function Feed() {
             );
           })}
         </ul>
+        <button
+          className="button secondary bottom-button"
+          name="save"
+          type="submit"
+          form="save-feed-form"
+        >
+          Save Changes
+        </button>
       </form>
     </>
   );

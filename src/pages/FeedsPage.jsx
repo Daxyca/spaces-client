@@ -1,6 +1,7 @@
 import { Link, Navigate, Outlet, useLoaderData, useParams } from "react-router";
 import Page from "./Page.jsx";
 import { useEffect, useState } from "react";
+import "../styles/FeedsPage.css";
 
 export default function FeedsPage() {
   const data = useLoaderData(); // feeds
@@ -87,22 +88,41 @@ export default function FeedsPage() {
 
   return (
     <Page>
-      <div className="main-container">
-        <div className="left-container">
+      <div className="feeds-main-container">
+        <div className="feeds-left-container">
           <h3 className="feeds-heading">Feeds List</h3>
-          {feeds.map((feed) => (
-            <Link key={feed.id} to={`/feeds/${feed.name}/edit`}>
-              {feed.name}
-            </Link>
-          ))}
-          <form name="create" onSubmit={handleCreateFeedSubmit} method="post">
-            <input type="text" name="name" id="name" />
-            <button className="button" type="submit">
+          <ul className="feeds-list">
+            {feeds.map((feed) => (
+              <li key={feed.id} className="feeds-list-item">
+                <Link key={feed.id} to={`/feeds/${feed.name}/edit`}>
+                  {feed.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <hr />
+          <form
+            className="create-feed-form"
+            name="create"
+            onSubmit={handleCreateFeedSubmit}
+            method="post"
+          >
+            <input
+              className="feed-name-input"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Feed name"
+              minLength={3}
+              maxLength={12}
+              required
+            />
+            <button className="button create-feed-button" type="submit">
               Create Feed
             </button>
           </form>
         </div>
-        <div className="right-container">
+        <div className="feeds-right-container">
           {feeds.length > 0 ? (
             <Outlet context={{ users, feedName, inFeed }} />
           ) : (
