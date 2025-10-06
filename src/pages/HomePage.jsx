@@ -1,5 +1,4 @@
 import { Outlet, useParams } from "react-router";
-import "../styles/HomePage.css";
 import Page from "./Page.jsx";
 
 export default function HomePage() {

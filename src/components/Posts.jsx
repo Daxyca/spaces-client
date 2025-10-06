@@ -91,17 +91,17 @@ export default function Posts() {
           onSubmit={handlePostFormSubmit}
           method="post"
         >
-          <label className="visually-hidden" htmlFor="create-post-content">
+          <label className="visually-hidden" htmlFor="post-content-input">
             Create post: post content:
           </label>
           <textarea
             name="content"
-            id="create-post-content"
-            cols={50}
+            id="post-content-input"
+            className="post-content-input"
             placeholder="Create a post..."
             required
           ></textarea>
-          <button className="button" type="submit">
+          <button className="button submit-post-content" type="submit">
             Post
           </button>
         </form>
