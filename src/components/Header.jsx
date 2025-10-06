@@ -76,6 +76,7 @@ function NavListCenter({ ref }) {
     <>
       <li className="nav-item nav-center-list-item" ref={ref}>
         <Link className="nav-link nav-center-main-link" to="/feeds">
+          <span className="sr-only">View and Edit List of </span>
           Feeds
         </Link>
         <Link className="nav-link nav-center-link" to="/">
@@ -87,15 +88,10 @@ function NavListCenter({ ref }) {
             className="nav-link nav-center-link"
             to={`/feeds/${feed.name}/posts`}
           >
+            <span className="sr-only">Your created feed named </span>
             {feed.name}
           </Link>
         ))}
-        {/* <Link className="nav-link nav-center-link" to="/feeds">
-          <span className="sr-only">Your created feed named </span>Feeds
-        </Link>
-        <Link className="nav-link nav-center-link" to="/feeds">
-          Feeds
-        </Link> */}
       </li>
     </>
   );

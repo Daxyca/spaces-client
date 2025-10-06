@@ -50,6 +50,14 @@
   z-index: 1;
   height: 2rem;
   max-width: 8ch;
+  margin-right: 0.5ch;
+}
+
+.nav-center-main-link::after {
+  content: "⏷";
+  position: absolute;
+  right: 0%;
+  top: 20%;
 }
 
 .nav-center-link {
@@ -146,7 +154,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.25rem;
+  gap: 0.5rem;
   justify-content: center;
 }
 
@@ -157,6 +165,11 @@ button:hover {
   align-self: center;
   border-radius: 0.75rem;
   padding: 0.5rem;
+}
+
+.post-shortcut-key {
+  opacity: 0.35;
+  font-size: 0.75rem;
 }
 
 .submit-post-content {

@@ -101,9 +101,12 @@ export default function Posts() {
             placeholder="Create a post..."
             required
           ></textarea>
-          <button className="button submit-post-content" type="submit">
-            Post
-          </button>
+          <div>
+            <span className="post-shortcut-key">Ctrl + Enter </span>
+            <button className="button submit-post-content" type="submit">
+              Post
+            </button>
+          </div>
         </form>
       ) : null}
       {posts.map((post) => (

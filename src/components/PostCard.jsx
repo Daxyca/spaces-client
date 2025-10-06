@@ -55,6 +55,8 @@ export default function PostCard({
     createComment();
   }
 
+  const postContent = post.content.trim();
+
   return (
     <div className="post-card card">
       <div className="post-info-container">
@@ -75,7 +77,11 @@ export default function PostCard({
           <p className="post-create-time">{post.createdAt}</p>
         </div>
       </div>
-      <p className="post-content">{post.content}</p>
+      <div className="post-content">
+        {postContent
+          .split("\n")
+          .map((line, i) => (line ? <p key={i}>{line}</p> : <br />))}
+      </div>
       <form>
         <button
           className="button alt"
