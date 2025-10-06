@@ -9,11 +9,13 @@ export default function Header() {
   return (
     <header className="header">
       <h1 className="header-heading">
-        <Link to="/">Spaces</Link>
+        <Link to="/">
+          <img src="/spaces.svg" alt="spaces icon" width="32px" />
+        </Link>
       </h1>
       {user ? (
         <nav className="nav">
-          <ul className="nav-list">
+          <ul className="nav-list nav-list-center">
             <NavListItem href="/" name="Home" />
             <NavListCenter ref={feedsEl} />
             <NavListItem href="/connections" name="Connections" />
@@ -88,7 +90,7 @@ function NavListCenter({ ref }) {
             className="nav-link nav-center-link"
             to={`/feeds/${feed.name}/posts`}
           >
-            <span className="sr-only">Your created feed named </span>
+            <span className="sr-only">Your feed named </span>
             {feed.name}
           </Link>
         ))}

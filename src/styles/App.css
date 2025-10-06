@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  padding-block: 0.5rem;
 }
 
 .nav-center-list-item {
@@ -49,24 +49,26 @@
   overflow: hidden;
   z-index: 1;
   height: 2rem;
-  max-width: 8ch;
-  margin-right: 0.5ch;
+  margin-inline: 3ch;
+}
+
+.nav-center-link {
+  position: relative;
+  background-color: var(--neutral-100);
+  display: block;
+  width: 12ch;
+  text-align: center;
+  font-weight: normal;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-inline: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0.85;
 }
 
 .nav-center-main-link::after {
   content: "⏷";
   position: absolute;
-  right: 0%;
+  right: 15%;
   top: 20%;
-}
-
-.nav-center-link {
-  background-color: var(--neutral-100);
-  display: block;
-  width: 15ch;
-  text-align: center;
-  font-weight: normal;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
 .nav-center-list-item:hover {
