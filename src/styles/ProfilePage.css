@@ -12,6 +12,7 @@
 
 .profile-header {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -43,9 +44,6 @@
 }
 
 /* Edit Form */
-.profile-back-button {
-  align-self: flex-start;
-}
 
 .edit-profile-container {
   display: grid;
