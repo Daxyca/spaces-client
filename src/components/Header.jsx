@@ -8,14 +8,17 @@ export default function Header() {
 
   return (
     <header className="header">
-      <h1 className="header-heading">
-        <Link to="/">
-          <img src="/spaces.svg" alt="spaces icon" width="32px" />
-        </Link>
-      </h1>
+      <Link to="/">
+        <img
+          className="header-icon"
+          src="/spaces.svg"
+          alt="spaces icon"
+          width="32px"
+        />
+      </Link>
       {user ? (
         <nav className="nav">
-          <ul className="nav-list nav-list-center">
+          <ul className="nav-list nav-center-list">
             <NavListItem href="/" name="Home" />
             <NavListCenter ref={feedsEl} />
             <NavListItem href="/connections" name="Connections" />
@@ -24,7 +27,7 @@ export default function Header() {
       ) : null}
       {user ? (
         <nav className="nav">
-          <ul className="nav-list">
+          <ul className="nav-list nav-user-list">
             <NavListItem href="/profile" name={user.displayName} />
             <NavListItem href="/auth/logout" name="Logout" />
           </ul>
@@ -76,18 +79,18 @@ function NavListCenter({ ref }) {
 
   return (
     <>
-      <li className="nav-item nav-center-list-item" ref={ref}>
-        <Link className="nav-link nav-center-main-link" to="/feeds">
+      <li className="nav-item nav-feeds-item" ref={ref}>
+        <Link className="nav-link nav-feeds-link" to="/feeds">
           <span className="sr-only">View and Edit List of </span>
           Feeds
         </Link>
-        <Link className="nav-link nav-center-link" to="/">
+        <Link className="nav-link nav-feed-link" to="/">
           Main Feed
         </Link>
         {feeds.map((feed) => (
           <Link
             key={feed.id}
-            className="nav-link nav-center-link"
+            className="nav-link nav-feed-link"
             to={`/feeds/${feed.name}/posts`}
           >
             <span className="sr-only">Your feed named </span>

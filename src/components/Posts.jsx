@@ -21,9 +21,9 @@ export default function Posts() {
   if (data.length === 0) {
     return (
       <>
-        <h3 className="posts-heading">
+        <h2 className="posts-heading visually-hidden">
           {feedName ? `${feedName} ` : null} Posts
-        </h3>
+        </h2>
         <p>No posts to see here...</p>
       </>
     );
@@ -84,7 +84,10 @@ export default function Posts() {
 
   return (
     <>
-      <h3 className="posts-heading">{feedName ? `${feedName} Posts` : null}</h3>
+      <h2 className="posts-heading visually-hidden">
+        {feedName ? `${feedName} Posts` : "Main Feed Posts"}
+      </h2>
+      {/* <h3 className="posts-heading">{feedName ? `${feedName} Posts` : null}</h3> */}
       {!feedName ? (
         <form
           className="create-post-form"
