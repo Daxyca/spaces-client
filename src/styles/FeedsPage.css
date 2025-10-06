@@ -94,12 +94,14 @@
 
 .feed-users-checkbox {
   scale: 1.2;
+  cursor: pointer;
 }
 
 .feed-users-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 }
 
 form .bottom-button {
