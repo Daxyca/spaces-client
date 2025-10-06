@@ -13,12 +13,11 @@ export default function FeedsPage() {
       return;
     }
     setFeeds(data.feeds);
-    if (!feedName) {
+    if (data.feeds.length === 0 || !feedName) {
       return;
     }
-    if (data.feeds.length === 0) {
-      return;
-    }
+
+    // Filter for the current feed
     const currentFeeds = feeds.length > 0 ? feeds : data.feeds;
     const filteredFeeds = currentFeeds.filter(
       (feed) => feed.name === feedName
@@ -26,14 +25,20 @@ export default function FeedsPage() {
     if (!filteredFeeds) {
       return;
     }
+
+    // Group users included in the feed first
     const feedUsers = filteredFeeds.users.map((user) => ({
       ...user,
       isInFeed: true,
     }));
+
+    // Group followed users not included in the feed
     const feedUserIds = feedUsers.map((user) => user.id);
     const usersFollowed = data.follows
       .map((follow) => ({ ...follow.following, isInFeed: false }))
       .filter((user) => !feedUserIds.includes(user.id));
+
+    // Set users
     setUsers([...feedUsers, ...usersFollowed]);
   }, [data, feedName, feeds]);
 
