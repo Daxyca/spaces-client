@@ -42,7 +42,7 @@ export default function ProfilePage() {
           isCurrentUser={isCurrentUser}
         />
       ) : isCurrentUser && mode === "Edit" ? (
-        <ProfileForm
+        <ProfileEdit
           profile={profile}
           setProfile={setProfile}
           setMode={setMode}
@@ -110,40 +110,54 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
   return (
     <>
       <div className="profile-container">
-        <div className="profile-left">
-          <h2 className="home-heading">Profile</h2>
-          <Image picture={picture} />
+        <div className="profile-left-container">
+          <header className="profile-header">
+            <h2 className="profile-heading">Profile</h2>
+            <button
+              className="button edit-mode-button"
+              type="button"
+              onClick={handleChangeModeClick}
+              aria-label="Edit Profile View"
+            >
+              ✎
+            </button>
+          </header>
+          <div className="profile-main-info">
+            <Image picture={picture} />
+            <p>{profile.displayName || "-"}</p>
+          </div>
           {isCurrentUser ? (
             <>
               <form
+                className="change-picture-form"
                 onSubmit={handlePictureFormSubmit}
                 method="post"
                 encType="multipart/form-data"
               >
-                Change Picture:
-                <input type="file" name="picture" required />
-                <button type="submit">Upload</button>
+                <label htmlFor="new-profile-picture">
+                  Change Profile Picture:
+                </label>
+                <input
+                  id="new-profile-picture"
+                  type="file"
+                  name="picture"
+                  required
+                />
+                <button className="button" type="submit">
+                  Upload Picture
+                </button>
               </form>
-
-              <button
-                className="button accent"
-                type="button"
-                onClick={handleChangeModeClick}
-              >
-                Edit
-              </button>
             </>
           ) : null}
-          <p>Display Name: {profile.displayName}</p>
-          <p>First Name: {profile.firstName}</p>
-          <p>Last Name: {profile.lastName}</p>
-          <p>Birth Date: {profile.birthDate}</p>
-          <p>Bio: {profile.bio || "No bio..."}</p>
-          <p>Sex at Birth: {profile.sexAtBirth}</p>
-          <p>Location: {profile.location}</p>
+          <p>First Name: {profile.firstName || "-"}</p>
+          <p>Last Name: {profile.lastName || "-"}</p>
+          <p>Birth Date: {profile.birthDate || "-"}</p>
+          <p>Bio: {profile.bio || "-"}</p>
+          <p>Sex at Birth: {profile.sexAtBirth || "-"}</p>
+          <p>Location: {profile.location || "-"}</p>
         </div>
-        <div className="profile-right">
-          <h3>{profile.displayName}'s Posts</h3>
+        <div className="profile-right-container">
+          <h2>Posts</h2>
           {profile.posts.map((post) => (
             <PostCard
               post={post}
@@ -159,7 +173,7 @@ function ProfileContent({ setMode, profile, isCurrentUser }) {
   );
 }
 
-function ProfileForm({ setMode, profile, setProfile }) {
+function ProfileEdit({ setMode, profile, setProfile }) {
   const handleChangeModeClick = () => {
     setMode("View");
   };
@@ -204,79 +218,84 @@ function ProfileForm({ setMode, profile, setProfile }) {
 
   return (
     <>
-      <h2 className="home-heading">Profile</h2>
-      <button
-        className="button accent"
-        type="button"
-        onClick={handleChangeModeClick}
-      >
-        Back
-      </button>
-      <form onSubmit={handleFormSubmit}>
-        <label>
-          Display Name:
-          <input
-            type="text"
-            name="displayName"
-            id="displayName"
-            defaultValue={profile.displayName}
-          />
-        </label>
-        <label>
-          First Name:
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            defaultValue={profile.firstName}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            defaultValue={profile.lastName}
-          />
-        </label>
-        <label>
-          Birth Date:
-          <input
-            type="date"
-            name="birthDate"
-            id="birthDate"
-            defaultValue={
-              profile.birthDate ? profile.birthDate.slice(0, 10) : null
-            }
-          />
-        </label>
-        <label>
-          Bio:
-          <input type="text" name="bio" id="bio" defaultValue={profile.bio} />
-        </label>
-        <label>
-          Sex at Birth:
-          <input
-            type="text"
-            name="sexAtBirth"
-            id="sexAtBirth"
-            defaultValue={profile.sexAtBirth}
-          />
-        </label>
-        <label>
-          Location:
-          <input
-            type="text"
-            name="location"
-            id="location"
-            defaultValue={profile.location}
-          />
-        </label>
-        <button className="button" type="submit">
-          Edit
+      <header className="profile-header">
+        <h2 className="profile-heading">Profile</h2>
+        <button
+          className="button accent profile-back-button"
+          type="button"
+          onClick={handleChangeModeClick}
+          aria-label="Back to View Mode"
+        >
+          Back
         </button>
-      </form>
+      </header>
+      <div className="edit-profile-container">
+        <form className="edit-profile-form" onSubmit={handleFormSubmit}>
+          <label>
+            Display Name:
+            <input
+              type="text"
+              name="displayName"
+              id="displayName"
+              defaultValue={profile.displayName}
+            />
+          </label>
+          <label>
+            First Name:
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              defaultValue={profile.firstName}
+            />
+          </label>
+          <label>
+            Last Name:
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              defaultValue={profile.lastName}
+            />
+          </label>
+          <label>
+            Birth Date:
+            <input
+              type="date"
+              name="birthDate"
+              id="birthDate"
+              defaultValue={
+                profile.birthDate ? profile.birthDate.slice(0, 10) : null
+              }
+            />
+          </label>
+          <label>
+            Bio:
+            <input type="text" name="bio" id="bio" defaultValue={profile.bio} />
+          </label>
+          <label>
+            Sex at Birth:
+            <input
+              type="text"
+              name="sexAtBirth"
+              id="sexAtBirth"
+              defaultValue={profile.sexAtBirth}
+            />
+          </label>
+          <label>
+            Location:
+            <input
+              type="text"
+              name="location"
+              id="location"
+              defaultValue={profile.location}
+            />
+          </label>
+          <button className="button" type="submit">
+            Edit
+          </button>
+        </form>
+      </div>
     </>
   );
 }
