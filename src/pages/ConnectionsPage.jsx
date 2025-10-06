@@ -8,9 +8,9 @@ export default function ConnectionsPage() {
 
   return (
     <Page>
-      <h2>Connections</h2>
+      <h2 className="visually-hidden">Connections</h2>
       <div className="connections-container">
-        <div className="connections-left">
+        <div className="connections-left-container">
           <h3>Create Connections</h3>
           <Link to="">Not Followed</Link>
           <Link to="followers/requests">Followers Requests</Link>
@@ -19,7 +19,7 @@ export default function ConnectionsPage() {
           <Link to="following">Following</Link>
           <Link to="followers">Followers</Link>
         </div>
-        <div className="connections-right">
+        <div className="connections-right-container">
           <Outlet />
         </div>
       </div>
