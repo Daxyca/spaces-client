@@ -80,11 +80,11 @@ export default function PostCard({
       <div className="post-content">
         {postContent
           .split("\n")
-          .map((line, i) => (line ? <p key={i}>{line}</p> : <br />))}
+          .map((line, i) => (line ? <p key={i}>{line}</p> : <br key={i} />))}
       </div>
       <form>
         <button
-          className="button alt"
+          className="button"
           type="button"
           onClick={handleClick}
           data-id={post.id}

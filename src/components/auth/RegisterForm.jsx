@@ -64,7 +64,7 @@ export default function RegisterForm() {
           placeholder="Password"
           required
         />
-        <button className="button alt" type="submit">
+        <button className="button" type="submit">
           Register
         </button>
       </form>
