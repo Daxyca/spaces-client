@@ -1,4 +1,4 @@
-import { Link, useNavigate, useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -12,7 +12,6 @@ const PROFILE_FIELDS = [
 
 export default function ProfileEdit() {
   const { profile, setProfile } = useOutletContext();
-  const navigate = useNavigate();
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +38,7 @@ export default function ProfileEdit() {
         const json = await res.json();
         if (json) {
           setProfile((prev) => ({ ...prev, ...json }));
-          navigate("/profile");
+          window.location.href = "/profile";
         }
       } catch (err) {
         console.error(err);

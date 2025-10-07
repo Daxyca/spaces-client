@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext.js";
 import Page from "./Page.jsx";
-import { Outlet, useLoaderData, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import "../styles/ProfilePage.css";
+import { useProfile } from "../contexts/ProfileContext.js";
 
 export default function ProfilePage() {
   const { userId } = useParams();
   const { user } = useAuth();
-  console.log({ user });
-  const [profile, setProfile] = useState({});
-  const data = useLoaderData();
+  const { profile, setProfile } = useProfile();
 
-  useEffect(() => {
-    setProfile(data);
-  }, [data]);
-
-  if (!data || !profile || Object.keys(profile).length === 0 || !user) {
+  if (!profile || Object.keys(profile).length === 0) {
     return;
   }
 

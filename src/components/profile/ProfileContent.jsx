@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import Avatar from "../Avatar.jsx";
 import PostCard from "../PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
+import { useProfile } from "../../contexts/ProfileContext.js";
 
 export default function ProfileContent() {
-  const { profile, isCurrentUser } = useOutletContext();
+  const { isCurrentUser } = useOutletContext();
+  const { profile } = useProfile();
   const [picture, setPicture] = useState(profile.picture);
 
   useEffect(() => {

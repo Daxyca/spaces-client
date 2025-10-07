@@ -10,23 +10,13 @@ import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import * as postsLoader from "../loaders/postsLoader.js";
 import * as feedsLoader from "../loaders/feedsLoader.js";
-import profileLoader from "../loaders/profileLoader.js";
 import protectedLoader from "../loaders/protectedLoader.js";
 
 import Posts from "../components/Posts.jsx";
 import Feed from "../components/Feed.jsx";
 import ProfileContent from "../components/profile/ProfileContent.jsx";
 import ProfileEdit from "../components/profile/ProfileEdit.jsx";
-
-const profileEntries = {
-  element: (
-    <ProtectedRoute>
-      <ProfilePage />
-    </ProtectedRoute>
-  ),
-  loader: protectedLoader(profileLoader),
-  HydrateFallback: () => null,
-};
+import { ProfileProvider } from "../contexts/ProfileProvider.jsx";
 
 const routes = [
   {
@@ -81,7 +71,14 @@ const routes = [
   },
   {
     path: "/profile",
-    ...profileEntries,
+    element: (
+      <ProtectedRoute>
+        <ProfileProvider>
+          <ProfilePage />
+        </ProfileProvider>
+      </ProtectedRoute>
+    ),
+    HydrateFallback: () => null,
     children: [
       {
         index: true,
