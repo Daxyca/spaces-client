@@ -75,7 +75,8 @@ export default function PostCard({
         <Avatar
           picture={
             post.author.picture?.split("?")[0] ===
-            currentUserPicture?.split("?")[0]
+              currentUserPicture?.split("?")[0] ||
+            post.author.picture.endsWith("default.jpg")
               ? currentUserPicture
               : post.author.picture
           }
@@ -162,7 +163,8 @@ function CommentCard({ comment, currentUserPicture }) {
         <Avatar
           picture={
             comment.author.picture?.split("?")[0] ===
-            currentUserPicture?.split("?")[0]
+              currentUserPicture?.split("?")[0] ||
+            comment.author.picture.endsWith("default.jpg")
               ? currentUserPicture
               : comment.author.picture
           }
