@@ -7,15 +7,15 @@ import "../styles/ProfilePage.css";
 export default function ProfilePage() {
   const { userId } = useParams();
   const { user } = useAuth();
+  console.log({ user });
   const [profile, setProfile] = useState({});
   const data = useLoaderData();
 
   useEffect(() => {
-    setProfile(profile);
-  }, [profile]);
-
-  if (Object.keys(profile) === 0) {
     setProfile(data);
+  }, [data]);
+
+  if (!data || !profile || Object.keys(profile).length === 0 || !user) {
     return;
   }
 
@@ -23,9 +23,7 @@ export default function ProfilePage() {
 
   return (
     <Page>
-      <Outlet
-        context={{ profile: data, setProfile, user, isCurrentUser }}
-      ></Outlet>
+      <Outlet context={{ profile, setProfile, user, isCurrentUser }} />
     </Page>
   );
 }
