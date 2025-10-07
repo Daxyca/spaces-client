@@ -1,4 +1,4 @@
-import Image from "../Image.jsx";
+import Avatar from "../Avatar.jsx";
 
 export default function ProfileCard({
   profile,
@@ -11,7 +11,7 @@ export default function ProfileCard({
 
   return (
     <div className="profile-card">
-      <Image picture={profile.picture} />
+      <Avatar picture={profile.picture} />
       <p>{profile.displayName}</p>
       <form>
         <button

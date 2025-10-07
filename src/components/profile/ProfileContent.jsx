@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Image from "../Image.jsx";
+import Avatar from "../Avatar.jsx";
 import PostCard from "../PostCard.jsx";
 
 export default function ProfileContent({ setMode, profile, isCurrentUser }) {
@@ -72,7 +72,7 @@ export default function ProfileContent({ setMode, profile, isCurrentUser }) {
             </button>
           </header>
           <div className="profile-main-info">
-            <Image picture={picture} />
+            <Avatar picture={picture} />
             <p>{profile.displayName || "-"}</p>
           </div>
           {isCurrentUser ? (

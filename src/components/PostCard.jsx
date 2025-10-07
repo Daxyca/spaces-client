@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import Image from "./Image.jsx";
+import Avatar from "./Avatar.jsx";
 
 export default function PostCard({
   post,
@@ -60,7 +60,7 @@ export default function PostCard({
   return (
     <div className="post-card card">
       <div className="post-info-container">
-        <Image
+        <Avatar
           picture={
             post.author.picture?.split("?")[0] ===
             currentUserPicture?.split("?")[0]
@@ -122,7 +122,7 @@ function CommentCard({ comment, currentUserPicture }) {
   return (
     <div className="comment-card">
       <div className="comment-info-container">
-        <Image
+        <Avatar
           picture={
             comment.author.picture?.split("?")[0] ===
             currentUserPicture?.split("?")[0]

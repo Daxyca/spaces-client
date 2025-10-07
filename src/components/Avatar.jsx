@@ -1,4 +1,4 @@
-export default function Image({ picture }) {
+export default function Avatar({ picture, alt = "avatar" }) {
   return (
     <div className="avatar-container">
       <img
@@ -9,7 +9,7 @@ export default function Image({ picture }) {
               : picture
             : import.meta.env.VITE_DEFAULT_AVATAR_URL
         }
-        alt="avatar"
+        alt={alt}
       />
     </div>
   );

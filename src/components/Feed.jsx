@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
-import Image from "./Image.jsx";
+import Avatar from "./Avatar.jsx";
 
 export default function Feed() {
   const { users, feedName, setFeeds } = useOutletContext();
@@ -137,7 +137,7 @@ export default function Feed() {
                   onChange={handleCheckboxChange}
                 />
                 <label className="feed-users-label" htmlFor={user.id}>
-                  <Image picture={user.picture} />
+                  <Avatar picture={user.picture} />
                   {user.displayName}
                 </label>
               </li>
