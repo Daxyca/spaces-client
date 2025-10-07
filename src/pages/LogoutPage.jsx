@@ -1,5 +1,4 @@
 import "../styles/AuthPage.css";
-import Page from "./Page.jsx";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useEffect } from "react";
 import { Navigate } from "react-router";

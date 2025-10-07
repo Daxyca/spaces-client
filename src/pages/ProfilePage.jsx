@@ -1,5 +1,4 @@
 import { useAuth } from "../contexts/AuthContext.js";
-import Page from "./Page.jsx";
 import { Outlet, useParams } from "react-router-dom";
 import "../styles/ProfilePage.css";
 import { useProfile } from "../contexts/ProfileContext.js";

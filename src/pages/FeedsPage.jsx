@@ -6,7 +6,6 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
-import Page from "./Page.jsx";
 import { useEffect, useState } from "react";
 import "../styles/FeedsPage.css";
 import { useFeeds } from "../contexts/FeedsContext.js";
