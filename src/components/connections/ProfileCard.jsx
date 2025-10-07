@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Avatar from "../Avatar.jsx";
 
 export default function ProfileCard({
@@ -14,7 +15,7 @@ export default function ProfileCard({
   return (
     <div className="profile-card">
       <Avatar picture={profile.picture} />
-      <p>{profile.displayName}</p>
+      <Link to={`/profile/${profile.id}`}>{profile.displayName}</Link>
       <form>
         <button
           className={buttonClassName}
