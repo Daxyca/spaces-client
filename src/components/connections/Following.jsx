@@ -57,14 +57,18 @@ export default function Following() {
   return (
     <>
       <h3>Following ({follows.length})</h3>
-      {follows.map((follow) => (
-        <ProfileCard
-          key={follow[profileKey].id}
-          profile={follow[profileKey]}
-          buttonText={buttonText}
-          handleButtonClick={handleUnfollowClick}
-        />
-      ))}
+      {follows.length > 0 ? (
+        follows.map((follow) => (
+          <ProfileCard
+            key={follow[profileKey].id}
+            profile={follow[profileKey]}
+            buttonText={buttonText}
+            handleButtonClick={handleUnfollowClick}
+          />
+        ))
+      ) : (
+        <p>Nothing to see here...</p>
+      )}
     </>
   );
 }
