@@ -10,7 +10,7 @@ export default function ProfileCard({
 }) {
   const buttonClassName =
     "button" +
-    (["Unfollow", "Cancel", "Remove"].includes(buttonText) ? " accent" : "");
+    (["Unfollow", "Cancel", "Remove"].includes(buttonText) ? " alt" : "");
 
   return (
     <div className="profile-card">
@@ -29,7 +29,7 @@ export default function ProfileCard({
       {handleSecondButtonClick ? (
         <form>
           <button
-            className={buttonClassName + " accent"}
+            className={buttonClassName + " alt"}
             type="button"
             onClick={handleSecondButtonClick}
             data-id={profile.id}
