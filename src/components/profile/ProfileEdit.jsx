@@ -40,8 +40,6 @@ export default function ProfileEdit({ setMode, profile, setProfile }) {
           body: JSON.stringify(newProfile),
         });
         const json = await res.json();
-        console.log("edit profile json");
-        console.log(json);
         if (json) {
           setProfile((prev) => ({ ...prev, ...json }));
           navigate("/profile");
