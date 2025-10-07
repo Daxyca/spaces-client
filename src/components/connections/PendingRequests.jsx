@@ -8,6 +8,33 @@ export default function PendingRequests() {
     return;
   }
 
+  function handleCancelClick(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    button.disabled = true;
+    const sendFollowRequest = async () => {
+      try {
+        const endpoint =
+          import.meta.env.VITE_API_URL +
+          "/follow/following/" +
+          button.dataset.id;
+        const res = await fetch(endpoint, {
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        });
+        const json = await res.json();
+        if (json.error) {
+          button.disabled = false;
+          throw new Error(json.error);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    sendFollowRequest();
+  }
+
   const profileKey = "following";
   const buttonText = "Cancel";
 
@@ -20,6 +47,7 @@ export default function PendingRequests() {
             key={follow[profileKey].id}
             profile={follow[profileKey]}
             buttonText={buttonText}
+            handleButtonClick={handleCancelClick}
           />
         ))
       ) : (
