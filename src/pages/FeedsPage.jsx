@@ -1,4 +1,11 @@
-import { Link, Navigate, Outlet, useLoaderData, useParams } from "react-router";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "react-router";
 import Page from "./Page.jsx";
 import { useEffect, useState } from "react";
 import "../styles/FeedsPage.css";
@@ -9,6 +16,7 @@ export default function FeedsPage() {
   let { feedName } = useParams();
   const { feeds, setFeeds } = useFeeds();
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (feeds.length === 0 || !feedName) {
@@ -64,6 +72,7 @@ export default function FeedsPage() {
           throw Error(json.error.message);
         }
         setFeeds((prevFeed) => [...prevFeed, json]);
+        navigate(`/feeds/${json.name}/edit`);
         form.reset();
       } catch (err) {
         console.error(err);
