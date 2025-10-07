@@ -250,7 +250,7 @@ button:hover {
 
 .comment-form {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   gap: 0.5rem;
   margin-top: 0.25rem;
 }

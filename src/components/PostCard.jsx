@@ -126,7 +126,7 @@ export default function PostCard({
             className="comment-input"
             id={post.id}
             type="text"
-            placeholder="Add a comment..."
+            placeholder="Add a comment (Enter to send)"
             required
           />
           <button

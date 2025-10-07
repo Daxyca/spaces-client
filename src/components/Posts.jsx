@@ -95,30 +95,31 @@ export default function Posts() {
       <h2 className="posts-heading visually-hidden">
         {feedName ? `${feedName} Posts` : "Main Feed Posts"}
       </h2>
+      <h3 id="create-post-heading" className="visually-hidden">
+        Create a post
+      </h3>
       {!feedName ? (
         <form
           className="create-post-form"
           onSubmit={handlePostFormSubmit}
           method="post"
           ref={createPostForm}
+          aria-labelledby="create-post-heading"
         >
           <label className="visually-hidden" htmlFor="post-content-input">
-            Create post: post content:
+            Post content:
           </label>
           <textarea
             name="content"
             id="post-content-input"
             className="post-content-input"
-            placeholder="Create a post..."
+            placeholder="Create a post (Ctrl + Enter to post)"
             onKeyDown={handlePostInputKeyDown}
             required
           ></textarea>
-          <div>
-            <span className="post-shortcut-key">Ctrl + Enter </span>
-            <button className="button submit-post-content" type="submit">
-              Post
-            </button>
-          </div>
+          <button className="button submit-post-content" type="submit">
+            Post
+          </button>
         </form>
       ) : null}
       {posts.map((post) => (
