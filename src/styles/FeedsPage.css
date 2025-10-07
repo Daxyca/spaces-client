@@ -50,7 +50,7 @@
 .feed-header {
   display: flex;
   gap: 0.5rem;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .feed-header-left {
