@@ -13,7 +13,9 @@ export default function FollowersRequests() {
     const sendFollowRequest = async () => {
       try {
         const endpoint =
-          import.meta.env.VITE_API_URL + "/follow/" + button.dataset.id;
+          import.meta.env.VITE_API_URL +
+          "/follow/follower/" +
+          button.dataset.id;
         const res = await fetch(endpoint, {
           method: "PATCH",
           credentials: "include",

@@ -14,7 +14,9 @@ export default function NotFollowed() {
     const sendFollowRequest = async () => {
       try {
         const endpoint =
-          import.meta.env.VITE_API_URL + "/follow/" + button.dataset.id;
+          import.meta.env.VITE_API_URL +
+          "/follow/following/" +
+          button.dataset.id;
         const res = await fetch(endpoint, {
           method: "POST",
           credentials: "include",
