@@ -75,11 +75,6 @@ export default function FeedsPage() {
     createFeed();
   };
 
-  const inFeed = users.reduce(
-    (obj, user) => ((obj[user.id] = user.isInFeed), obj),
-    {}
-  );
-
   return (
     <Page>
       <div className="feeds-main-container">
@@ -118,7 +113,7 @@ export default function FeedsPage() {
         </div>
         <div className="feeds-right-container">
           {feeds.length > 0 ? (
-            <Outlet context={{ users, feedName, inFeed }} />
+            <Outlet context={{ users, feedName, setFeeds }} />
           ) : (
             "No feeds created. Create a feed first."
           )}

@@ -3,15 +3,18 @@ import { useOutletContext } from "react-router";
 import Image from "./Image.jsx";
 
 export default function Feed() {
-  const { users, feedName } = useOutletContext();
-  const [checked, setChecked] = useState(
-    users.reduce((obj, user) => ((obj[user.id] = user.isInFeed), obj), {})
-  );
+  const { users, feedName, setFeeds } = useOutletContext();
+  const [checked, setChecked] = useState(getChecked(users));
+
+  function getChecked(users) {
+    return users.reduce(
+      (obj, user) => ((obj[user.id] = user.isInFeed), obj),
+      {}
+    );
+  }
 
   useEffect(() => {
-    setChecked(
-      users.reduce((obj, user) => ((obj[user.id] = user.isInFeed), obj), {})
-    );
+    setChecked(getChecked(users));
   }, [users]);
 
   if (users.length === 0) {
@@ -41,8 +44,20 @@ export default function Feed() {
           body: JSON.stringify({ userIds }),
         });
         const json = await res.json();
-        if (json.like || json.unlike) {
-          return json;
+        if (!json.error) {
+          setFeeds((prevFeeds) =>
+            prevFeeds.map((feed) => {
+              if (feed.name === feedName) {
+                return {
+                  ...feed,
+                  users: users
+                    .filter((user) => userIds.includes(user.id))
+                    .map((user) => ({ ...user, isInFeed: true })),
+                };
+              }
+              return feed;
+            })
+          );
         }
       } catch (err) {
         console.error(err);
