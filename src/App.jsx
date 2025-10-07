@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from "./routes/index.jsx";
 import { useAuth } from "./AuthContext.js";
 import { useEffect } from "react";
+import { FeedsProvider } from "./FeedsProvider.jsx";
 
 const router = createBrowserRouter(routes);
 
@@ -34,5 +35,9 @@ export default function App() {
     fetchUser();
   }, [user, login, logout]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <FeedsProvider>
+      <RouterProvider router={router} />
+    </FeedsProvider>
+  );
 }
