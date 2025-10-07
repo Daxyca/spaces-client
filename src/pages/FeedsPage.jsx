@@ -1,13 +1,13 @@
 import { Link, Navigate, Outlet, useLoaderData, useParams } from "react-router";
 import Page from "./Page.jsx";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/FeedsPage.css";
-import { FeedsContext } from "../FeedsContext.js";
+import { useFeeds } from "../FeedsContext.js";
 
 export default function FeedsPage() {
   const data = useLoaderData(); // follows
   let { feedName } = useParams();
-  const { feeds, setFeeds } = useContext(FeedsContext);
+  const { feeds, setFeeds } = useFeeds();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

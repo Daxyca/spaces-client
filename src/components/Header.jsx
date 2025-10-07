@@ -1,8 +1,7 @@
 import { Link, Navigate, useParams } from "react-router";
 import { useAuth } from "../AuthContext.js";
-import { useContext, useEffect, useRef, useState } from "react";
-import { FeedsProvider } from "../FeedProvider.jsx";
-import { FeedsContext } from "../FeedsContext.js";
+import { useRef } from "react";
+import { useFeeds } from "../FeedsContext.js";
 
 export default function Header() {
   const { user } = useAuth();
@@ -21,9 +20,7 @@ export default function Header() {
       <nav className="nav">
         <ul className="nav-list nav-center-list">
           <NavListItem href="/" name="Home" />
-          <FeedsProvider>
-            <NavListCenter ref={feedsEl} />
-          </FeedsProvider>
+          <NavListCenter ref={feedsEl} />
           <NavListItem href="/connections" name="Connections" />
         </ul>
       </nav>
@@ -48,15 +45,10 @@ function NavListItem({ href = "/", name, ref }) {
 }
 
 function NavListCenter({ ref }) {
-  const { feeds } = useContext(FeedsContext);
+  const { feeds } = useFeeds();
   const { feedName } = useParams();
-  const [latestFeeds, setLatestFeeds] = useState(feeds);
 
-  useEffect(() => {
-    setLatestFeeds(feeds);
-  }, [feeds]);
-
-  if (latestFeeds.length === 0) {
+  if (feeds.length === 0) {
     return (
       <li className="nav-item nav-center-list-item" ref={ref}>
         <Link className="nav-link nav-center-main-link" to="/feeds">
@@ -66,10 +58,7 @@ function NavListCenter({ ref }) {
     );
   }
 
-  console.log("feeds on header");
-  console.log(latestFeeds);
-
-  if (feedName && !latestFeeds.map((feed) => feed.name).includes(feedName)) {
+  if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
     return <Navigate to="/404" replace />;
   }
 
@@ -83,7 +72,7 @@ function NavListCenter({ ref }) {
         <Link className="nav-link nav-feed-link" to="/">
           Main Feed
         </Link>
-        {latestFeeds.map((feed) => (
+        {feeds.map((feed) => (
           <Link
             key={feed.id}
             className="nav-link nav-feed-link"

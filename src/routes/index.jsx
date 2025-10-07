@@ -15,7 +15,7 @@ import protectedLoader from "../loaders/protectedLoader.js";
 
 import Posts from "../components/Posts.jsx";
 import Feed from "../components/Feed.jsx";
-import { FeedsProvider } from "../FeedProvider.jsx";
+import { FeedsProvider } from "../FeedsProvider.jsx";
 
 const profileEntries = {
   element: (
