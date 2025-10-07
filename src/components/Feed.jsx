@@ -3,9 +3,8 @@ import { useNavigate, useOutletContext } from "react-router";
 import Avatar from "./Avatar.jsx";
 
 export default function Feed() {
-  const { users, feedName, setFeeds, feeds } = useOutletContext();
+  const { users, feedName, setFeeds } = useOutletContext();
   const [checked, setChecked] = useState(getChecked(users));
-  const navigate = useNavigate();
 
   function getChecked(users) {
     return users.reduce(
