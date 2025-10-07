@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Avatar from "../Avatar.jsx";
 import PostCard from "../PostCard.jsx";
+import { Link, useOutletContext } from "react-router";
 
-export default function ProfileContent({ setMode, profile, isCurrentUser }) {
+export default function ProfileContent() {
+  const { profile, isCurrentUser } = useOutletContext();
   const [picture, setPicture] = useState(profile.picture);
 
   useEffect(() => {
@@ -31,10 +33,6 @@ export default function ProfileContent({ setMode, profile, isCurrentUser }) {
     updatePicturePost();
   }
 
-  const handleChangeModeClick = () => {
-    setMode("Edit");
-  };
-
   const handleLikeUnlikeClick = async (event, liked) => {
     const likeBtn = event.currentTarget;
     const postId = likeBtn.dataset.id;
@@ -62,14 +60,9 @@ export default function ProfileContent({ setMode, profile, isCurrentUser }) {
         <div className="profile-left-container">
           <header className="profile-header">
             <h2 className="profile-heading">Profile</h2>
-            <button
-              className="button edit-mode-button"
-              type="button"
-              onClick={handleChangeModeClick}
-              aria-label="Go to Edit Profile"
-            >
+            <Link to="edit" aria-label="Go to Edit Profile Page">
               ✎
-            </button>
+            </Link>
           </header>
           <div className="profile-main-info">
             <Avatar picture={picture} />

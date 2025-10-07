@@ -15,6 +15,8 @@ import protectedLoader from "../loaders/protectedLoader.js";
 
 import Posts from "../components/Posts.jsx";
 import Feed from "../components/Feed.jsx";
+import ProfileContent from "../components/profile/ProfileContent.jsx";
+import ProfileEdit from "../components/profile/ProfileEdit.jsx";
 
 const profileEntries = {
   element: (
@@ -80,6 +82,18 @@ const routes = [
   {
     path: "/profile",
     ...profileEntries,
+    children: [
+      {
+        index: true,
+        element: <ProfileContent />,
+        HydrateFallback: () => null,
+      },
+      {
+        path: "edit",
+        element: <ProfileEdit />,
+        HydrateFallback: () => null,
+      },
+    ],
   },
   {
     path: "/profile/:userId",

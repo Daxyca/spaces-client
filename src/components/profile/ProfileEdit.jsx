@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate, useOutletContext } from "react-router";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -10,12 +10,9 @@ const PROFILE_FIELDS = [
   "location",
 ];
 
-export default function ProfileEdit({ setMode, profile, setProfile }) {
+export default function ProfileEdit() {
+  const { profile, setProfile } = useOutletContext();
   const navigate = useNavigate();
-
-  const handleChangeModeClick = () => {
-    setMode("View");
-  };
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -43,7 +40,6 @@ export default function ProfileEdit({ setMode, profile, setProfile }) {
         if (json) {
           setProfile((prev) => ({ ...prev, ...json }));
           navigate("/profile");
-          // setMode("View");
         }
       } catch (err) {
         console.error(err);
@@ -56,14 +52,9 @@ export default function ProfileEdit({ setMode, profile, setProfile }) {
     <>
       <header className="profile-header">
         <h2 className="profile-heading">Edit Profile</h2>
-        <button
-          className="button accent profile-back-button"
-          type="button"
-          onClick={handleChangeModeClick}
-          aria-label="Back to View Profile"
-        >
+        <Link to="/profile" aria-label="Go to View Profile Page">
           ↩
-        </button>
+        </Link>
       </header>
       <div className="edit-profile-container">
         <form className="edit-profile-form" onSubmit={handleEditFormSubmit}>

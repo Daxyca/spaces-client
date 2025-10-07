@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../AuthContext.js";
 import Page from "./Page.jsx";
-import { useLoaderData, useParams } from "react-router-dom";
+import { Outlet, useLoaderData, useParams } from "react-router-dom";
 import "../styles/ProfilePage.css";
-import ProfileContent from "../components/profile/ProfileContent.jsx";
-import ProfileEdit from "../components/profile/ProfileEdit.jsx";
 
 export default function ProfilePage() {
   const { userId } = useParams();
   const { user } = useAuth();
-  const [mode, setMode] = useState("View"); // View or Edit
   const [profile, setProfile] = useState({});
   const data = useLoaderData();
 
@@ -25,20 +22,12 @@ export default function ProfilePage() {
 
   return (
     <Page>
-      {!user || !profile.id ? null : mode === "View" ? (
-        <ProfileContent
-          profile={profile}
-          setMode={isCurrentUser ? setMode : () => {}}
-          isCurrentUser={isCurrentUser}
-        />
+      <Outlet context={{ profile, setProfile, user, isCurrentUser }}></Outlet>
+      {/* {!user || !profile.id ? null : mode === "View" ? (
+        <ProfileContent profile={profile} isCurrentUser={isCurrentUser} />
       ) : isCurrentUser && mode === "Edit" ? (
-        <ProfileEdit
-          profile={profile}
-          setProfile={setProfile}
-          setMode={setMode}
-          user={user}
-        />
-      ) : null}
+        <ProfileEdit profile={profile} setProfile={setProfile} user={user} />
+      ) : null} */}
     </Page>
   );
 }
