@@ -1,9 +1,9 @@
 import "./styles/App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from "./routes/index.jsx";
-import { useAuth } from "./AuthContext.js";
+import { useAuth } from "./contexts/AuthContext.js";
 import { useEffect } from "react";
-import { FeedsProvider } from "./FeedsProvider.jsx";
+import { FeedsProvider } from "./contexts/FeedsProvider.jsx";
 
 const router = createBrowserRouter(routes);
 

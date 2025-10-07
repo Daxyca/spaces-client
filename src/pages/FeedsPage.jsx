@@ -9,7 +9,7 @@ import {
 import Page from "./Page.jsx";
 import { useEffect, useState } from "react";
 import "../styles/FeedsPage.css";
-import { useFeeds } from "../FeedsContext.js";
+import { useFeeds } from "../contexts/FeedsContext.js";
 
 export default function FeedsPage() {
   const data = useLoaderData(); // follows

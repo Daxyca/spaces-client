@@ -1,7 +1,7 @@
 import { Link, Navigate, useParams } from "react-router";
-import { useAuth } from "../AuthContext.js";
+import { useAuth } from "../contexts/AuthContext.js";
 import { useRef } from "react";
-import { useFeeds } from "../FeedsContext.js";
+import { useFeeds } from "../contexts/FeedsContext.js";
 
 export default function Header() {
   const { user } = useAuth();

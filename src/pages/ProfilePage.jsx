@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../AuthContext.js";
+import { useAuth } from "../contexts/AuthContext.js";
 import Page from "./Page.jsx";
 import { Outlet, useLoaderData, useParams } from "react-router-dom";
 import "../styles/ProfilePage.css";
