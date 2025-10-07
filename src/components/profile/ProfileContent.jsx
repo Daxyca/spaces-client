@@ -68,39 +68,42 @@ export default function ProfileContent() {
               </Link>
             ) : null}
           </header>
-          <div className="profile-main-info">
-            <Avatar picture={picture} />
-            <p>{profile.displayName || "-"}</p>
+          <div className="profile-content">
+            <div className="profile-main-info">
+              <Avatar picture={picture} />
+              <p>{profile.displayName || "-"}</p>
+            </div>
+            {isCurrentUser ? (
+              <>
+                <form
+                  className="change-picture-form"
+                  onSubmit={handlePictureFormSubmit}
+                  method="post"
+                  encType="multipart/form-data"
+                >
+                  <label htmlFor="new-profile-picture">
+                    Change Profile Picture:
+                  </label>
+                  <input
+                    className="picture-input"
+                    id="new-profile-picture"
+                    type="file"
+                    name="picture"
+                    required
+                  />
+                  <button className="button" type="submit">
+                    Upload Picture
+                  </button>
+                </form>
+              </>
+            ) : null}
+            <p>First Name: {profile.firstName || "-"}</p>
+            <p>Last Name: {profile.lastName || "-"}</p>
+            <p>Birth Date: {profile.birthDate || "-"}</p>
+            <p>Bio: {profile.bio || "-"}</p>
+            <p>Sex at Birth: {profile.sexAtBirth || "-"}</p>
+            <p>Location: {profile.location || "-"}</p>
           </div>
-          {isCurrentUser ? (
-            <>
-              <form
-                className="change-picture-form"
-                onSubmit={handlePictureFormSubmit}
-                method="post"
-                encType="multipart/form-data"
-              >
-                <label htmlFor="new-profile-picture">
-                  Change Profile Picture:
-                </label>
-                <input
-                  id="new-profile-picture"
-                  type="file"
-                  name="picture"
-                  required
-                />
-                <button className="button" type="submit">
-                  Upload Picture
-                </button>
-              </form>
-            </>
-          ) : null}
-          <p>First Name: {profile.firstName || "-"}</p>
-          <p>Last Name: {profile.lastName || "-"}</p>
-          <p>Birth Date: {profile.birthDate || "-"}</p>
-          <p>Bio: {profile.bio || "-"}</p>
-          <p>Sex at Birth: {profile.sexAtBirth || "-"}</p>
-          <p>Location: {profile.location || "-"}</p>
         </div>
         <div className="profile-right-container">
           <h2>Posts</h2>
