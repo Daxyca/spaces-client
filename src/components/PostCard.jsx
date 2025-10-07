@@ -100,16 +100,18 @@ export default function PostCard({
       </div>
       <hr />
       <div className="comments-container">
+        <h5 className="comments-heading">Comments</h5>
         {comments.length > 0 ? (
-          <h5 className="comments-heading">Comments</h5>
-        ) : null}
-        {comments.map((comment) => (
-          <CommentCard
-            key={comment.id}
-            comment={comment}
-            currentUserPicture={currentUserPicture}
-          />
-        ))}
+          comments.map((comment) => (
+            <CommentCard
+              key={comment.id}
+              comment={comment}
+              currentUserPicture={currentUserPicture}
+            />
+          ))
+        ) : (
+          <p>No comments yet...</p>
+        )}
         <form
           className="comment-form"
           onSubmit={handleSubmitComment}
