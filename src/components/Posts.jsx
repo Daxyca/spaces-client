@@ -1,11 +1,12 @@
 import { useLoaderData, useOutletContext } from "react-router";
 import PostCard from "../components/PostCard.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Posts() {
   const data = useLoaderData();
   const { feedName } = useOutletContext();
   const [posts, setPosts] = useState([]);
+  const createPostForm = useRef();
 
   useEffect(() => {
     if (!data || data.error) {
@@ -82,17 +83,24 @@ export default function Posts() {
     createPost();
   };
 
+  const handlePostInputKeyDown = (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+      event.preventDefault();
+      createPostForm.current.requestSubmit();
+    }
+  };
+
   return (
     <>
       <h2 className="posts-heading visually-hidden">
         {feedName ? `${feedName} Posts` : "Main Feed Posts"}
       </h2>
-      {/* <h3 className="posts-heading">{feedName ? `${feedName} Posts` : null}</h3> */}
       {!feedName ? (
         <form
           className="create-post-form"
           onSubmit={handlePostFormSubmit}
           method="post"
+          ref={createPostForm}
         >
           <label className="visually-hidden" htmlFor="post-content-input">
             Create post: post content:
@@ -102,6 +110,7 @@ export default function Posts() {
             id="post-content-input"
             className="post-content-input"
             placeholder="Create a post..."
+            onKeyDown={handlePostInputKeyDown}
             required
           ></textarea>
           <div>
