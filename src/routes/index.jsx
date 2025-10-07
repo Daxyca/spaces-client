@@ -86,18 +86,16 @@ const routes = [
       {
         index: true,
         element: <ProfileContent />,
-        HydrateFallback: () => null,
       },
       {
         path: "edit",
         element: <ProfileEdit />,
-        HydrateFallback: () => null,
+      },
+      {
+        path: ":userId",
+        element: <ProfileContent />,
       },
     ],
-  },
-  {
-    path: "/profile/:userId",
-    ...profileEntries,
   },
 ];
 

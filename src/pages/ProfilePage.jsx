@@ -11,10 +11,11 @@ export default function ProfilePage() {
   const data = useLoaderData();
 
   useEffect(() => {
-    setProfile(data);
-  }, [data]);
+    setProfile(profile);
+  }, [profile]);
 
-  if (!data || !user) {
+  if (Object.keys(profile) === 0) {
+    setProfile(data);
     return;
   }
 
@@ -22,7 +23,9 @@ export default function ProfilePage() {
 
   return (
     <Page>
-      <Outlet context={{ profile, setProfile, user, isCurrentUser }}></Outlet>
+      <Outlet
+        context={{ profile: data, setProfile, user, isCurrentUser }}
+      ></Outlet>
     </Page>
   );
 }

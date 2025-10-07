@@ -60,9 +60,11 @@ export default function ProfileContent() {
         <div className="profile-left-container">
           <header className="profile-header">
             <h2 className="profile-heading">Profile</h2>
-            <Link to="edit" aria-label="Go to Edit Profile Page">
-              ✎
-            </Link>
+            {isCurrentUser ? (
+              <Link to="/profile/edit" aria-label="Go to Edit Profile Page">
+                ✎
+              </Link>
+            ) : null}
           </header>
           <div className="profile-main-info">
             <Avatar picture={picture} />
