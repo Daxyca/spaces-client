@@ -23,11 +23,6 @@ export default function ProfilePage() {
   return (
     <Page>
       <Outlet context={{ profile, setProfile, user, isCurrentUser }}></Outlet>
-      {/* {!user || !profile.id ? null : mode === "View" ? (
-        <ProfileContent profile={profile} isCurrentUser={isCurrentUser} />
-      ) : isCurrentUser && mode === "Edit" ? (
-        <ProfileEdit profile={profile} setProfile={setProfile} user={user} />
-      ) : null} */}
     </Page>
   );
 }
