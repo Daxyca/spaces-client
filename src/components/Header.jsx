@@ -1,6 +1,8 @@
 import { Link, Navigate, useParams } from "react-router";
 import { useAuth } from "../AuthContext.js";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { FeedsProvider } from "../FeedProvider.jsx";
+import { FeedsContext } from "../FeedsContext.js";
 
 export default function Header() {
   const { user } = useAuth();
@@ -16,7 +18,7 @@ export default function Header() {
           width="32px"
         />
       </Link>
-      {user ? (
+      <FeedsProvider>
         <nav className="nav">
           <ul className="nav-list nav-center-list">
             <NavListItem href="/" name="Home" />
@@ -24,15 +26,13 @@ export default function Header() {
             <NavListItem href="/connections" name="Connections" />
           </ul>
         </nav>
-      ) : null}
-      {user ? (
-        <nav className="nav">
-          <ul className="nav-list nav-user-list">
-            <NavListItem href="/profile" name={user.displayName} />
-            <NavListItem href="/auth/logout" name="Logout" />
-          </ul>
-        </nav>
-      ) : null}
+      </FeedsProvider>
+      <nav className="nav">
+        <ul className="nav-list nav-user-list">
+          <NavListItem href="/profile" name={user?.displayName || "User"} />
+          <NavListItem href="/auth/logout" name="Logout" />
+        </ul>
+      </nav>
     </header>
   );
 }
@@ -48,20 +48,8 @@ function NavListItem({ href = "/", name, ref }) {
 }
 
 function NavListCenter({ ref }) {
-  const [feeds, setFeeds] = useState([]);
+  const { feeds } = useContext(FeedsContext);
   const { feedName } = useParams();
-
-  useEffect(() => {
-    async function getFeeds() {
-      const endpoint = import.meta.env.VITE_API_URL + "/feeds";
-      const res = await fetch(endpoint, {
-        credentials: "include",
-      });
-      const data = await res.json();
-      setFeeds(data);
-    }
-    getFeeds();
-  }, []);
 
   if (feeds.length === 0) {
     return (

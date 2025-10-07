@@ -1,29 +1,23 @@
 import { Link, Navigate, Outlet, useLoaderData, useParams } from "react-router";
 import Page from "./Page.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../styles/FeedsPage.css";
+import { FeedsContext } from "../FeedsContext.js";
 
 export default function FeedsPage() {
-  const data = useLoaderData(); // feeds
+  const data = useLoaderData(); // follows
   let { feedName } = useParams();
-  const [feeds, setFeeds] = useState([]);
+  const { feeds, setFeeds } = useContext(FeedsContext);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (!data.feeds) {
-      return;
-    }
-    setFeeds(data.feeds);
-    if (data.feeds.length === 0 || !feedName) {
+    if (feeds.length === 0 || !feedName) {
       return;
     }
 
     // Filter for the current feed
-    const currentFeeds = feeds.length > 0 ? feeds : data.feeds;
-    const filteredFeeds = currentFeeds.filter(
-      (feed) => feed.name === feedName
-    )[0];
-    if (!filteredFeeds) {
+    const filteredFeeds = feeds.filter((feed) => feed.name === feedName)[0];
+    if (filteredFeeds.length === 0) {
       return;
     }
 
@@ -44,7 +38,7 @@ export default function FeedsPage() {
   }, [data, feedName, feeds]);
 
   if (!data) {
-    return;
+    return <Page></Page>;
   }
 
   if (!feedName && feeds.length > 0) {
