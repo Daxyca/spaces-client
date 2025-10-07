@@ -48,10 +48,6 @@ export default function FeedsPage() {
     return;
   }
 
-  if (!feedName && feeds.length > 0) {
-    return <Navigate to={`/feeds/${feeds[0].name}/edit`} replace />;
-  }
-
   const handleCreateFeedSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -117,7 +113,11 @@ export default function FeedsPage() {
       </div>
       <div className="feeds-right-container">
         {feeds.length > 0 ? (
-          <Outlet context={{ users, feedName, setFeeds, feeds }} />
+          feedName ? (
+            <Outlet context={{ users, feedName, setFeeds, feeds }} />
+          ) : (
+            "Choose a feed."
+          )
         ) : (
           "No feeds created. Create a feed first."
         )}
