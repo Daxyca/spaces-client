@@ -130,7 +130,7 @@ export default function PostCard({
             required
           />
           <button
-            className="button comment-submit"
+            className="button comment-submit-button"
             type="submit"
             aria-label="Submit Comment"
           >

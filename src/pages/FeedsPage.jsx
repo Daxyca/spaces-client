@@ -17,7 +17,7 @@ export default function FeedsPage() {
 
     // Filter for the current feed
     const filteredFeeds = feeds.filter((feed) => feed.name === feedName)[0];
-    if (filteredFeeds.length === 0) {
+    if (!filteredFeeds || filteredFeeds.length === 0) {
       return;
     }
 
@@ -110,7 +110,7 @@ export default function FeedsPage() {
         </div>
         <div className="feeds-right-container">
           {feeds.length > 0 ? (
-            <Outlet context={{ users, feedName, setFeeds }} />
+            <Outlet context={{ users, feedName, setFeeds, feeds }} />
           ) : (
             "No feeds created. Create a feed first."
           )}

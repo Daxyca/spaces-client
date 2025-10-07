@@ -117,7 +117,7 @@ export default function Posts() {
             onKeyDown={handlePostInputKeyDown}
             required
           ></textarea>
-          <button className="button submit-post-content" type="submit">
+          <button className="button post-submit-button" type="submit">
             Post
           </button>
         </form>

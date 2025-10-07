@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import Avatar from "./Avatar.jsx";
 
 export default function Feed() {
-  const { users, feedName, setFeeds } = useOutletContext();
+  const { users, feedName, setFeeds, feeds } = useOutletContext();
   const [checked, setChecked] = useState(getChecked(users));
+  const navigate = useNavigate();
 
   function getChecked(users) {
     return users.reduce(
@@ -70,6 +71,35 @@ export default function Feed() {
 
   const handleDeleteFormSubmit = (event) => {
     event.preventDefault();
+    if (!confirm(`The feed "${feedName}" will be deleted. Confirm?`)) return;
+    const deleteFeed = async () => {
+      try {
+        const endpoint = `${import.meta.env.VITE_API_URL}/feeds/${feedName}`;
+        const res = await fetch(endpoint, {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const json = await res.json();
+        if (!json.error) {
+          setFeeds((prevFeeds) =>
+            prevFeeds.filter((feed) => feed.name !== feedName)
+          );
+          navigate(
+            feeds.length > 1
+              ? feeds[0].name !== feedName
+                ? `/feeds/${feeds[0].name}/edit`
+                : `/feeds/${feeds[1].name}/edit`
+              : "/feeds"
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    deleteFeed();
   };
 
   const handleCheckboxChange = (event) => {
@@ -88,12 +118,17 @@ export default function Feed() {
         <div className="feed-header-left">
           <h3 className="feed-name-heading">{`Included users in ${feedName}`}</h3>
           <button
-            className="button accent"
+            className="delete-feed-button"
             name="delete"
             type="submit"
             form="delete-feed-form"
+            aria-label="Delete Feed"
           >
-            Delete Feed
+            <img
+              className="delete-feed-image"
+              src="/red-trash-can.svg"
+              alt="red trash can"
+            />
           </button>
         </div>
         <form
