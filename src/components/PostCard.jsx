@@ -3,6 +3,16 @@ import { Link } from "react-router";
 import Avatar from "./Avatar.jsx";
 import LikeImage from "./LikeImage.jsx";
 
+function formatDate(date) {
+  return new Date(date).toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 export default function PostCard({
   post,
   handleLikeUnlikeClick,
@@ -57,6 +67,7 @@ export default function PostCard({
   }
 
   const postContent = post.content.trim();
+  const postCreatedAt = formatDate(post.createdAt);
 
   return (
     <div className="post-card card">
@@ -75,7 +86,7 @@ export default function PostCard({
               {post.author.displayName}
             </Link>
           </h4>
-          <p className="post-create-time">{post.createdAt}</p>
+          <p className="post-create-time">{postCreatedAt}</p>
         </div>
         <form>
           <button
@@ -143,6 +154,8 @@ export default function PostCard({
 }
 
 function CommentCard({ comment, currentUserPicture }) {
+  const commentCreatedAt = formatDate(comment.createdAt);
+
   return (
     <div className="comment-card">
       <div className="comment-info-container">
@@ -162,7 +175,7 @@ function CommentCard({ comment, currentUserPicture }) {
           >
             {comment.author.displayName}
           </Link>
-          <p className="comment-create-time">{comment.createdAt}</p>
+          <p className="comment-create-time">{commentCreatedAt}</p>
         </div>
       </div>
       <p className="comment-content">{comment.content}</p>
