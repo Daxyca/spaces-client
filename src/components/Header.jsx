@@ -18,15 +18,15 @@ export default function Header() {
           width="32px"
         />
       </Link>
-      <FeedsProvider>
-        <nav className="nav">
-          <ul className="nav-list nav-center-list">
-            <NavListItem href="/" name="Home" />
+      <nav className="nav">
+        <ul className="nav-list nav-center-list">
+          <NavListItem href="/" name="Home" />
+          <FeedsProvider>
             <NavListCenter ref={feedsEl} />
-            <NavListItem href="/connections" name="Connections" />
-          </ul>
-        </nav>
-      </FeedsProvider>
+          </FeedsProvider>
+          <NavListItem href="/connections" name="Connections" />
+        </ul>
+      </nav>
       <nav className="nav">
         <ul className="nav-list nav-user-list">
           <NavListItem href="/profile" name={user?.displayName || "User"} />
@@ -50,8 +50,13 @@ function NavListItem({ href = "/", name, ref }) {
 function NavListCenter({ ref }) {
   const { feeds } = useContext(FeedsContext);
   const { feedName } = useParams();
+  const [latestFeeds, setLatestFeeds] = useState(feeds);
 
-  if (feeds.length === 0) {
+  useEffect(() => {
+    setLatestFeeds(feeds);
+  }, [feeds]);
+
+  if (latestFeeds.length === 0) {
     return (
       <li className="nav-item nav-center-list-item" ref={ref}>
         <Link className="nav-link nav-center-main-link" to="/feeds">
@@ -61,7 +66,10 @@ function NavListCenter({ ref }) {
     );
   }
 
-  if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
+  console.log("feeds on header");
+  console.log(latestFeeds);
+
+  if (feedName && !latestFeeds.map((feed) => feed.name).includes(feedName)) {
     return <Navigate to="/404" replace />;
   }
 
@@ -75,7 +83,7 @@ function NavListCenter({ ref }) {
         <Link className="nav-link nav-feed-link" to="/">
           Main Feed
         </Link>
-        {feeds.map((feed) => (
+        {latestFeeds.map((feed) => (
           <Link
             key={feed.id}
             className="nav-link nav-feed-link"

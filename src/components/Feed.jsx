@@ -45,14 +45,16 @@ export default function Feed() {
         });
         const json = await res.json();
         if (!json.error) {
+          const newFeedUsers = users
+            .filter((user) => userIds.includes(user.id))
+            .map((user) => ({ ...user, isInFeed: true }));
+
           setFeeds((prevFeeds) =>
             prevFeeds.map((feed) => {
               if (feed.name === feedName) {
                 return {
                   ...feed,
-                  users: users
-                    .filter((user) => userIds.includes(user.id))
-                    .map((user) => ({ ...user, isInFeed: true })),
+                  users: newFeedUsers,
                 };
               }
               return feed;

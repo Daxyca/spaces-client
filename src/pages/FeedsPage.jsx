@@ -63,11 +63,8 @@ export default function FeedsPage() {
         if (json.error) {
           throw Error(json.error.message);
         }
-        if (json) {
-          data.feeds.push(json);
-          setFeeds((prevFeed) => [...prevFeed]);
-          form.reset();
-        }
+        setFeeds((prevFeed) => [...prevFeed, json]);
+        form.reset();
       } catch (err) {
         console.error(err);
       }
