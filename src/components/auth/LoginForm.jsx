@@ -23,7 +23,9 @@ export default function LoginForm() {
         const json = await res.json();
         if (json) {
           login(json.data);
-          navigate("/");
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
         }
       } catch (err) {
         console.error(err);
@@ -31,6 +33,31 @@ export default function LoginForm() {
     };
     submit();
   }
+
+  const handleGuestLoginSubmit = (event) => {
+    event.preventDefault();
+    const guestLogin = async () => {
+      try {
+        const endpoint = import.meta.env.VITE_API_URL + "/auth/login";
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ username: "user", password: "123" }),
+        });
+        const json = await res.json();
+        if (json) {
+          login(json.data);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    guestLogin();
+  };
 
   return (
     <>
@@ -59,6 +86,16 @@ export default function LoginForm() {
         />
         <button className="button" type="submit">
           Login
+        </button>
+      </form>
+      <form
+        className="auth-form guest-login-form"
+        action={import.meta.env.VITE_API_URL + "/auth/login"}
+        onSubmit={handleGuestLoginSubmit}
+        method="get"
+      >
+        <button className="button alt" type="submit">
+          Guest Login
         </button>
       </form>
       <Socials loginForm={true} />
