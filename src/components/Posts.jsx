@@ -1,10 +1,11 @@
-import { useLoaderData, useOutletContext } from "react-router";
+import { useLoaderData, useParams } from "react-router";
 import PostCard from "../components/PostCard.jsx";
 import { useEffect, useRef, useState } from "react";
 
 export default function Posts() {
   const data = useLoaderData();
-  const { feedName } = useOutletContext();
+  const { feedName } = useParams();
+
   const [posts, setPosts] = useState([]);
   const createPostForm = useRef();
 
@@ -21,12 +22,12 @@ export default function Posts() {
 
   if (data.length === 0) {
     return (
-      <>
+      <div className="posts-container">
         <h2 className="posts-heading visually-hidden">
           {feedName ? `${feedName} ` : null} Posts
         </h2>
         <p>No posts to see here...</p>
-      </>
+      </div>
     );
   }
 
@@ -91,7 +92,7 @@ export default function Posts() {
   };
 
   return (
-    <>
+    <div className="posts-container">
       <h2 className="posts-heading visually-hidden">
         {feedName ? `${feedName} Posts` : "Main Feed Posts"}
       </h2>
@@ -130,6 +131,6 @@ export default function Posts() {
           handleLikeUnlikeClick={handleLikeUnlikeClick}
         />
       ))}
-    </>
+    </div>
   );
 }

@@ -34,9 +34,5 @@ export default function LoginPage() {
     return <Navigate to="/auth/login" replace />;
   }
 
-  return (
-    <Page>
-      <p>Logging out...</p>
-    </Page>
-  );
+  return <p>Logging out...</p>;
 }

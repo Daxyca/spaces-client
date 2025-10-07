@@ -1,5 +1,4 @@
 import { Link, Outlet } from "react-router";
-import Page from "./Page.jsx";
 import { useEffect } from "react";
 import "../styles/ConnectionsPage.css";
 
@@ -7,7 +6,7 @@ export default function ConnectionsPage() {
   useEffect(() => {}, []);
 
   return (
-    <Page>
+    <>
       <h2 className="visually-hidden">Connections</h2>
       <div className="connections-container">
         <div className="connections-left-container">
@@ -23,6 +22,6 @@ export default function ConnectionsPage() {
           <Outlet />
         </div>
       </div>
-    </Page>
+    </>
   );
 }

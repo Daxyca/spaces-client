@@ -1,10 +1,3 @@
-import { Link } from "react-router";
-import Page from "./Page.jsx";
-
 export default function ErrorPage() {
-  return (
-    <Page>
-      <h2>404 Page Not Found</h2>
-    </Page>
-  );
+  return <h2>404 Page Not Found</h2>;
 }

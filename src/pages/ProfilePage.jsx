@@ -15,9 +15,5 @@ export default function ProfilePage() {
 
   const isCurrentUser = !userId || userId === user.id;
 
-  return (
-    <Page>
-      <Outlet context={{ profile, setProfile, user, isCurrentUser }} />
-    </Page>
-  );
+  return <Outlet context={{ profile, setProfile, user, isCurrentUser }} />;
 }

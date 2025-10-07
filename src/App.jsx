@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import routes from "./routes/index.jsx";
+import routes from "./routes/indexRoutes.jsx";
 import { useAuth } from "./contexts/AuthContext.js";
 import { useEffect } from "react";
 import { FeedsProvider } from "./contexts/FeedsProvider.jsx";

@@ -4,18 +4,17 @@ import Following from "../components/connections/Following.jsx";
 import Follower from "../components/connections/Followers.jsx";
 import PendingRequests from "../components/connections/PendingRequests.jsx";
 import FollowersRequests from "../components/connections/FollowersRequests.jsx";
-import ProtectedRoute from "../ProtectedRoute.jsx";
+// import ProtectedRoute from "../ProtectedRoute.jsx";
 
 import * as connectionsLoader from "../loaders/connectionsLoader.js";
 
 export default {
   path: "/connections",
   element: (
-    <ProtectedRoute>
-      <ConnectionsPage />
-    </ProtectedRoute>
+    // <ProtectedRoute>
+    <ConnectionsPage />
+    // </ProtectedRoute>
   ),
-
   children: [
     {
       index: true,
