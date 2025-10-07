@@ -78,37 +78,39 @@ export default function FeedsPage() {
   return (
     <div className="feeds-main-container">
       <div className="feeds-left-container">
-        <h3 className="feeds-heading">Feeds List</h3>
-        <ul className="feeds-list">
-          {feeds.map((feed) => (
-            <li key={feed.id} className="feeds-list-item">
-              <Link key={feed.id} to={`/feeds/${feed.name}/edit`}>
-                {feed.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <hr />
-        <form
-          className="create-feed-form"
-          name="create"
-          onSubmit={handleCreateFeedSubmit}
-          method="post"
-        >
-          <input
-            className="feed-name-input"
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Feed name"
-            minLength={3}
-            maxLength={12}
-            required
-          />
-          <button className="button create-feed-button" type="submit">
-            Create Feed
-          </button>
-        </form>
+        <div className="feeds-left-main">
+          <h3 className="feeds-heading">Feeds List</h3>
+          <ul className="feeds-list">
+            {feeds.map((feed) => (
+              <li key={feed.id} className="feeds-list-item">
+                <Link key={feed.id} to={`/feeds/${feed.name}/edit`}>
+                  {feed.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <hr />
+          <form
+            className="create-feed-form"
+            name="create"
+            onSubmit={handleCreateFeedSubmit}
+            method="post"
+          >
+            <input
+              className="feed-name-input"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Feed name"
+              minLength={3}
+              maxLength={12}
+              required
+            />
+            <button className="button create-feed-button" type="submit">
+              Create Feed
+            </button>
+          </form>
+        </div>
       </div>
       <div className="feeds-right-container">
         {feeds.length > 0 ? (
