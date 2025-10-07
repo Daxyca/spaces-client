@@ -109,27 +109,29 @@ export default function Feed() {
       <header className="feed-header">
         <div className="feed-header-left">
           <h3 className="feed-name-heading">{`Included users in ${feedName}`}</h3>
-          <button
-            className="delete-feed-button"
+
+          <form
+            className="delete-feed-form"
+            id="delete-feed-form"
             name="delete"
-            type="submit"
-            form="delete-feed-form"
-            aria-label="Delete Feed"
+            onSubmit={handleDeleteFormSubmit}
+            method="post"
           >
-            <img
-              className="delete-feed-image"
-              src="/red-trash-can.svg"
-              alt="red trash can"
-            />
-          </button>
+            <button
+              className="delete-feed-button"
+              name="delete"
+              type="submit"
+              form="delete-feed-form"
+              aria-label="Delete Feed"
+            >
+              <img
+                className="delete-feed-image"
+                src="/red-trash-can.svg"
+                alt="red trash can"
+              />
+            </button>
+          </form>
         </div>
-        <form
-          className="delete-feed-form"
-          id="delete-feed-form"
-          name="delete"
-          onSubmit={handleDeleteFormSubmit}
-          method="post"
-        ></form>
         <div className="feed-header-right">
           <button
             className="button secondary"

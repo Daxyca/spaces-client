@@ -43,7 +43,8 @@
 /* Feed Right */
 
 .feeds-right-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
