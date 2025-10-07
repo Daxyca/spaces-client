@@ -42,7 +42,7 @@ export default function NotFollowed() {
 
   return (
     <>
-      <h3>Not Followed</h3>
+      <h3>Not Followed Users</h3>
       {data.profiles.length > 0 ? (
         data.profiles.map((profile) => (
           <ProfileCard

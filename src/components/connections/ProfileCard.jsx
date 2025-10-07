@@ -3,7 +3,9 @@ import Avatar from "../Avatar.jsx";
 export default function ProfileCard({
   profile,
   buttonText,
+  secondButtonText,
   handleButtonClick,
+  handleSecondButtonClick,
 }) {
   const buttonClassName =
     "button" +
@@ -23,6 +25,18 @@ export default function ProfileCard({
           {buttonText || "-"}
         </button>
       </form>
+      {handleSecondButtonClick ? (
+        <form>
+          <button
+            className={buttonClassName + " accent"}
+            type="button"
+            onClick={handleSecondButtonClick}
+            data-id={profile.id}
+          >
+            {secondButtonText || "-"}
+          </button>
+        </form>
+      ) : null}
     </div>
   );
 }

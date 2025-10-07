@@ -13,7 +13,7 @@ export default function PendingRequests() {
 
   return (
     <>
-      <h3>Pending Requests ({data.follows.length})</h3>
+      <h3>Pending Follow Requests ({data.follows.length})</h3>
       {data.follows.length > 0 ? (
         data.follows.map((follow) => (
           <ProfileCard

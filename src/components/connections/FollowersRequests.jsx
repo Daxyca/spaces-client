@@ -8,8 +8,10 @@ export default function FollowersRequests() {
     return;
   }
 
-  function handleButtonClick(event) {
+  function handleAcceptClick(event) {
+    event.preventDefault();
     const button = event.currentTarget;
+    button.disabled = true;
     const sendFollowRequest = async () => {
       try {
         const endpoint =
@@ -31,7 +33,33 @@ export default function FollowersRequests() {
       }
     };
     sendFollowRequest();
+  }
+
+  function handleDeclineClick(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
     button.disabled = true;
+    const declineRequest = async () => {
+      try {
+        const endpoint =
+          import.meta.env.VITE_API_URL +
+          "/follow/follower/" +
+          button.dataset.id;
+        const res = await fetch(endpoint, {
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        });
+        const json = await res.json();
+        if (json.error) {
+          button.disabled = false;
+          throw new Error(json.error);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    declineRequest();
   }
 
   const profileKey = "follower";
@@ -46,7 +74,9 @@ export default function FollowersRequests() {
             key={follow[profileKey].id}
             profile={follow[profileKey]}
             buttonText={buttonText}
-            handleButtonClick={handleButtonClick}
+            secondButtonText={"Decline"}
+            handleButtonClick={handleAcceptClick}
+            handleSecondButtonClick={handleDeclineClick}
           />
         ))
       ) : (
