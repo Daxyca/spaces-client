@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import Avatar from "./Avatar.jsx";
+import LikeImage from "./LikeImage.jsx";
 
 export default function PostCard({
   post,
@@ -76,44 +77,65 @@ export default function PostCard({
           </h4>
           <p className="post-create-time">{post.createdAt}</p>
         </div>
+        <form>
+          <button
+            className="like-button"
+            type="button"
+            onClick={handleClick}
+            data-id={post.id}
+            name={liked ? "unlike" : "like"}
+            aria-label={`${likes} likes. Click to ${
+              liked ? "unlike" : "like"
+            }.`}
+          >
+            <LikeImage liked={liked} />
+            {likes} like{likes === 1 ? null : "s"}
+          </button>
+        </form>
       </div>
       <div className="post-content">
         {postContent
           .split("\n")
           .map((line, i) => (line ? <p key={i}>{line}</p> : <br key={i} />))}
       </div>
-      <form>
-        <button
-          className="button"
-          type="button"
-          onClick={handleClick}
-          data-id={post.id}
-          name={liked ? "unlike" : "like"}
+      <hr />
+      <div className="comments-container">
+        {comments.length > 0 ? (
+          <h5 className="comments-heading">Comments</h5>
+        ) : null}
+        {comments.map((comment) => (
+          <CommentCard
+            key={comment.id}
+            comment={comment}
+            currentUserPicture={currentUserPicture}
+          />
+        ))}
+        <form
+          className="comment-form"
+          onSubmit={handleSubmitComment}
+          method="post"
+          data-postid={post.id}
         >
-          {likes} {liked ? "Unlike" : "Like"}
-        </button>
-      </form>
-
-      <h5 className="comments-heading">Comments</h5>
-      {comments.map((comment) => (
-        <CommentCard
-          key={comment.id}
-          comment={comment}
-          currentUserPicture={currentUserPicture}
-        />
-      ))}
-
-      <form onSubmit={handleSubmitComment} method="post" data-postid={post.id}>
-        <input
-          name="content"
-          type="text"
-          placeholder="Add a comment..."
-          required
-        />
-        <button className="button" type="submit">
-          Submit comment
-        </button>
-      </form>
+          <label className="sr-only" htmlFor={post.id}>
+            Add a comment:
+          </label>
+          <input
+            name="content"
+            className="comment-input"
+            id={post.id}
+            type="text"
+            placeholder="Add a comment..."
+            required
+          />
+          <button
+            className="button comment-submit"
+            type="submit"
+            aria-label="Submit Comment"
+          >
+            Comment
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
