@@ -48,16 +48,6 @@ function NavListCenter({ ref }) {
   const { feeds } = useFeeds();
   const { feedName } = useParams();
 
-  if (feeds.length === 0) {
-    return (
-      <li className="nav-item nav-center-list-item" ref={ref}>
-        <Link className="nav-link nav-center-main-link" to="/feeds">
-          Feeds
-        </Link>
-      </li>
-    );
-  }
-
   if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
     return <Navigate to="/feeds" replace />;
   }
