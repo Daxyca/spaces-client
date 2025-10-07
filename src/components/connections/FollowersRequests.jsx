@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 export default function FollowersRequests() {
   const data = useLoaderData();
-  const [profiles, setProfiles] = useState([]);
+  const [follows, setFollows] = useState([]);
 
   useEffect(() => {
     if (data.follows) {
-      setProfiles(data.follows);
+      setFollows(data.follows);
     }
   }, [data]);
 
@@ -45,6 +45,8 @@ export default function FollowersRequests() {
         }
         removeProfileId(button.dataset.id);
       } catch (err) {
+        blockClick = false;
+        button.disabled = false;
         console.error(err);
       }
     };
@@ -78,6 +80,8 @@ export default function FollowersRequests() {
         }
         removeProfileId(button.dataset.id);
       } catch (err) {
+        blockClick = false;
+        button.disabled = false;
         console.error(err);
       }
     };
@@ -88,16 +92,16 @@ export default function FollowersRequests() {
   const buttonText = "Accept";
 
   function removeProfileId(id) {
-    setProfiles((prevProfiles) =>
+    setFollows((prevProfiles) =>
       prevProfiles.filter((profile) => profile[profileKey].id !== id)
     );
   }
 
   return (
     <>
-      <h3>Followers Requests ({profiles.length})</h3>
-      {profiles.length > 0 ? (
-        profiles.map((follow) => (
+      <h3>Followers Requests ({follows.length})</h3>
+      {follows.length > 0 ? (
+        follows.map((follow) => (
           <ProfileCard
             key={follow[profileKey].id}
             profile={follow[profileKey]}
