@@ -87,13 +87,6 @@ export default function Feed() {
           setFeeds((prevFeeds) =>
             prevFeeds.filter((feed) => feed.name !== feedName)
           );
-          navigate(
-            feeds.length > 1
-              ? feeds[0].name !== feedName
-                ? `/feeds/${feeds[0].name}/edit`
-                : `/feeds/${feeds[1].name}/edit`
-              : "/feeds"
-          );
         }
       } catch (err) {
         console.error(err);

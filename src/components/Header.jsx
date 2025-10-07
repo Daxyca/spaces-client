@@ -59,7 +59,7 @@ function NavListCenter({ ref }) {
   }
 
   if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
-    return <Navigate to="/404" replace />;
+    return <Navigate to="/feeds" replace />;
   }
 
   return (
