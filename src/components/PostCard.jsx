@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import Avatar from "./Avatar.jsx";
 import LikeImage from "./LikeImage.jsx";
+import { parseValidationErrors } from "../utils.js";
 
 function formatDate(date) {
   return new Date(date).toLocaleString("en-US", {
@@ -22,6 +23,7 @@ export default function PostCard({
   const [likes, setLikes] = useState(post._count.likes);
   const [liked, setLiked] = useState(alreadyLiked);
   const [comments, setComments] = useState(post.comments);
+  const [errors, setErrors] = useState({});
 
   async function handleClick(event) {
     event.preventDefault();
@@ -42,7 +44,7 @@ export default function PostCard({
     const form = event.target;
     const formData = new FormData(form);
     const postId = event.target.dataset.postid;
-    const content = formData.get("content");
+    const content = formData.get("content").trim();
     const createComment = async () => {
       try {
         const endpoint = `${
@@ -56,14 +58,21 @@ export default function PostCard({
         });
         const json = await res.json();
         if (!json.error) {
-          form.reset();
+          setErrors({});
           setComments((prev) => [...prev, json]);
+          form.reset();
+        } else {
+          setErrors(parseValidationErrors(res.status, json));
         }
       } catch (err) {
         console.error(err);
       }
     };
-    createComment();
+    if (content) {
+      createComment();
+    } else {
+      setErrors({ content: "Comment must not be empty or whitespaces only." });
+    }
   }
 
   const postContent = post.content.trim();
@@ -139,6 +148,7 @@ export default function PostCard({
             id={post.id}
             type="text"
             placeholder="Add a comment (Enter to send)"
+            maxLength="250"
             required
           />
           <button
@@ -149,6 +159,7 @@ export default function PostCard({
             Comment
           </button>
         </form>
+        {errors.content && <p className="field-error">{errors.content}</p>}
       </div>
     </div>
   );

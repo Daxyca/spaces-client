@@ -1,11 +1,12 @@
 import { useLoaderData, useParams } from "react-router";
 import PostCard from "../components/PostCard.jsx";
 import { useEffect, useRef, useState } from "react";
+import { parseValidationErrors } from "../utils.js";
 
 export default function Posts() {
   const data = useLoaderData();
   const { feedName } = useParams();
-
+  const [errors, setErrors] = useState({});
   const [posts, setPosts] = useState([]);
   const createPostForm = useRef();
 
@@ -56,7 +57,7 @@ export default function Posts() {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
-    const content = formData.get("content");
+    const content = formData.get("content").trim();
     const createPost = async () => {
       try {
         const endpoint = import.meta.env.VITE_API_URL + "/posts";
@@ -68,6 +69,7 @@ export default function Posts() {
         });
         const json = await res.json();
         if (!json.error) {
+          setErrors({});
           const newPost = {
             ...json,
             _count: { likes: 0 },
@@ -76,12 +78,18 @@ export default function Posts() {
           };
           setPosts((prevPosts) => [newPost, ...prevPosts]);
           form.reset();
+        } else {
+          setErrors(parseValidationErrors(res.status, json));
         }
       } catch (err) {
         console.error(err);
       }
     };
-    createPost();
+    if (content) {
+      createPost();
+    } else {
+      setErrors({ content: "Post must not be empty or whitespaces only." });
+    }
   };
 
   const handlePostInputKeyDown = (event) => {
@@ -100,28 +108,32 @@ export default function Posts() {
         Create a post
       </h3>
       {!feedName ? (
-        <form
-          className="create-post-form"
-          onSubmit={handlePostFormSubmit}
-          method="post"
-          ref={createPostForm}
-          aria-labelledby="create-post-heading"
-        >
-          <label className="visually-hidden" htmlFor="post-content-input">
-            Post content:
-          </label>
-          <textarea
-            name="content"
-            id="post-content-input"
-            className="post-content-input"
-            placeholder="Create a post (Ctrl + Enter to post)"
-            onKeyDown={handlePostInputKeyDown}
-            required
-          ></textarea>
-          <button className="button post-submit-button" type="submit">
-            Post
-          </button>
-        </form>
+        <>
+          <form
+            className="create-post-form"
+            onSubmit={handlePostFormSubmit}
+            method="post"
+            ref={createPostForm}
+            aria-labelledby="create-post-heading"
+          >
+            <label className="visually-hidden" htmlFor="post-content-input">
+              Post content:
+            </label>
+            <textarea
+              name="content"
+              id="post-content-input"
+              className="post-content-input"
+              placeholder="Create a post (Ctrl + Enter to post)"
+              onKeyDown={handlePostInputKeyDown}
+              maxLength="1000"
+              required
+            ></textarea>
+            <button className="button post-submit-button" type="submit">
+              Post
+            </button>
+          </form>
+          {errors.content && <p className="field-error">{errors.content}</p>}
+        </>
       ) : null}
       {posts.map((post) => (
         <PostCard

@@ -239,12 +239,13 @@ button:hover {
 .comments-container {
   padding-left: 0.25rem;
   padding-block: 0.25rem;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .comments-heading {
   font-size: 1rem;
   color: var(--neutral-900);
-  margin-bottom: 0.25rem;
 }
 
 .post-content,
