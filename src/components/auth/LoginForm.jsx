@@ -2,6 +2,7 @@ import { useAuth } from "../../contexts/AuthContext.js";
 import { Link, useNavigate } from "react-router";
 import Socials from "./Socials.jsx";
 import { useState } from "react";
+import { parseValidationErrors } from "../../utils.js";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -25,15 +26,7 @@ export default function LoginForm() {
           navigate("/");
         }, 100);
       } else {
-        const newErrors = {};
-        if (res.status === 400 && json.error.errors) {
-          json.error.errors.forEach((err) => {
-            newErrors[err.path] = err.msg;
-          });
-        } else {
-          newErrors.unexpected = "An unexpected error occured.";
-        }
-        setErrors(newErrors);
+        setErrors(parseValidationErrors(res.status, json));
       }
     } catch (err) {
       console.error(err);
