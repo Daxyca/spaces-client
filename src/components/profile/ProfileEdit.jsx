@@ -21,6 +21,8 @@ export default function ProfileEdit() {
       const value = formData.get(field);
       if (value) {
         newProfile[field] = value;
+      } else if (value === "") {
+        newProfile[field] = null;
       }
     }
 
@@ -36,7 +38,7 @@ export default function ProfileEdit() {
           body: JSON.stringify(newProfile),
         });
         const json = await res.json();
-        if (json) {
+        if (!json.error) {
           setProfile((prev) => ({ ...prev, ...json }));
           window.location.href = "/profile";
         }
@@ -49,13 +51,13 @@ export default function ProfileEdit() {
 
   return (
     <>
-      <header className="profile-header">
-        <h2 className="profile-heading">Edit Profile</h2>
-        <Link to="/profile" aria-label="Go to View Profile Page">
-          ↩
-        </Link>
-      </header>
       <div className="edit-profile-container">
+        <header className="profile-header">
+          <h2 className="profile-heading">Edit Profile</h2>
+          <Link to="/profile" aria-label="Go to View Profile Page">
+            ↩
+          </Link>
+        </header>
         <form className="edit-profile-form" onSubmit={handleEditFormSubmit}>
           <label>
             Display Name:
@@ -63,7 +65,19 @@ export default function ProfileEdit() {
               type="text"
               name="displayName"
               id="displayName"
+              placeholder="Display Name"
               defaultValue={profile.displayName}
+              required
+            />
+          </label>
+          <label>
+            Bio:
+            <input
+              type="text"
+              name="bio"
+              id="bio"
+              defaultValue={profile.bio}
+              placeholder="e.g. Fun Person"
             />
           </label>
           <label>
@@ -72,6 +86,7 @@ export default function ProfileEdit() {
               type="text"
               name="firstName"
               id="firstName"
+              placeholder="First Name"
               defaultValue={profile.firstName}
             />
           </label>
@@ -81,6 +96,7 @@ export default function ProfileEdit() {
               type="text"
               name="lastName"
               id="lastName"
+              placeholder="Last Name"
               defaultValue={profile.lastName}
             />
           </label>
@@ -96,17 +112,16 @@ export default function ProfileEdit() {
             />
           </label>
           <label>
-            Bio:
-            <input type="text" name="bio" id="bio" defaultValue={profile.bio} />
-          </label>
-          <label>
             Sex at Birth:
-            <input
-              type="text"
+            <select
               name="sexAtBirth"
               id="sexAtBirth"
-              defaultValue={profile.sexAtBirth}
-            />
+              defaultValue={profile.sexAtBirth ? profile.sexAtBirth : ""}
+            >
+              <option value="">-</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
           </label>
           <label>
             Location:
@@ -114,11 +129,12 @@ export default function ProfileEdit() {
               type="text"
               name="location"
               id="location"
+              placeholder="e.g. US, UK"
               defaultValue={profile.location}
             />
           </label>
           <button className="button" type="submit">
-            Edit
+            Update Profile
           </button>
         </form>
       </div>
