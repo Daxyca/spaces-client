@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
   margin-inline: auto;
-  max-width: 640px;
+  max-width: 720px;
 }
 
 /* Feed Left */
@@ -35,14 +35,14 @@
 }
 
 .feed-name-input {
-  padding: 0.25rem;
-  width: 90%;
+  padding: 0.5rem;
+  width: 100%;
   border-radius: 0.25rem;
   border: 1px solid black;
 }
 
 .create-feed-button {
-  width: 90%;
+  width: 100%;
   border-radius: 0.5rem;
   padding: 0.25rem 0.75rem;
 }
