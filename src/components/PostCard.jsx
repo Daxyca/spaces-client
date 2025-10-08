@@ -55,7 +55,7 @@ export default function PostCard({
           body: JSON.stringify({ content }),
         });
         const json = await res.json();
-        if (json) {
+        if (!json.error) {
           form.reset();
           setComments((prev) => [...prev, json.comment]);
         }

@@ -67,7 +67,7 @@ export default function Posts() {
           body: JSON.stringify({ content }),
         });
         const json = await res.json();
-        if (json) {
+        if (!json.error) {
           const newPost = {
             ...json,
             _count: { likes: 0 },
