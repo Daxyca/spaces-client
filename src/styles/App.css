@@ -253,6 +253,11 @@ button:hover {
   padding: 0.25rem;
 }
 
+.post-content-lines,
+.comment-content {
+  word-break: break-all;
+}
+
 .comment-author-name {
   font-weight: bold;
 }

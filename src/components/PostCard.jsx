@@ -115,9 +115,15 @@ export default function PostCard({
         </form>
       </div>
       <div className="post-content">
-        {postContent
-          .split("\n")
-          .map((line, i) => (line ? <p key={i}>{line}</p> : <br key={i} />))}
+        {postContent.split("\n").map((line, i) =>
+          line ? (
+            <p key={i} className="post-content-lines">
+              {line}
+            </p>
+          ) : (
+            <br key={i} />
+          )
+        )}
       </div>
       <hr />
       <div className="comments-container">
