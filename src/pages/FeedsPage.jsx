@@ -106,7 +106,7 @@ export default function FeedsPage() {
               name="name"
               id="name"
               placeholder="Feed name"
-              // minLength={3}
+              minLength={3}
               maxLength={12}
               required
             />
