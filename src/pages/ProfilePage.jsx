@@ -8,7 +8,7 @@ export default function ProfilePage() {
   const { user } = useAuth();
   const { profile, setProfile } = useProfile();
 
-  if (!profile || Object.keys(profile).length === 0) {
+  if (!profile || Object.keys(profile).length === 0 || !user?.id) {
     return;
   }
 
