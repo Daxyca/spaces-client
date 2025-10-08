@@ -24,7 +24,7 @@ export default function Followers() {
       try {
         const endpoint =
           import.meta.env.VITE_API_URL +
-          "/follow/follower/" +
+          "/follow/followers/" +
           button.dataset.id;
         const res = await fetch(endpoint, {
           method: "DELETE",

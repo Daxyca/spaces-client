@@ -30,7 +30,7 @@ export default function FollowersRequests() {
       try {
         const endpoint =
           import.meta.env.VITE_API_URL +
-          "/follow/follower/" +
+          "/follow/followers/" +
           button.dataset.id;
         const res = await fetch(endpoint, {
           method: "PATCH",
@@ -65,7 +65,7 @@ export default function FollowersRequests() {
       try {
         const endpoint =
           import.meta.env.VITE_API_URL +
-          "/follow/follower/" +
+          "/follow/followers/" +
           button.dataset.id;
         const res = await fetch(endpoint, {
           method: "DELETE",
