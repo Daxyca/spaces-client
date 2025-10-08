@@ -8,12 +8,14 @@ import {
 import { useEffect, useState } from "react";
 import "../styles/FeedsPage.css";
 import { useFeeds } from "../contexts/FeedsContext.js";
+import { parseValidationErrors } from "../utils.js";
 
 export default function FeedsPage() {
   const data = useLoaderData(); // follows
   let { feedName } = useParams();
   const { feeds, setFeeds } = useFeeds();
   const [users, setUsers] = useState([]);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,12 +64,14 @@ export default function FeedsPage() {
           body: JSON.stringify({ name }),
         });
         const json = await res.json();
-        if (json.error) {
-          throw Error(json.error.message);
+        if (!json.error) {
+          setErrors({});
+          setFeeds((prevFeed) => [...prevFeed, json]);
+          navigate(`/feeds/${json.name}/edit`);
+          form.reset();
+        } else {
+          setErrors(parseValidationErrors(res.status, json));
         }
-        setFeeds((prevFeed) => [...prevFeed, json]);
-        navigate(`/feeds/${json.name}/edit`);
-        form.reset();
       } catch (err) {
         console.error(err);
       }
@@ -102,10 +106,11 @@ export default function FeedsPage() {
               name="name"
               id="name"
               placeholder="Feed name"
-              minLength={3}
+              // minLength={3}
               maxLength={12}
               required
             />
+            {errors.name && <p className="field-error">{errors.name}</p>}
             <button className="button create-feed-button" type="submit">
               Create Feed
             </button>
