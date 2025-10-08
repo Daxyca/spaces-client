@@ -82,6 +82,10 @@
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15);
 }
 
+.edit-profile-errors-container {
+  grid-column: 1 / -1;
+}
+
 .edit-profile-form label {
   display: flex;
   flex-direction: column;

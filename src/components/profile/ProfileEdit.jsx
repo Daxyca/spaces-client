@@ -1,4 +1,5 @@
 import { Link, useOutletContext } from "react-router";
+import { useState } from "react";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -12,6 +13,7 @@ const PROFILE_FIELDS = [
 
 export default function ProfileEdit() {
   const { profile, setProfile } = useOutletContext();
+  const [errors, setErrors] = useState({});
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -39,8 +41,23 @@ export default function ProfileEdit() {
         });
         const json = await res.json();
         if (!json.error) {
+          setErrors({});
           setProfile((prev) => ({ ...prev, ...json }));
           window.location.href = "/profile";
+        } else {
+          if (res.status === 400 && json.error.errors) {
+            const newErrors = {};
+            json.error.errors.forEach((err) => {
+              if (err.path in newErrors) {
+                newErrors[err.path].push(err.msg);
+              } else {
+                newErrors[err.path] = [err.msg];
+              }
+            });
+            setErrors(newErrors);
+          } else {
+            setErrors([{ unexpected: "An unexpected error occured." }]);
+          }
         }
       } catch (err) {
         console.error(err);
@@ -48,6 +65,11 @@ export default function ProfileEdit() {
     };
     updateProfile();
   };
+
+  const allErrors = [];
+  Object.values(errors).forEach((errorArr) =>
+    errorArr.forEach((err) => allErrors.push(err))
+  );
 
   return (
     <>
@@ -65,6 +87,7 @@ export default function ProfileEdit() {
               type="text"
               name="displayName"
               id="displayName"
+              minLength={3}
               placeholder="Display Name"
               defaultValue={profile.displayName}
               required
@@ -136,6 +159,16 @@ export default function ProfileEdit() {
           <button className="button" type="submit">
             Update Profile
           </button>
+
+          {Object.keys(errors).length > 0 ? (
+            <div className="edit-profile-errors-container">
+              {allErrors.map((err) => (
+                <p key={err} className="field-error">
+                  {err}
+                </p>
+              ))}
+            </div>
+          ) : null}
         </form>
       </div>
     </>
