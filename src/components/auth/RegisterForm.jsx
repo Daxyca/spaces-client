@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router";
 import Socials from "./Socials.jsx";
+import { useState } from "react";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   function handleRegisterSubmit(event) {
     event.preventDefault();
@@ -10,7 +12,7 @@ export default function RegisterForm() {
     const username = formData.get("username");
     const email = formData.get("email");
     const password = formData.get("password");
-    const submit = async () => {
+    const register = async () => {
       try {
         const endpoint = import.meta.env.VITE_API_URL + "/auth/register";
         const res = await fetch(endpoint, {
@@ -19,21 +21,32 @@ export default function RegisterForm() {
           body: JSON.stringify({ username, email, password }),
         });
         const json = await res.json();
-        if (json) {
+        if (!json.error) {
+          setErrors({});
           navigate("/auth/login");
+        } else {
+          const newErrors = {};
+          if (res.status === 400 && json.error.errors) {
+            json.error.errors.forEach((err) => {
+              newErrors[err.path] = err.msg;
+            });
+          } else {
+            newErrors.unexpected = "An unexpected error occured.";
+          }
+          setErrors(newErrors);
         }
       } catch (err) {
         console.error(err);
       }
     };
-    submit();
+    register();
   }
 
   return (
     <>
       <form className="auth-form" onSubmit={handleRegisterSubmit} method="post">
         <label className="visually-hidden" htmlFor="username">
-          Username:{" "}
+          Username:
         </label>
         <input
           type="text"
@@ -43,8 +56,9 @@ export default function RegisterForm() {
           placeholder="Username"
           required
         />
+        {errors.username && <p className="field-error">{errors.username}</p>}
         <label className="visually-hidden" htmlFor="email">
-          Email:{" "}
+          Email:
         </label>
         <input
           type="email"
@@ -53,8 +67,9 @@ export default function RegisterForm() {
           placeholder="Email"
           required
         />
+        {errors.email && <p className="field-error">{errors.email}</p>}
         <label className="visually-hidden" htmlFor="password">
-          Password:{" "}
+          Password:
         </label>
         <input
           type="password"
@@ -64,9 +79,13 @@ export default function RegisterForm() {
           placeholder="Password"
           required
         />
+        {errors.password && <p className="field-error">{errors.password}</p>}
         <button className="button" type="submit">
           Register
         </button>
+        {errors.unexpected && (
+          <p className="field-error">{errors.unexpected}</p>
+        )}
       </form>
       <Socials loginForm={false} />
       <p className="auth-link">
