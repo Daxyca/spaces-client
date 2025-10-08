@@ -4,9 +4,23 @@ import PostCard from "../PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
 import { useProfile } from "../../contexts/ProfileContext.js";
 
+const FOLLOW_ENDPOINTS = {
+  follow: ["POST", "following"],
+  unfollow: ["DELETE", "following"],
+  cancel: ["DELETE", "following"],
+  accept: ["PATCH", "followers"],
+  decline: ["DELETE", "followers"],
+  remove: ["DELETE", "followers"],
+};
+
+const PROFILE_KEY = {
+  followers: "following",
+  following: "followers",
+};
+
 export default function ProfileContent() {
   const { isCurrentUser } = useOutletContext();
-  const { profile } = useProfile();
+  const { profile, setProfile } = useProfile();
   const [picture, setPicture] = useState(profile.picture);
 
   useEffect(() => {
@@ -56,6 +70,56 @@ export default function ProfileContent() {
     return await likePost();
   };
 
+  const handleFollowButtonClick = (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    const submitType = button.value;
+    const followBaseUrl = import.meta.env.VITE_API_URL + "/follow";
+    const submit = async () => {
+      try {
+        const [method, followPath] = FOLLOW_ENDPOINTS[submitType];
+        const endpoint = `${followBaseUrl}/${followPath}/${profile.id}`;
+        const res = await fetch(endpoint, {
+          method,
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        });
+        const json = await res.json();
+        if (json.error) {
+          button.disabled = false;
+          throw new Error(json.error);
+        }
+        if (method === "DELETE") {
+          setProfile((prevProfile) => ({
+            ...prevProfile,
+            [PROFILE_KEY[followPath]]: [],
+          }));
+          button.disabled = false;
+        } else {
+          setProfile((prevProfile) => ({
+            ...prevProfile,
+            [PROFILE_KEY[followPath]]: [json],
+          }));
+          button.disabled = false;
+        }
+      } catch (err) {
+        button.disabled = false;
+        console.error(err);
+      }
+    };
+    submit();
+  };
+
+  const handleFollowFormSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const sentFollowed = profile.followers.length > 0;
+  const isFollowed = sentFollowed && profile.followers[0].status === "Accepted";
+  const receivedFollow = profile.following.length > 0;
+  const isFollower =
+    receivedFollow && profile.following[0].status === "Accepted";
+
   return (
     <>
       <div className="profile-container">
@@ -103,6 +167,77 @@ export default function ProfileContent() {
             <p>Bio: {profile.bio || "-"}</p>
             <p>Sex at Birth: {profile.sexAtBirth || "-"}</p>
             <p>Location: {profile.location || "-"}</p>
+            {isCurrentUser ? null : (
+              <form
+                id="profile-follow-form"
+                className="profile-follow-form"
+                action={import.meta.env.VITE_API_URL + "/follow"}
+                onSubmit={handleFollowFormSubmit}
+                method="post"
+              >
+                {sentFollowed ? (
+                  isFollowed ? (
+                    <button
+                      className="button alt"
+                      name="submit"
+                      value="unfollow"
+                      onClick={handleFollowButtonClick}
+                    >
+                      Unfollow
+                    </button>
+                  ) : (
+                    <button
+                      className="button alt"
+                      name="submit"
+                      value="cancel"
+                      onClick={handleFollowButtonClick}
+                    >
+                      Cancel Request
+                    </button>
+                  )
+                ) : (
+                  <button
+                    className="button"
+                    name="submit"
+                    value="follow"
+                    onClick={handleFollowButtonClick}
+                  >
+                    Follow User
+                  </button>
+                )}
+                {receivedFollow ? (
+                  isFollower ? (
+                    <button
+                      className="button alt"
+                      name="submit"
+                      value="remove"
+                      onClick={handleFollowButtonClick}
+                    >
+                      Remove Follower
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        className="button"
+                        name="submit"
+                        value="accept"
+                        onClick={handleFollowButtonClick}
+                      >
+                        Accept Request
+                      </button>
+                      <button
+                        className="button alt"
+                        name="submit"
+                        value="decline"
+                        onClick={handleFollowButtonClick}
+                      >
+                        Decline Request
+                      </button>
+                    </>
+                  )
+                ) : null}
+              </form>
+            )}
           </div>
         </div>
         <div className="profile-right-container">
