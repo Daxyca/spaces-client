@@ -69,8 +69,9 @@ export default function RegisterForm() {
         </button>
       </form>
       <Socials loginForm={false} />
-      <p>
-        <Link to="/auth/login">Already have an account?</Link>
+      <p className="auth-link">
+        Already registered?
+        <Link to="/auth/login"> Login</Link>
       </p>
     </>
   );

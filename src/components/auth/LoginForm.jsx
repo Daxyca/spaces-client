@@ -80,8 +80,9 @@ export default function LoginForm() {
         </button>
       </form>
       <Socials loginForm={true} />
-      <p>
-        <Link to="/auth/register">Create a new account</Link>
+      <p className="auth-link">
+        No account?
+        <Link to="/auth/register"> Register here</Link>
       </p>
     </>
   );
