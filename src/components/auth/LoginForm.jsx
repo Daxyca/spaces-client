@@ -6,64 +6,45 @@ export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const loginPost = async (username, password) => {
+    try {
+      const endpoint = import.meta.env.VITE_API_URL + "/auth/login";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+      });
+      const json = await res.json();
+      if (!json.error) {
+        login(json.data);
+        setTimeout(() => {
+          navigate("/");
+        }, 100);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   function handleLoginSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
-    const submit = async () => {
-      try {
-        const endpoint = import.meta.env.VITE_API_URL + "/auth/login";
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ username, password }),
-        });
-        const json = await res.json();
-        if (json) {
-          login(json.data);
-          setTimeout(() => {
-            navigate("/");
-          }, 100);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    submit();
+    loginPost(username, password);
   }
 
   const handleGuestLoginSubmit = (event) => {
     event.preventDefault();
-    const guestLogin = async () => {
-      try {
-        const endpoint = import.meta.env.VITE_API_URL + "/auth/login";
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ username: "user", password: "123" }),
-        });
-        const json = await res.json();
-        if (json) {
-          login(json.data);
-          setTimeout(() => {
-            navigate("/");
-          }, 100);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    guestLogin();
+    loginPost("user", "123");
   };
 
   return (
     <>
       <form className="auth-form" onSubmit={handleLoginSubmit} method="post">
         <label className="visually-hidden" htmlFor="username">
-          Username:{" "}
+          Username:
         </label>
         <input
           type="text"
@@ -74,7 +55,7 @@ export default function LoginForm() {
           required
         />
         <label className="visually-hidden" htmlFor="password">
-          Password:{" "}
+          Password:
         </label>
         <input
           type="password"
