@@ -42,6 +42,11 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
+.field-error {
+  color: crimson;
+  font-size: 0.5rem;
+}
+
 .github-form button {
   background-color: var(--neutral-900);
   color: var(--neutral-100);

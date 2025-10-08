@@ -1,10 +1,12 @@
 import { useAuth } from "../../contexts/AuthContext.js";
 import { Link, useNavigate } from "react-router";
 import Socials from "./Socials.jsx";
+import { useState } from "react";
 
 export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   const loginPost = async (username, password) => {
     try {
@@ -17,10 +19,21 @@ export default function LoginForm() {
       });
       const json = await res.json();
       if (!json.error) {
+        setErrors({});
         login(json.data);
         setTimeout(() => {
           navigate("/");
         }, 100);
+      } else {
+        const newErrors = {};
+        if (res.status === 400 && json.error.errors) {
+          json.error.errors.forEach((err) => {
+            newErrors[err.path] = err.msg;
+          });
+        } else {
+          newErrors.unexpected = "An unexpected error occured.";
+        }
+        setErrors(newErrors);
       }
     } catch (err) {
       console.error(err);
@@ -54,6 +67,7 @@ export default function LoginForm() {
           placeholder="Username"
           required
         />
+        {errors.username && <p className="field-error">{errors.username}</p>}
         <label className="visually-hidden" htmlFor="password">
           Password:
         </label>
@@ -65,9 +79,13 @@ export default function LoginForm() {
           placeholder="Password"
           required
         />
+        {errors.password && <p className="field-error">{errors.password}</p>}
         <button className="button" type="submit">
           Login
         </button>
+        {errors.unexpected && (
+          <p className="field-error">{errors.unexpected}</p>
+        )}
       </form>
       <form
         className="auth-form guest-login-form"
