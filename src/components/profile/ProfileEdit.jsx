@@ -87,7 +87,8 @@ export default function ProfileEdit() {
               type="text"
               name="displayName"
               id="displayName"
-              minLength={3}
+              minLength="3"
+              maxLength="12"
               placeholder="Display Name"
               defaultValue={profile.displayName}
               required
@@ -99,6 +100,7 @@ export default function ProfileEdit() {
               type="text"
               name="bio"
               id="bio"
+              maxLength="250"
               defaultValue={profile.bio}
               placeholder="e.g. Fun Person"
             />

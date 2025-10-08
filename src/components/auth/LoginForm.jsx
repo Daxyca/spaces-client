@@ -57,6 +57,7 @@ export default function LoginForm() {
           name="username"
           id="username"
           minLength="3"
+          maxLength="16"
           placeholder="Username"
           required
         />
@@ -69,6 +70,7 @@ export default function LoginForm() {
           name="password"
           id="password"
           minLength="3"
+          maxLength="32"
           placeholder="Password"
           required
         />
