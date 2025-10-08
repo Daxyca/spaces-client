@@ -19,7 +19,7 @@ export function FeedsProvider({ children }) {
       setFeeds(data);
     }
     getFeeds();
-  }, []);
+  }, [user]);
 
   if (!user) {
     return children;
