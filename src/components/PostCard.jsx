@@ -28,6 +28,8 @@ export default function PostCard({
   const pending = useRef();
   const menuEl = useRef();
   const [menuShown, setMenuShown] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const editPostForm = useRef();
 
   async function handleClick(event) {
     event.preventDefault();
@@ -59,14 +61,13 @@ export default function PostCard({
     if (pending.current) return;
     pending.current = true;
     setMenuShown(false);
-    const postId = event.target.dataset.id;
     if (!confirm(`The post will be deleted. Confirm?`)) {
       pending.current = false;
       return;
     }
     const deletePost = async () => {
       try {
-        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${postId}`;
+        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${post.id}`;
         const res = await fetch(endpoint, {
           method: "DELETE",
           credentials: "include",
@@ -74,7 +75,7 @@ export default function PostCard({
         const json = await res.json();
         if (!json.error) {
           setPosts((prevPosts) =>
-            prevPosts.filter((post) => post.id !== postId)
+            prevPosts.filter((prevPost) => prevPost.id !== post.id)
           );
         }
       } catch (err) {
@@ -88,6 +89,62 @@ export default function PostCard({
 
   const handleEditPostClick = () => {
     setMenuShown(false);
+    setIsEditing(true);
+  };
+
+  const handlePostInputKeyDown = (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+      event.preventDefault();
+      editPostForm.current.requestSubmit();
+    } else if (event.key === "Escape") {
+      setIsEditing(false);
+    }
+  };
+
+  const handleCancelEditClick = (event) => {
+    event.preventDefault();
+    setIsEditing(false);
+  };
+
+  const handleEditPostFormSubmit = (event) => {
+    event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
+    const form = event.target;
+    const formData = new FormData(form);
+    const content = formData.get("content").trim();
+    const editPost = async () => {
+      try {
+        const endpoint = import.meta.env.VITE_API_URL + "/posts/" + post.id;
+        const res = await fetch(endpoint, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ content }),
+        });
+        const json = await res.json();
+        if (!json.error) {
+          setErrors({});
+          setPosts((prevPosts) =>
+            prevPosts.map((prevPost) =>
+              prevPost.id === json.id ? json : prevPost
+            )
+          );
+          setIsEditing(false);
+        } else {
+          setErrors(parseValidationErrors(res.status, json));
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        pending.current = false;
+      }
+    };
+    if (content) {
+      editPost();
+    } else {
+      setErrors({ content: "Post must not be empty or whitespaces only." });
+    }
   };
 
   return (
@@ -128,11 +185,7 @@ export default function PostCard({
                 >
                   Edit Post
                 </button>
-                <form
-                  onSubmit={handleDeletePostSubmit}
-                  method="post"
-                  data-id={post.id}
-                >
+                <form onSubmit={handleDeletePostSubmit} method="post">
                   <button
                     className="delete-post-button button accent"
                     type="submit"
@@ -146,14 +199,51 @@ export default function PostCard({
         ) : null}
       </div>
       <div className="post-content">
-        {postContent.split("\n").map((line, i) =>
-          line ? (
-            <p key={i} className="post-content-lines">
-              {line}
-            </p>
-          ) : (
-            <br key={i} />
-          )
+        {isEditing ? (
+          <form
+            className="edit-post-form"
+            ref={editPostForm}
+            onSubmit={handleEditPostFormSubmit}
+          >
+            <label htmlFor={post.id + "-content"} className="sr-only">
+              Post content:
+            </label>
+            <textarea
+              name="content"
+              id={post.id + "-content"}
+              className="edit-post-content-input"
+              defaultValue={post.content}
+              onKeyDown={handlePostInputKeyDown}
+              autoFocus
+            ></textarea>
+            <div className="edit-post-buttons-container">
+              <span className="shortcut-key">Ctrl + ↵</span>
+              <button className="button" type="submit" name="save">
+                Save Edit
+              </button>
+              <span className="shortcut-key">Esc</span>
+              <button
+                className="button alt"
+                type="submit"
+                name="cancel"
+                onClick={handleCancelEditClick}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <>
+            {postContent.split("\n").map((line, i) =>
+              line ? (
+                <p key={i} className="post-content-lines">
+                  {line}
+                </p>
+              ) : (
+                <br key={i} />
+              )
+            )}
+          </>
         )}
       </div>
       <hr />
@@ -164,7 +254,6 @@ export default function PostCard({
             className="like-button"
             type="button"
             onClick={handleClick}
-            data-id={post.id}
             name={liked ? "unlike" : "like"}
             aria-label={`${likes} likes. Click to ${
               liked ? "unlike" : "like"
@@ -192,13 +281,12 @@ function Comments({ currentUserPicture, handleSubmitComment, post }) {
     pending.current = true;
     const form = event.target;
     const formData = new FormData(form);
-    const postId = event.target.dataset.postid;
     const content = formData.get("content").trim();
     const createComment = async () => {
       try {
-        const endpoint = `${
-          import.meta.env.VITE_API_URL
-        }/posts/${postId}/comments`;
+        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${
+          post.id
+        }/comments`;
         const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -243,15 +331,14 @@ function Comments({ currentUserPicture, handleSubmitComment, post }) {
         className="comment-form"
         onSubmit={handleSubmitComment}
         method="post"
-        data-postid={post.id}
       >
-        <label className="sr-only" htmlFor={post.id}>
+        <label className="sr-only" htmlFor={post.id + "-comment"}>
           Add a comment:
         </label>
         <input
           name="content"
           className="comment-input"
-          id={post.id}
+          id={post.id + "-comment"}
           type="text"
           placeholder="Add a comment (Enter ↵)"
           maxLength="250"

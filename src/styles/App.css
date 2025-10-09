@@ -324,6 +324,34 @@ button:hover {
   word-break: break-all;
 }
 
+.edit-post-form {
+  display: grid;
+}
+
+.edit-post-content-input {
+  width: 100%;
+  resize: none;
+  height: 4rem;
+  width: 100%;
+  align-self: center;
+  padding: 0rem 0.25rem;
+  border: 0.0625rem solid black;
+  border-radius: 0.5rem;
+}
+
+.edit-post-buttons-container {
+  margin-left: auto;
+  padding-top: 0.5rem;
+  padding-right: 0.25rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.shortcut-key {
+  opacity: 0.5;
+}
+
 .comment-author-name {
   font-weight: bold;
 }
