@@ -123,7 +123,7 @@ export default function Posts() {
               name="content"
               id="post-content-input"
               className="post-content-input"
-              placeholder="Create a post (Ctrl + Enter to post)"
+              placeholder="Create a post (Ctrl + Enter ↵)"
               onKeyDown={handlePostInputKeyDown}
               maxLength="1000"
               required

@@ -153,7 +153,7 @@ export default function PostCard({
             className="comment-input"
             id={post.id}
             type="text"
-            placeholder="Add a comment (Enter to send)"
+            placeholder="Add a comment (Enter ↵)"
             maxLength="250"
             required
           />

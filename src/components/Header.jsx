@@ -10,12 +10,7 @@ export default function Header() {
   return (
     <header className="header">
       <Link to="/">
-        <img
-          className="header-icon"
-          src="/spaces.svg"
-          alt="spaces icon"
-          width="32px"
-        />
+        <img className="header-icon" src="/spaces.svg" alt="spaces icon" />
       </Link>
       <nav className="nav">
         <ul className="nav-list nav-center-list">
