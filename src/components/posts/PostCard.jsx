@@ -256,6 +256,7 @@ export default function PostCard({
             type="button"
             onClick={handleClick}
             name={liked ? "unlike" : "like"}
+            data-id={post.id}
             aria-label={`${likes} likes. Click to ${
               liked ? "unlike" : "like"
             }.`}
