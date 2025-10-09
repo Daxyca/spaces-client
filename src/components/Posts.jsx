@@ -136,6 +136,7 @@ export default function Posts() {
             key={post.id}
             alreadyLiked={post.likes.length > 0 ? true : false}
             handleLikeUnlikeClick={handleLikeUnlikeClick}
+            setPosts={setPosts}
           />
         ))
       ) : (

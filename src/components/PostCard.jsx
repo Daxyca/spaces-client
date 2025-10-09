@@ -19,6 +19,7 @@ export default function PostCard({
   handleLikeUnlikeClick,
   alreadyLiked,
   currentUserPicture,
+  setPosts,
 }) {
   const [likes, setLikes] = useState(post._count.likes);
   const [liked, setLiked] = useState(alreadyLiked);
@@ -94,7 +95,30 @@ export default function PostCard({
 
   const handleDeletePostSubmit = (event) => {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
+    const postId = event.target.dataset.id;
     if (!confirm(`The post will be deleted. Confirm?`)) return;
+    const deletePost = async () => {
+      try {
+        const endpoint = `${import.meta.env.VITE_API_URL}/posts/${postId}`;
+        const res = await fetch(endpoint, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        const json = await res.json();
+        if (!json.error) {
+          setPosts((prevPosts) =>
+            prevPosts.filter((post) => post.id !== postId)
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        pending.current = false;
+      }
+    };
+    deletePost();
   };
 
   return (
@@ -128,7 +152,11 @@ export default function PostCard({
             <Link className="edit-post-link" to={`/post/${post.id}/edit`}>
               Edit Post
             </Link>
-            <form onSubmit={handleDeletePostSubmit} method="post" data-id={1}>
+            <form
+              onSubmit={handleDeletePostSubmit}
+              method="post"
+              data-id={post.id}
+            >
               <button className="delete-post-button" type="submit">
                 Delete Post
               </button>
