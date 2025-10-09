@@ -22,17 +22,6 @@ export default function Posts() {
     return;
   }
 
-  if (data.length === 0) {
-    return (
-      <div className="posts-container">
-        <h2 className="posts-heading visually-hidden">
-          {spaceName ? `${spaceName} ` : null} Posts
-        </h2>
-        <p>No posts to see here...</p>
-      </div>
-    );
-  }
-
   const handleLikeUnlikeClick = async (event, liked) => {
     const likeBtn = event.currentTarget;
     const postId = likeBtn.dataset.id;
@@ -140,14 +129,18 @@ export default function Posts() {
           {errors.content && <p className="field-error">{errors.content}</p>}
         </>
       ) : null}
-      {posts.map((post) => (
-        <PostCard
-          post={post}
-          key={post.id}
-          alreadyLiked={post.likes.length > 0 ? true : false}
-          handleLikeUnlikeClick={handleLikeUnlikeClick}
-        />
-      ))}
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <PostCard
+            post={post}
+            key={post.id}
+            alreadyLiked={post.likes.length > 0 ? true : false}
+            handleLikeUnlikeClick={handleLikeUnlikeClick}
+          />
+        ))
+      ) : (
+        <p style={{ alignSelf: "center" }}>No posts to see here...</p>
+      )}
     </div>
   );
 }
