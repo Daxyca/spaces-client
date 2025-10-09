@@ -40,10 +40,10 @@ export default function ProfileContent() {
         const json = await res.json();
         if (json.picture) {
           setPicture(json.picture);
-          pending.current = false;
         }
       } catch (err) {
         console.error(err);
+      } finally {
         pending.current = false;
       }
     };
