@@ -1,14 +1,17 @@
 import { Link, useNavigate } from "react-router";
 import Socials from "./Socials.jsx";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { parseValidationErrors } from "../../utils.js";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const pending = useRef();
 
   function handleRegisterSubmit(event) {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username");
     const email = formData.get("email");
@@ -26,9 +29,11 @@ export default function RegisterForm() {
           setErrors({});
           navigate("/auth/login");
         } else {
+          pending.current = false;
           setErrors(parseValidationErrors(res.status, json));
         }
       } catch (err) {
+        pending.current = false;
         console.error(err);
       }
     };

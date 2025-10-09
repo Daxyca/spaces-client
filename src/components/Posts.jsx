@@ -8,6 +8,7 @@ export default function Posts() {
   const { spaceName } = useParams();
   const [errors, setErrors] = useState({});
   const [posts, setPosts] = useState([]);
+  const pending = useRef();
   const createPostForm = useRef();
 
   useEffect(() => {
@@ -55,6 +56,8 @@ export default function Posts() {
 
   const handlePostFormSubmit = (event) => {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const form = event.target;
     const formData = new FormData(form);
     const content = formData.get("content").trim();
@@ -83,6 +86,8 @@ export default function Posts() {
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        pending.current = false;
       }
     };
     if (content) {

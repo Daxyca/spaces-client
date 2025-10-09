@@ -1,13 +1,14 @@
 import { useAuth } from "../../contexts/AuthContext.js";
 import { Link, useNavigate } from "react-router";
 import Socials from "./Socials.jsx";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { parseValidationErrors } from "../../utils.js";
 
 export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const pending = useRef();
 
   const loginPost = async (username, password) => {
     try {
@@ -26,15 +27,19 @@ export default function LoginForm() {
           navigate("/");
         }, 100);
       } else {
+        pending.current = false;
         setErrors(parseValidationErrors(res.status, json));
       }
     } catch (err) {
+      pending.current = false;
       console.error(err);
     }
   };
 
   function handleLoginSubmit(event) {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
@@ -43,6 +48,8 @@ export default function LoginForm() {
 
   const handleGuestLoginSubmit = (event) => {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     loginPost("user", "123");
   };
 

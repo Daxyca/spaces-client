@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
 import Avatar from "./Avatar.jsx";
 import LikeImage from "./LikeImage.jsx";
@@ -24,6 +24,7 @@ export default function PostCard({
   const [liked, setLiked] = useState(alreadyLiked);
   const [comments, setComments] = useState(post.comments);
   const [errors, setErrors] = useState({});
+  const pending = useRef();
 
   async function handleClick(event) {
     event.preventDefault();
@@ -41,6 +42,8 @@ export default function PostCard({
 
   async function handleSubmitComment(event) {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const form = event.target;
     const formData = new FormData(form);
     const postId = event.target.dataset.postid;
@@ -66,6 +69,8 @@ export default function PostCard({
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        pending.current = false;
       }
     };
     if (content) {
