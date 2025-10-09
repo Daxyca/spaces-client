@@ -99,6 +99,7 @@ export default function PostCard({
     event.preventDefault();
     if (pending.current) return;
     pending.current = true;
+    setPopupShown(false);
     const postId = event.target.dataset.id;
     if (!confirm(`The post will be deleted. Confirm?`)) {
       pending.current = false;
@@ -124,6 +125,10 @@ export default function PostCard({
       }
     };
     deletePost();
+  };
+
+  const handleEditPostClick = () => {
+    setPopupShown(false);
   };
 
   return (
@@ -159,6 +164,8 @@ export default function PostCard({
                 <button
                   className="edit-post-button button"
                   to={`/post/${post.id}/edit`}
+                  onClick={handleEditPostClick}
+                  autoFocus
                 >
                   Edit Post
                 </button>
