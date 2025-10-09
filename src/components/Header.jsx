@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from "react-router";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useRef } from "react";
 import { useFeeds } from "../contexts/FeedsContext.js";
+import DownSymbol from "../assets/DownSymbol.jsx";
 
 export default function Header() {
   const { user } = useAuth();
@@ -58,7 +59,9 @@ function NavListCenter() {
         ref={feedsEl}
         onClick={handleFeedsClick}
       >
-        <p className="nav-link nav-toggle nav-feeds-toggle">Feeds</p>
+        <p className="nav-link nav-toggle nav-feeds-toggle">
+          Feeds <DownSymbol />
+        </p>
         <Link className="nav-link nav-feed-link" to="/feeds">
           <span className="sr-only">View and </span>
           (Edit Feeds)
