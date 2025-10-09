@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import Avatar from "../Avatar.jsx";
 import PostCard from "../PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
@@ -22,13 +22,12 @@ export default function ProfileContent() {
   const { isCurrentUser } = useOutletContext();
   const { profile, setProfile } = useProfile();
   const [picture, setPicture] = useState(profile.picture);
-
-  useEffect(() => {
-    setPicture(profile.picture);
-  }, [profile.picture]);
+  const pending = useRef();
 
   function handlePictureFormSubmit(event) {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const formData = new FormData(event.target);
     const updatePicturePost = async () => {
       try {
@@ -41,9 +40,11 @@ export default function ProfileContent() {
         const json = await res.json();
         if (json.picture) {
           setPicture(json.picture);
+          pending.current = false;
         }
       } catch (err) {
         console.error(err);
+        pending.current = false;
       }
     };
     updatePicturePost();
