@@ -37,7 +37,7 @@
 
 .nav-item {
   display: flex;
-  height: 2.375rem;
+  height: 2.25rem;
 }
 
 .nav-item > * {
@@ -55,9 +55,6 @@
   overflow: hidden;
   z-index: 1;
   max-height: 100%;
-}
-
-.nav-users-item {
 }
 
 .nav-feed-link,
@@ -83,7 +80,6 @@
 }
 
 .nav-feeds-toggle {
-  padding-top: 0.625rem;
   padding-left: 0.5rem;
 }
 
