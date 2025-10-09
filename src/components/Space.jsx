@@ -77,9 +77,6 @@ export default function Space() {
         const res = await fetch(endpoint, {
           method: "DELETE",
           credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
         });
         const json = await res.json();
         if (!json.error) {
