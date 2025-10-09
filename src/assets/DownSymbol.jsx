@@ -9,12 +9,12 @@ export default function DownSymbol() {
       className="nav-down-symbol"
     >
       <path
-        vector-effect="non-scaling-stroke"
+        vectorEffect="non-scaling-stroke"
         stroke="var(--icon-color, #001e00)"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-miterlimit="10"
-        stroke-width="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeMiterlimit="10"
+        strokeWidth="1.5"
         d="M18 10l-6 5-6-5"
       ></path>
     </svg>
