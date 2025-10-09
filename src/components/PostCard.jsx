@@ -102,7 +102,26 @@ export default function PostCard({
           </h4>
           <p className="post-create-time">{postCreatedAt}</p>
         </div>
-        <form>
+        <div className="post-popup">
+          <button className="post-popup-toggle">:</button>
+          <div className="post-popup-options"></div>
+        </div>
+      </div>
+      <div className="post-content">
+        {postContent.split("\n").map((line, i) =>
+          line ? (
+            <p key={i} className="post-content-lines">
+              {line}
+            </p>
+          ) : (
+            <br key={i} />
+          )
+        )}
+      </div>
+      <hr />
+      <div className="likes-and-comments-heading">
+        <p className="comments-heading">Comments</p>
+        <form className="like-form">
           <button
             className="like-button"
             type="button"
@@ -118,20 +137,8 @@ export default function PostCard({
           </button>
         </form>
       </div>
-      <div className="post-content">
-        {postContent.split("\n").map((line, i) =>
-          line ? (
-            <p key={i} className="post-content-lines">
-              {line}
-            </p>
-          ) : (
-            <br key={i} />
-          )
-        )}
-      </div>
       <hr />
       <div className="comments-container">
-        <h5 className="comments-heading">Comments</h5>
         {comments.length > 0 ? (
           comments.map((comment) => (
             <CommentCard
