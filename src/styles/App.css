@@ -224,22 +224,22 @@ button:hover {
   gap: 0.5rem;
 }
 
-.post-popup {
+.post-menu {
   position: relative;
 }
 
-.post-popup-toggle {
+.post-menu-toggle {
   display: flex;
   align-items: center;
   height: 100%;
   background-color: white;
 }
 
-.post-popup-toggle:hover {
+.post-menu-toggle:hover {
   background-color: var(--neutral-100);
 }
 
-.post-popup-options {
+.post-menu-options {
   position: absolute;
   display: grid;
   gap: 0.25rem;

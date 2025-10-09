@@ -27,8 +27,8 @@ export default function PostCard({
   const [comments, setComments] = useState(post.comments);
   const [errors, setErrors] = useState({});
   const pending = useRef();
-  const popupEl = useRef();
-  const [popupShown, setPopupShown] = useState(false);
+  const menuEl = useRef();
+  const [menuShown, setMenuShown] = useState(false);
 
   async function handleClick(event) {
     event.preventDefault();
@@ -87,19 +87,19 @@ export default function PostCard({
   const postContent = post.content.trim();
   const postCreatedAt = formatDate(post.createdAt);
 
-  const handleTogglePostPopupClick = () => {
-    setPopupShown((prev) => !prev);
+  const handleTogglePostMenuClick = () => {
+    setMenuShown((prev) => !prev);
   };
 
-  const handlePostPopupOnLeave = () => {
-    setPopupShown(false);
+  const handlePostMenuOnLeave = () => {
+    setMenuShown(false);
   };
 
   const handleDeletePostSubmit = (event) => {
     event.preventDefault();
     if (pending.current) return;
     pending.current = true;
-    setPopupShown(false);
+    setMenuShown(false);
     const postId = event.target.dataset.id;
     if (!confirm(`The post will be deleted. Confirm?`)) {
       pending.current = false;
@@ -128,7 +128,7 @@ export default function PostCard({
   };
 
   const handleEditPostClick = () => {
-    setPopupShown(false);
+    setMenuShown(false);
   };
 
   return (
@@ -151,16 +151,16 @@ export default function PostCard({
           <p className="post-create-time">{postCreatedAt}</p>
         </div>
         {post.authorId === userId ? (
-          <div className="post-popup" onMouseLeave={handlePostPopupOnLeave}>
+          <div className="post-menu" onMouseLeave={handlePostMenuOnLeave}>
             <button
-              onClick={handleTogglePostPopupClick}
-              className="post-popup-toggle"
+              onClick={handleTogglePostMenuClick}
+              className="post-menu-toggle"
               aria-label="Toggle Post Button"
             >
               ⋮
             </button>
-            {popupShown && (
-              <div className="post-popup-options" ref={popupEl}>
+            {menuShown && (
+              <div className="post-menu-options" ref={menuEl}>
                 <button
                   className="edit-post-button button"
                   to={`/post/${post.id}/edit`}
