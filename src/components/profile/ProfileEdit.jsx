@@ -1,5 +1,5 @@
 import { Link, useOutletContext } from "react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -14,9 +14,12 @@ const PROFILE_FIELDS = [
 export default function ProfileEdit() {
   const { profile, setProfile } = useOutletContext();
   const [errors, setErrors] = useState({});
+  const pending = useRef();
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const formData = new FormData(event.currentTarget);
     const newProfile = {};
     for (const field of PROFILE_FIELDS) {
@@ -27,7 +30,6 @@ export default function ProfileEdit() {
         newProfile[field] = null;
       }
     }
-
     const updateProfile = async () => {
       try {
         const endpoint = import.meta.env.VITE_API_URL + `/profile`;
@@ -58,8 +60,10 @@ export default function ProfileEdit() {
           } else {
             setErrors([{ unexpected: "An unexpected error occured." }]);
           }
+          pending.current = false;
         }
       } catch (err) {
+        pending.current = false;
         console.error(err);
       }
     };

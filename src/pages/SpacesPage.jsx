@@ -5,7 +5,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/SpacesPage.css";
 import { useSpaces } from "../contexts/SpacesContext.js";
 import { parseValidationErrors } from "../utils.js";
@@ -17,6 +17,7 @@ export default function SpacesPage() {
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const pending = useRef();
 
   useEffect(() => {
     if (spaces.length === 0 || !spaceName) {
@@ -53,6 +54,8 @@ export default function SpacesPage() {
 
   const handleCreateSpaceSubmit = (event) => {
     event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
     const form = event.target;
     const formData = new FormData(form);
     const name = formData.get("name");
@@ -76,6 +79,8 @@ export default function SpacesPage() {
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        pending.current = false;
       }
     };
     createSpace();
