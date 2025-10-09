@@ -46,19 +46,18 @@
   padding-block: 0.5rem;
 }
 
-.nav-center-list {
-}
-
-.nav-feeds-item {
+.nav-feeds-item,
+.nav-users-item {
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 1;
-  height: 2rem;
+  height: 2.1875rem;
 }
 
-.nav-feed-link {
+.nav-feed-link,
+.nav-user-link {
   position: relative;
   z-index: 1;
   background-color: white;
@@ -70,8 +69,17 @@
   border-inline: 0.0625rem solid rgba(0, 0, 0, 0.1);
 }
 
-.nav-feed-link:hover {
+.nav-user-link {
+  width: 8ch;
+}
+
+.nav-feed-link:hover,
+.nav-user-link:hover {
   background-color: var(--neutral-100);
+}
+
+.nav-feeds-toggle {
+  padding-left: 0.5rem;
 }
 
 .nav-toggle {
@@ -90,17 +98,12 @@
 
 .nav-down-symbol {
   width: 0.5rem;
-  position: absolute;
-  right: 20%;
+  /* position: absolute; */
+  right: 15%;
 }
 
 .show-feeds {
   overflow: unset;
-}
-
-.nav-user-list {
-  display: flex;
-  gap: 1.5rem;
 }
 
 .footer {

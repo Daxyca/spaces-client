@@ -5,8 +5,6 @@ import { useFeeds } from "../contexts/FeedsContext.js";
 import DownSymbol from "../assets/DownSymbol.jsx";
 
 export default function Header() {
-  const { user } = useAuth();
-
   return (
     <header className="header">
       <Link to="/">
@@ -21,8 +19,7 @@ export default function Header() {
       </nav>
       <nav className="nav">
         <ul className="nav-list nav-user-list">
-          <NavListItem href="/profile" name={user?.displayName || "User"} />
-          <NavListItem href="/auth/logout" name="Logout" />
+          <NavListRight />
         </ul>
       </nav>
     </header>
@@ -76,6 +73,35 @@ function NavListCenter() {
             {feed.name}
           </Link>
         ))}
+      </li>
+    </>
+  );
+}
+
+function NavListRight() {
+  const { user } = useAuth();
+  const userEl = useRef();
+
+  const handleFeedsClick = (event) => {
+    event.currentTarget.classList.toggle("show-feeds");
+  };
+
+  return (
+    <>
+      <li
+        className="nav-item nav-users-item"
+        ref={userEl}
+        onClick={handleFeedsClick}
+      >
+        <p className="nav-link nav-toggle nav-user-toggle">
+          {user?.displayName || "User"} <DownSymbol />
+        </p>
+        <Link className="nav-link nav-user-link" to="/profile">
+          Profile
+        </Link>
+        <Link className="nav-link nav-user-link" to="/auth/logout">
+          Logout
+        </Link>
       </li>
     </>
   );
