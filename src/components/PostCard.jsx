@@ -25,6 +25,7 @@ export default function PostCard({
   const [comments, setComments] = useState(post.comments);
   const [errors, setErrors] = useState({});
   const pending = useRef();
+  const popupEl = useRef();
 
   async function handleClick(event) {
     event.preventDefault();
@@ -83,6 +84,19 @@ export default function PostCard({
   const postContent = post.content.trim();
   const postCreatedAt = formatDate(post.createdAt);
 
+  const handleTogglePostPopupClick = () => {
+    popupEl.current.classList.toggle("sr-only");
+  };
+
+  const handlePostPopupOnLeave = () => {
+    popupEl.current.classList.add("sr-only");
+  };
+
+  const handleDeletePostSubmit = (event) => {
+    event.preventDefault();
+    if (!confirm(`The post will be deleted. Confirm?`)) return;
+  };
+
   return (
     <div className="post-card card">
       <div className="post-info-container">
@@ -102,9 +116,24 @@ export default function PostCard({
           </h4>
           <p className="post-create-time">{postCreatedAt}</p>
         </div>
-        <div className="post-popup">
-          <button className="post-popup-toggle">:</button>
-          <div className="post-popup-options"></div>
+        <div className="post-popup" onMouseLeave={handlePostPopupOnLeave}>
+          <button
+            onClick={handleTogglePostPopupClick}
+            className="post-popup-toggle"
+            aria-label="Toggle Post Button"
+          >
+            ⋮
+          </button>
+          <div className="post-popup-options sr-only" ref={popupEl}>
+            <Link className="edit-post-link" to={`/post/${post.id}/edit`}>
+              Edit Post
+            </Link>
+            <form onSubmit={handleDeletePostSubmit} method="post" data-id={1}>
+              <button className="delete-post-button" type="submit">
+                Delete Post
+              </button>
+            </form>
+          </div>
         </div>
       </div>
       <div className="post-content">
