@@ -254,27 +254,6 @@ button:hover {
   z-index: 1;
 }
 
-.post-popup-options > * {
-  border-radius: 0.25rem;
-}
-
-.post-popup-options > *:hover {
-  background-color: var(--neutral-100);
-}
-
-.edit-post-link {
-  width: 100%;
-  text-align: center;
-}
-
-.delete-post-button {
-  color: var(--secondary);
-  background-color: transparent;
-}
-.delete-post-button:hover {
-  color: var(--accent);
-}
-
 .likes-and-comments-heading {
   display: flex;
   align-items: center;

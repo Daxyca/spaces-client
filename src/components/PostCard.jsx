@@ -153,15 +153,21 @@ export default function PostCard({
             </button>
             {popupShown && (
               <div className="post-popup-options" ref={popupEl}>
-                <Link className="edit-post-link" to={`/post/${post.id}/edit`}>
+                <button
+                  className="edit-post-button button"
+                  to={`/post/${post.id}/edit`}
+                >
                   Edit Post
-                </Link>
+                </button>
                 <form
                   onSubmit={handleDeletePostSubmit}
                   method="post"
                   data-id={post.id}
                 >
-                  <button className="delete-post-button" type="submit">
+                  <button
+                    className="delete-post-button button accent"
+                    type="submit"
+                  >
                     Delete Post
                   </button>
                 </form>
