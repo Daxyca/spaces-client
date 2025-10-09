@@ -1,10 +1,11 @@
-import { useLoaderData, useParams } from "react-router";
+import { useLoaderData, useOutletContext, useParams } from "react-router";
 import PostCard from "../components/PostCard.jsx";
 import { useEffect, useRef, useState } from "react";
 import { parseValidationErrors } from "../utils.js";
 
 export default function Posts() {
   const data = useLoaderData();
+  const { user } = useOutletContext();
   const { spaceName } = useParams();
   const [errors, setErrors] = useState({});
   const [posts, setPosts] = useState([]);
@@ -137,6 +138,7 @@ export default function Posts() {
             alreadyLiked={post.likes.length > 0 ? true : false}
             handleLikeUnlikeClick={handleLikeUnlikeClick}
             setPosts={setPosts}
+            userId={user.id}
           />
         ))
       ) : (

@@ -20,6 +20,7 @@ export default function PostCard({
   alreadyLiked,
   currentUserPicture,
   setPosts,
+  userId,
 }) {
   const [likes, setLikes] = useState(post._count.likes);
   const [liked, setLiked] = useState(alreadyLiked);
@@ -140,29 +141,31 @@ export default function PostCard({
           </h4>
           <p className="post-create-time">{postCreatedAt}</p>
         </div>
-        <div className="post-popup" onMouseLeave={handlePostPopupOnLeave}>
-          <button
-            onClick={handleTogglePostPopupClick}
-            className="post-popup-toggle"
-            aria-label="Toggle Post Button"
-          >
-            ⋮
-          </button>
-          <div className="post-popup-options sr-only" ref={popupEl}>
-            <Link className="edit-post-link" to={`/post/${post.id}/edit`}>
-              Edit Post
-            </Link>
-            <form
-              onSubmit={handleDeletePostSubmit}
-              method="post"
-              data-id={post.id}
+        {post.authorId === userId ? (
+          <div className="post-popup" onMouseLeave={handlePostPopupOnLeave}>
+            <button
+              onClick={handleTogglePostPopupClick}
+              className="post-popup-toggle"
+              aria-label="Toggle Post Button"
             >
-              <button className="delete-post-button" type="submit">
-                Delete Post
-              </button>
-            </form>
+              ⋮
+            </button>
+            <div className="post-popup-options sr-only" ref={popupEl}>
+              <Link className="edit-post-link" to={`/post/${post.id}/edit`}>
+                Edit Post
+              </Link>
+              <form
+                onSubmit={handleDeletePostSubmit}
+                method="post"
+                data-id={post.id}
+              >
+                <button className="delete-post-button" type="submit">
+                  Delete Post
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
       <div className="post-content">
         {postContent.split("\n").map((line, i) =>

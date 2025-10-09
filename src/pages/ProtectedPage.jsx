@@ -18,7 +18,7 @@ export default function ProtectedPage() {
     <>
       <Header />
       <main className="main">
-        <Outlet />
+        <Outlet context={{ user }} />
       </main>
       <Footer />
     </>
