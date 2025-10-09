@@ -13,6 +13,8 @@
 
 .auth-heading {
   color: var(--primary);
+  font-size: 2rem;
+  display: inline;
 }
 
 .auth-icon {
