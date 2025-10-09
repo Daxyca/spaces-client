@@ -243,10 +243,6 @@ button:hover {
   align-items: center;
 }
 
-.likes-and-comments-heading > * {
-  /* margin: auto; */
-}
-
 .comments-heading {
   font-size: 1rem;
   font-weight: bold;
