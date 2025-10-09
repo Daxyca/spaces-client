@@ -7,7 +7,7 @@ export default function Socials({ loginForm = true }) {
 
   return (
     <>
-      <hr style={{ width: "100%" }} />
+      <hr />
       <form
         className="auth-form github-form"
         action={import.meta.env.VITE_API_URL + "/auth/github"}
