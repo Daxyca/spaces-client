@@ -24,7 +24,6 @@ export default function PostCard({
 }) {
   const [likes, setLikes] = useState(post._count.likes);
   const [liked, setLiked] = useState(alreadyLiked);
-  const [comments, setComments] = useState(post.comments);
   const [errors, setErrors] = useState({});
   const pending = useRef();
   const menuEl = useRef();
@@ -41,46 +40,6 @@ export default function PostCard({
       setLiked(false);
     } else {
       console.error("Failed to like or unlike.");
-    }
-  }
-
-  async function handleSubmitComment(event) {
-    event.preventDefault();
-    if (pending.current) return;
-    pending.current = true;
-    const form = event.target;
-    const formData = new FormData(form);
-    const postId = event.target.dataset.postid;
-    const content = formData.get("content").trim();
-    const createComment = async () => {
-      try {
-        const endpoint = `${
-          import.meta.env.VITE_API_URL
-        }/posts/${postId}/comments`;
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ content }),
-        });
-        const json = await res.json();
-        if (!json.error) {
-          setErrors({});
-          setComments((prev) => [...prev, json]);
-          form.reset();
-        } else {
-          setErrors(parseValidationErrors(res.status, json));
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        pending.current = false;
-      }
-    };
-    if (content) {
-      createComment();
-    } else {
-      setErrors({ content: "Comment must not be empty or whitespaces only." });
     }
   }
 
@@ -217,46 +176,96 @@ export default function PostCard({
         </form>
       </div>
       <hr />
-      <div className="comments-container">
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <CommentCard
-              key={comment.id}
-              comment={comment}
-              currentUserPicture={currentUserPicture}
-            />
-          ))
-        ) : (
-          <p>No comments yet...</p>
-        )}
-        <form
-          className="comment-form"
-          onSubmit={handleSubmitComment}
-          method="post"
-          data-postid={post.id}
-        >
-          <label className="sr-only" htmlFor={post.id}>
-            Add a comment:
-          </label>
-          <input
-            name="content"
-            className="comment-input"
-            id={post.id}
-            type="text"
-            placeholder="Add a comment (Enter ↵)"
-            maxLength="250"
-            required
+      <Comments currentUserPicture={currentUserPicture} post={post} />
+    </div>
+  );
+}
+
+function Comments({ currentUserPicture, handleSubmitComment, post }) {
+  const [comments, setComments] = useState(post.comments);
+  const [errors, setErrors] = useState({});
+  const pending = useRef();
+
+  async function handleSubmitComment(event) {
+    event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
+    const form = event.target;
+    const formData = new FormData(form);
+    const postId = event.target.dataset.postid;
+    const content = formData.get("content").trim();
+    const createComment = async () => {
+      try {
+        const endpoint = `${
+          import.meta.env.VITE_API_URL
+        }/posts/${postId}/comments`;
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ content }),
+        });
+        const json = await res.json();
+        if (!json.error) {
+          setErrors({});
+          setComments((prev) => [...prev, json]);
+          form.reset();
+        } else {
+          setErrors(parseValidationErrors(res.status, json));
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        pending.current = false;
+      }
+    };
+    if (content) {
+      createComment();
+    } else {
+      setErrors({ content: "Comment must not be empty or whitespaces only." });
+    }
+  }
+
+  return (
+    <div className="comments-container">
+      {comments.length > 0 ? (
+        comments.map((comment) => (
+          <CommentCard
+            key={comment.id}
+            comment={comment}
+            currentUserPicture={currentUserPicture}
           />
-          <button
-            className="button comment-submit-button"
-            type="submit"
-            aria-label="Submit Comment"
-          >
-            Comment
-          </button>
-        </form>
-        {errors.content && <p className="field-error">{errors.content}</p>}
-      </div>
+        ))
+      ) : (
+        <p>No comments yet...</p>
+      )}
+      <form
+        className="comment-form"
+        onSubmit={handleSubmitComment}
+        method="post"
+        data-postid={post.id}
+      >
+        <label className="sr-only" htmlFor={post.id}>
+          Add a comment:
+        </label>
+        <input
+          name="content"
+          className="comment-input"
+          id={post.id}
+          type="text"
+          placeholder="Add a comment (Enter ↵)"
+          maxLength="250"
+          required
+        />
+        <button
+          className="button comment-submit-button"
+          type="submit"
+          aria-label="Submit Comment"
+        >
+          Comment
+        </button>
+      </form>
+      {errors.content && <p className="field-error">{errors.content}</p>}
     </div>
   );
 }
