@@ -5,6 +5,9 @@ import { useFeeds } from "../contexts/FeedsContext.js";
 import DownSymbol from "../assets/DownSymbol.jsx";
 
 export default function Header() {
+  const feedsNavList = useRef();
+  const userNavList = useRef();
+
   return (
     <header className="header">
       <Link to="/">
@@ -13,13 +16,13 @@ export default function Header() {
       <nav className="nav">
         <ul className="nav-list nav-center-list">
           <NavListItem href="/" name="Home" />
-          <NavListCenter />
+          <NavListCenter feedsNavlist={feedsNavList} />
           <NavListItem href="/connections" name="Connections" />
         </ul>
       </nav>
       <nav className="nav">
         <ul className="nav-list nav-user-list">
-          <NavListRight />
+          <NavListRight userNavList={userNavList} />
         </ul>
       </nav>
     </header>
@@ -36,25 +39,25 @@ function NavListItem({ href = "/", name }) {
   );
 }
 
-function NavListCenter() {
+function NavListCenter({ feedsNavlist }) {
   const { feeds } = useFeeds();
   const { feedName } = useParams();
-  const feedsEl = useRef();
 
   if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
     return <Navigate to="/feeds" replace />;
   }
 
   const handleFeedsClick = (event) => {
-    event.currentTarget.classList.toggle("show-feeds");
+    event.currentTarget.classList.toggle("show-list");
   };
 
   return (
     <>
       <li
         className="nav-item nav-feeds-item"
-        ref={feedsEl}
+        ref={feedsNavlist}
         onClick={handleFeedsClick}
+        onMouseLeave={() => feedsNavlist.current.classList.remove("show-list")}
       >
         <p className="nav-link nav-toggle nav-feeds-toggle">
           Feeds <DownSymbol />
@@ -78,20 +81,20 @@ function NavListCenter() {
   );
 }
 
-function NavListRight() {
+function NavListRight({ userNavList }) {
   const { user } = useAuth();
-  const userEl = useRef();
 
   const handleFeedsClick = (event) => {
-    event.currentTarget.classList.toggle("show-feeds");
+    event.currentTarget.classList.toggle("show-list");
   };
 
   return (
     <>
       <li
         className="nav-item nav-users-item"
-        ref={userEl}
+        ref={userNavList}
         onClick={handleFeedsClick}
+        onMouseLeave={() => userNavList.current.classList.remove("show-list")}
       >
         <p className="nav-link nav-toggle nav-user-toggle">
           {user?.displayName || "User"} <DownSymbol />

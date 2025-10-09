@@ -37,6 +37,7 @@
 
 .nav-item {
   display: flex;
+  height: 2.375rem;
 }
 
 .nav-item > * {
@@ -53,7 +54,10 @@
   flex-direction: column;
   overflow: hidden;
   z-index: 1;
-  height: 2.1875rem;
+  max-height: 100%;
+}
+
+.nav-users-item {
 }
 
 .nav-feed-link,
@@ -79,6 +83,7 @@
 }
 
 .nav-feeds-toggle {
+  padding-top: 0.625rem;
   padding-left: 0.5rem;
 }
 
@@ -98,11 +103,9 @@
 
 .nav-down-symbol {
   width: 0.5rem;
-  /* position: absolute; */
-  right: 15%;
 }
 
-.show-feeds {
+.show-list {
   overflow: unset;
 }
 
