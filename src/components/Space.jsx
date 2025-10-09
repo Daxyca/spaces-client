@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import Avatar from "./Avatar.jsx";
 
-export default function Feed() {
-  const { users, feedName, setFeeds } = useOutletContext();
+export default function Space() {
+  const { users, spaceName, setSpaces } = useOutletContext();
   const [checked, setChecked] = useState(getChecked(users));
 
   function getChecked(users) {
     return users.reduce(
-      (obj, user) => ((obj[user.id] = user.isInFeed), obj),
+      (obj, user) => ((obj[user.id] = user.isInSpace), obj),
       {}
     );
   }
@@ -32,9 +32,9 @@ export default function Feed() {
     const form = event.target;
     const formData = new FormData(form);
     const userIds = formData.getAll("ids");
-    const updateFeedUsers = async () => {
+    const updateSpaceUsers = async () => {
       try {
-        const endpoint = `${import.meta.env.VITE_API_URL}/feeds/${feedName}`;
+        const endpoint = `${import.meta.env.VITE_API_URL}/spaces/${spaceName}`;
         const res = await fetch(endpoint, {
           method: "PUT",
           credentials: "include",
@@ -45,19 +45,19 @@ export default function Feed() {
         });
         const json = await res.json();
         if (!json.error) {
-          const newFeedUsers = users
+          const newSpaceUsers = users
             .filter((user) => userIds.includes(user.id))
-            .map((user) => ({ ...user, isInFeed: true }));
+            .map((user) => ({ ...user, isInSpace: true }));
 
-          setFeeds((prevFeeds) =>
-            prevFeeds.map((feed) => {
-              if (feed.name === feedName) {
+          setSpaces((prevSpaces) =>
+            prevSpaces.map((space) => {
+              if (space.name === spaceName) {
                 return {
-                  ...feed,
-                  users: newFeedUsers,
+                  ...space,
+                  users: newSpaceUsers,
                 };
               }
-              return feed;
+              return space;
             })
           );
         }
@@ -65,15 +65,15 @@ export default function Feed() {
         console.error(err);
       }
     };
-    updateFeedUsers();
+    updateSpaceUsers();
   };
 
   const handleDeleteFormSubmit = (event) => {
     event.preventDefault();
-    if (!confirm(`The feed "${feedName}" will be deleted. Confirm?`)) return;
-    const deleteFeed = async () => {
+    if (!confirm(`The space "${spaceName}" will be deleted. Confirm?`)) return;
+    const deleteSpace = async () => {
       try {
-        const endpoint = `${import.meta.env.VITE_API_URL}/feeds/${feedName}`;
+        const endpoint = `${import.meta.env.VITE_API_URL}/spaces/${spaceName}`;
         const res = await fetch(endpoint, {
           method: "DELETE",
           credentials: "include",
@@ -83,15 +83,15 @@ export default function Feed() {
         });
         const json = await res.json();
         if (!json.error) {
-          setFeeds((prevFeeds) =>
-            prevFeeds.filter((feed) => feed.name !== feedName)
+          setSpaces((prevSpaces) =>
+            prevSpaces.filter((space) => space.name !== spaceName)
           );
         }
       } catch (err) {
         console.error(err);
       }
     };
-    deleteFeed();
+    deleteSpace();
   };
 
   const handleCheckboxChange = (event) => {
@@ -106,60 +106,60 @@ export default function Feed() {
 
   return (
     <>
-      <header className="feed-header">
-        <div className="feed-header-left">
-          <h3 className="feed-name-heading">{`Included users in ${feedName}`}</h3>
+      <header className="space-header">
+        <div className="space-header-left">
+          <h3 className="space-name-heading">{`Included users in ${spaceName}`}</h3>
 
           <form
-            className="delete-feed-form"
-            id="delete-feed-form"
+            className="delete-space-form"
+            id="delete-space-form"
             name="delete"
             onSubmit={handleDeleteFormSubmit}
             method="post"
           >
             <button
-              className="delete-feed-button"
+              className="delete-space-button"
               name="delete"
               type="submit"
-              form="delete-feed-form"
-              aria-label="Delete Feed"
+              form="delete-space-form"
+              aria-label="Delete Space"
             >
               <img
-                className="delete-feed-image"
+                className="delete-space-image"
                 src="/red-trash-can.svg"
                 alt="red trash can"
               />
             </button>
           </form>
         </div>
-        <div className="feed-header-right">
+        <div className="space-header-right">
           <button
             className="button secondary"
             name="save"
             type="submit"
-            form="save-feed-form"
+            form="save-space-form"
           >
             Save Changes
           </button>
         </div>
       </header>
       <form
-        className="save-feed-form"
-        id="save-feed-form"
+        className="save-space-form"
+        id="save-space-form"
         name="save"
         onSubmit={handleSaveFormSubmit}
         method="post"
       >
-        <ul className="feed-users-list">
+        <ul className="space-users-list">
           {users.map((user) => {
             if (doneUserIds.includes(user.id)) {
               return null;
             }
             doneUserIds.push(user.id);
             return (
-              <li className="feed-users-list-item" key={user.id}>
+              <li className="space-users-list-item" key={user.id}>
                 <input
-                  className="feed-users-checkbox"
+                  className="space-users-checkbox"
                   type="checkbox"
                   name="ids"
                   id={user.id}
@@ -167,7 +167,7 @@ export default function Feed() {
                   checked={checked[user.id] ? true : false}
                   onChange={handleCheckboxChange}
                 />
-                <label className="feed-users-label" htmlFor={user.id}>
+                <label className="space-users-label" htmlFor={user.id}>
                   <Avatar picture={user.picture} />
                   {user.displayName}
                 </label>
@@ -179,7 +179,7 @@ export default function Feed() {
           className="button secondary bottom-button"
           name="save"
           type="submit"
-          form="save-feed-form"
+          form="save-space-form"
         >
           Save Changes
         </button>

@@ -47,7 +47,7 @@
   padding-block: 0.5rem;
 }
 
-.nav-feeds-item,
+.nav-spaces-item,
 .nav-users-item {
   position: relative;
   display: flex;
@@ -57,7 +57,7 @@
   max-height: 100%;
 }
 
-.nav-feed-link,
+.nav-space-link,
 .nav-user-link {
   position: relative;
   z-index: 1;
@@ -74,12 +74,12 @@
   width: 8ch;
 }
 
-.nav-feed-link:hover,
+.nav-space-link:hover,
 .nav-user-link:hover {
   background-color: var(--neutral-100);
 }
 
-.nav-feeds-toggle {
+.nav-spaces-toggle {
   padding-left: 0.5rem;
 }
 

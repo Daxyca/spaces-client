@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from "./routes/indexRoutes.jsx";
 import { useAuth } from "./contexts/AuthContext.js";
 import { useEffect } from "react";
-import { FeedsProvider } from "./contexts/FeedsProvider.jsx";
+import { SpacesProvider } from "./contexts/SpacesProvider.jsx";
 
 const router = createBrowserRouter(routes);
 
@@ -36,8 +36,8 @@ export default function App() {
   }, [user, login, logout]);
 
   return (
-    <FeedsProvider>
+    <SpacesProvider>
       <RouterProvider router={router} />
-    </FeedsProvider>
+    </SpacesProvider>
   );
 }

@@ -1,16 +1,16 @@
 import ErrorPage from "../pages/ErrorPage.jsx";
 import LogoutPage from "../pages/LogoutPage.jsx";
 import ProfilePage from "../pages/ProfilePage.jsx";
-import FeedsPage from "../pages/FeedsPage.jsx";
+import SpacesPage from "../pages/SpacesPage.jsx";
 
 import connectionsRoute from "./connectionsRoute.jsx";
 
 import * as postsLoader from "../loaders/postsLoader.js";
-import * as feedsLoader from "../loaders/feedsLoader.js";
+import * as spacesLoader from "../loaders/spacesLoader.js";
 import protectedLoader from "../loaders/protectedLoader.js";
 
 import Posts from "../components/Posts.jsx";
-import Feed from "../components/Feed.jsx";
+import Space from "../components/Space.jsx";
 import ProfileContent from "../components/profile/ProfileContent.jsx";
 import ProfileEdit from "../components/profile/ProfileEdit.jsx";
 import { ProfileProvider } from "../contexts/ProfileProvider.jsx";
@@ -25,26 +25,26 @@ const protectedRoutes = [
       {
         index: true,
         element: <Posts />,
-        loader: protectedLoader(postsLoader.mainFeed),
+        loader: protectedLoader(postsLoader.mainSpace),
         HydrateFallback: () => null,
       },
       {
-        path: "feeds/:feedName/posts",
+        path: "spaces/:spaceName/posts",
         element: <Posts />,
-        loader: protectedLoader(postsLoader.customFeed),
+        loader: protectedLoader(postsLoader.customSpace),
         HydrateFallback: () => null,
       },
       connectionsRoute,
       {
-        path: "feeds",
-        element: <FeedsPage />,
+        path: "spaces",
+        element: <SpacesPage />,
         children: [
           {
-            path: ":feedName/edit",
-            element: <Feed />,
+            path: ":spaceName/edit",
+            element: <Space />,
           },
         ],
-        loader: protectedLoader(feedsLoader.feedsAndFollowersLoader),
+        loader: protectedLoader(spacesLoader.spacesAndFollowersLoader),
         HydrateFallback: () => null,
       },
       {

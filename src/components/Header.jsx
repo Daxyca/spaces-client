@@ -1,11 +1,11 @@
 import { Link, Navigate, useParams } from "react-router";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useRef } from "react";
-import { useFeeds } from "../contexts/FeedsContext.js";
+import { useSpaces } from "../contexts/SpacesContext.js";
 import DownSymbol from "../assets/DownSymbol.jsx";
 
 export default function Header() {
-  const feedsNavList = useRef();
+  const spacesNavList = useRef();
   const userNavList = useRef();
 
   return (
@@ -16,7 +16,7 @@ export default function Header() {
       <nav className="nav">
         <ul className="nav-list nav-center-list">
           <NavListItem href="/" name="Home" />
-          <NavListCenter feedsNavlist={feedsNavList} />
+          <NavListCenter spacesNavlist={spacesNavList} />
           <NavListItem href="/connections" name="Connections" />
         </ul>
       </nav>
@@ -39,41 +39,41 @@ function NavListItem({ href = "/", name }) {
   );
 }
 
-function NavListCenter({ feedsNavlist }) {
-  const { feeds } = useFeeds();
-  const { feedName } = useParams();
+function NavListCenter({ spacesNavlist }) {
+  const { spaces } = useSpaces();
+  const { spaceName } = useParams();
 
-  if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
-    return <Navigate to="/feeds" replace />;
+  if (spaceName && !spaces.map((space) => space.name).includes(spaceName)) {
+    return <Navigate to="/spaces" replace />;
   }
 
-  const handleFeedsClick = (event) => {
+  const handleSpacesClick = (event) => {
     event.currentTarget.classList.toggle("show-list");
   };
 
   return (
     <>
       <li
-        className="nav-item nav-feeds-item"
-        ref={feedsNavlist}
-        onClick={handleFeedsClick}
-        onMouseLeave={() => feedsNavlist.current.classList.remove("show-list")}
+        className="nav-item nav-spaces-item"
+        ref={spacesNavlist}
+        onClick={handleSpacesClick}
+        onMouseLeave={() => spacesNavlist.current.classList.remove("show-list")}
       >
-        <p className="nav-link nav-toggle nav-feeds-toggle">
-          Feeds <DownSymbol />
+        <p className="nav-link nav-toggle nav-spaces-toggle">
+          Spaces <DownSymbol />
         </p>
-        <Link className="nav-link nav-feed-link" to="/feeds">
+        <Link className="nav-link nav-space-link" to="/spaces">
           <span className="sr-only">View and </span>
-          (Edit Feeds)
+          (Edit Spaces)
         </Link>
-        {feeds.map((feed) => (
+        {spaces.map((space) => (
           <Link
-            key={feed.id}
-            className="nav-link nav-feed-link"
-            to={`/feeds/${feed.name}/posts`}
+            key={space.id}
+            className="nav-link nav-space-link"
+            to={`/spaces/${space.name}/posts`}
           >
-            <span className="sr-only">Your feed named </span>
-            {feed.name}
+            <span className="sr-only">Your space named </span>
+            {space.name}
           </Link>
         ))}
       </li>
@@ -84,7 +84,7 @@ function NavListCenter({ feedsNavlist }) {
 function NavListRight({ userNavList }) {
   const { user } = useAuth();
 
-  const handleFeedsClick = (event) => {
+  const handleSpacesClick = (event) => {
     event.currentTarget.classList.toggle("show-list");
   };
 
@@ -93,7 +93,7 @@ function NavListRight({ userNavList }) {
       <li
         className="nav-item nav-users-item"
         ref={userNavList}
-        onClick={handleFeedsClick}
+        onClick={handleSpacesClick}
         onMouseLeave={() => userNavList.current.classList.remove("show-list")}
       >
         <p className="nav-link nav-toggle nav-user-toggle">

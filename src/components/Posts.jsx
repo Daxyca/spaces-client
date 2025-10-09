@@ -5,7 +5,7 @@ import { parseValidationErrors } from "../utils.js";
 
 export default function Posts() {
   const data = useLoaderData();
-  const { feedName } = useParams();
+  const { spaceName } = useParams();
   const [errors, setErrors] = useState({});
   const [posts, setPosts] = useState([]);
   const createPostForm = useRef();
@@ -25,7 +25,7 @@ export default function Posts() {
     return (
       <div className="posts-container">
         <h2 className="posts-heading visually-hidden">
-          {feedName ? `${feedName} ` : null} Posts
+          {spaceName ? `${spaceName} ` : null} Posts
         </h2>
         <p>No posts to see here...</p>
       </div>
@@ -102,12 +102,12 @@ export default function Posts() {
   return (
     <div className="posts-container">
       <h2 className="posts-heading visually-hidden">
-        {feedName ? `${feedName} Posts` : "Main Feed Posts"}
+        {spaceName ? `${spaceName} Posts` : "Main Space Posts"}
       </h2>
       <h3 id="create-post-heading" className="visually-hidden">
         Create a post
       </h3>
-      {!feedName ? (
+      {!spaceName ? (
         <>
           <form
             className="create-post-form"
