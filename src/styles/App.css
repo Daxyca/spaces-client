@@ -74,18 +74,24 @@
   background-color: var(--neutral-100);
 }
 
-.nav-feeds-link {
+.nav-toggle {
+  cursor: pointer;
+  color: var(--primary);
   padding-bottom: 1rem;
 }
 
-.nav-feeds-link::after {
+.nav-toggle:hover {
+  color: var(--secondary);
+}
+
+.nav-feeds-toggle::after {
   content: "⏷";
   position: absolute;
   right: 15%;
   top: 20%;
 }
 
-.nav-feeds-item:hover {
+.show-feeds {
   overflow: unset;
 }
 

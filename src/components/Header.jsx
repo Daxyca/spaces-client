@@ -5,7 +5,6 @@ import { useFeeds } from "../contexts/FeedsContext.js";
 
 export default function Header() {
   const { user } = useAuth();
-  const feedsEl = useRef();
 
   return (
     <header className="header">
@@ -15,7 +14,7 @@ export default function Header() {
       <nav className="nav">
         <ul className="nav-list nav-center-list">
           <NavListItem href="/" name="Home" />
-          <NavListCenter ref={feedsEl} />
+          <NavListCenter />
           <NavListItem href="/connections" name="Connections" />
         </ul>
       </nav>
@@ -29,9 +28,9 @@ export default function Header() {
   );
 }
 
-function NavListItem({ href = "/", name, ref }) {
+function NavListItem({ href = "/", name }) {
   return (
-    <li className={"nav-item" + (ref ? " nav-center" : "")} ref={ref}>
+    <li className={"nav-item"}>
       <Link className="nav-link" to={href}>
         {name}
       </Link>
@@ -39,23 +38,30 @@ function NavListItem({ href = "/", name, ref }) {
   );
 }
 
-function NavListCenter({ ref }) {
+function NavListCenter() {
   const { feeds } = useFeeds();
   const { feedName } = useParams();
+  const feedsEl = useRef();
 
   if (feedName && !feeds.map((feed) => feed.name).includes(feedName)) {
     return <Navigate to="/feeds" replace />;
   }
 
+  const handleFeedsClick = (event) => {
+    event.currentTarget.classList.toggle("show-feeds");
+  };
+
   return (
     <>
-      <li className="nav-item nav-feeds-item" ref={ref}>
-        <Link className="nav-link nav-feeds-link" to="/feeds">
-          <span className="sr-only">View and Edit List of </span>
-          Feeds
-        </Link>
-        <Link className="nav-link nav-feed-link" to="/">
-          Main Feed
+      <li
+        className="nav-item nav-feeds-item"
+        ref={feedsEl}
+        onClick={handleFeedsClick}
+      >
+        <p className="nav-link nav-toggle nav-feeds-toggle">Feeds</p>
+        <Link className="nav-link nav-feed-link" to="/feeds">
+          <span className="sr-only">View and </span>
+          (Edit Feeds)
         </Link>
         {feeds.map((feed) => (
           <Link
