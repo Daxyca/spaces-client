@@ -100,7 +100,10 @@ export default function PostCard({
     if (pending.current) return;
     pending.current = true;
     const postId = event.target.dataset.id;
-    if (!confirm(`The post will be deleted. Confirm?`)) return;
+    if (!confirm(`The post will be deleted. Confirm?`)) {
+      pending.current = false;
+      return;
+    }
     const deletePost = async () => {
       try {
         const endpoint = `${import.meta.env.VITE_API_URL}/posts/${postId}`;
