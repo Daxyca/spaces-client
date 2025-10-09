@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import Avatar from "../Avatar.jsx";
-import PostCard from "../PostCard.jsx";
+import PostCard from "../posts/PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
 import { useProfile } from "../../contexts/ProfileContext.js";
 

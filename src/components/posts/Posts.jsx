@@ -1,7 +1,7 @@
 import { useLoaderData, useOutletContext, useParams } from "react-router";
-import PostCard from "../components/PostCard.jsx";
+import PostCard from "./PostCard.jsx";
 import { useEffect, useRef, useState } from "react";
-import { parseValidationErrors } from "../utils.js";
+import { parseValidationErrors } from "../../utils.js";
 
 export default function Posts() {
   const data = useLoaderData();

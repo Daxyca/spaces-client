@@ -9,7 +9,7 @@ import * as postsLoader from "../loaders/postsLoader.js";
 import * as spacesLoader from "../loaders/spacesLoader.js";
 import protectedLoader from "../loaders/protectedLoader.js";
 
-import Posts from "../components/Posts.jsx";
+import Posts from "../components/posts/Posts.jsx";
 import Space from "../components/Space.jsx";
 import ProfileContent from "../components/profile/ProfileContent.jsx";
 import ProfileEdit from "../components/profile/ProfileEdit.jsx";

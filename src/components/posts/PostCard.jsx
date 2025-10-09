@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router";
-import Avatar from "./Avatar.jsx";
-import LikeImage from "./LikeImage.jsx";
-import { parseValidationErrors } from "../utils.js";
-import Comments from "./Comments.jsx";
+import Avatar from "../Avatar.jsx";
+import LikeImage from "../LikeImage.jsx";
+import { parseValidationErrors } from "../../utils.js";
+import Comments from "../comments/Comments.jsx";
 
 function formatDate(date) {
   return new Date(date).toLocaleString("en-US", {

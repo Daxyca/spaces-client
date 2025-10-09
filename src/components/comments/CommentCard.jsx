@@ -1,4 +1,4 @@
-import Avatar from "./Avatar.jsx";
+import Avatar from "../Avatar.jsx";
 import { Link } from "react-router";
 
 function formatDate(date) {
