@@ -19,8 +19,9 @@ const PROFILE_KEY = {
 };
 
 export default function ProfileContent() {
-  const { isCurrentUser } = useOutletContext();
+  const { isCurrentUser, user } = useOutletContext();
   const { profile, setProfile } = useProfile();
+  const [posts, setPosts] = useState(profile.posts);
   const [picture, setPicture] = useState(profile.picture);
   const pending = useRef();
 
@@ -243,13 +244,15 @@ export default function ProfileContent() {
         </div>
         <div className="profile-right-container">
           <h2>Posts</h2>
-          {profile.posts.map((post) => (
+          {posts.map((post) => (
             <PostCard
               post={post}
               key={post.id}
               currentUserPicture={picture}
               alreadyLiked={post.likes.length > 0 ? true : false}
               handleLikeUnlikeClick={handleLikeUnlikeClick}
+              setPosts={setPosts}
+              userId={user.id}
             />
           ))}
         </div>
