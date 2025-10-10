@@ -1,10 +1,11 @@
 import "../styles/AuthPage.css";
 import { useAuth } from "../contexts/AuthContext.js";
 import { useEffect } from "react";
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 export default function LoginPage() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.id) {
@@ -22,6 +23,7 @@ export default function LoginPage() {
           throw new Error(json.error.message);
         }
         logout();
+        navigate("/auth/login");
       } catch (err) {
         console.error(err);
       }
