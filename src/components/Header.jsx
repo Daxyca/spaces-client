@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { useRef } from "react";
 import { useSpaces } from "../contexts/SpacesContext.js";
 import DownSymbol from "../assets/DownSymbol.jsx";
+import spacesIcon from "../assets/spaces.svg";
 
 export default function Header() {
   const spacesNavList = useRef();
@@ -11,7 +12,7 @@ export default function Header() {
   return (
     <header className="header">
       <Link to="/">
-        <img className="header-icon" src="/spaces.svg" alt="spaces icon" />
+        <img className="header-icon" src={spacesIcon} alt="spaces icon" />
       </Link>
       <nav className="nav">
         <ul className="nav-list nav-center-list">
