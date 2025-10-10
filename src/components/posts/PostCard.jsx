@@ -249,6 +249,11 @@ export default function PostCard({
             )}
           </>
         )}
+        {post.updatedAt !== post.createdAt ? (
+          <div className="post-edited-date">
+            Last edited on {formatDate(post.updatedAt)}
+          </div>
+        ) : null}
       </div>
       <hr />
       <div className="likes-and-comments-heading">

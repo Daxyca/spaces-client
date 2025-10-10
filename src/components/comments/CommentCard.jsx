@@ -217,6 +217,11 @@ export default function CommentCard({
       ) : (
         <p className="comment-content">{comment.content}</p>
       )}
+      {comment.updatedAt !== comment.createdAt ? (
+        <div className="comment-edited-date">
+          Last edited on {formatDate(comment.updatedAt)}
+        </div>
+      ) : null}
     </div>
   );
 }

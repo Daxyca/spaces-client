@@ -317,6 +317,13 @@ button:hover {
 .post-content,
 .comment-content {
   padding: 0.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.post-edited-date,
+.comment-edited-date {
+  opacity: 0.3;
 }
 
 .post-content-lines {
