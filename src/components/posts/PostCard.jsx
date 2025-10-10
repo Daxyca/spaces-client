@@ -232,6 +232,7 @@ export default function PostCard({
                 Cancel
               </button>
             </div>
+            {errors.content && <p className="field-error">{errors.content}</p>}
           </form>
         ) : (
           <>
