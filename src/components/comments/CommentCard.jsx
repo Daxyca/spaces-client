@@ -133,8 +133,7 @@ export default function CommentCard({
       <div className="comment-info-container">
         <Avatar
           picture={
-            comment.author.picture?.split("?")[0] ===
-            currentUserPicture?.split("?")[0]
+            currentUserPicture?.includes(userId)
               ? currentUserPicture
               : comment.author.picture
           }
