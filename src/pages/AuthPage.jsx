@@ -6,23 +6,23 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let timeout;
     const checkServerHealth = async () => {
-      for (let i = 0; i < 5; i++) {
-        if (!loading) {
+      try {
+        const res = await fetch(import.meta.env.VITE_API_URL + "/health");
+        const json = await res.json();
+        if (!json.error) {
+          console.log(json);
+          setLoading(false);
           return;
         }
-        try {
-          const res = await fetch(import.meta.env.VITE_API_URL + "/health");
-          const json = await res.json();
-          if (!json.error) {
-            return setLoading(false);
-          }
-        } catch (err) {
-          console.error(err);
-        }
+      } catch (err) {
+        // ignore; server may still be starting
       }
+      timeout = setTimeout(checkServerHealth, 5000);
     };
     checkServerHealth();
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
