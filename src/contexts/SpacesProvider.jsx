@@ -7,7 +7,7 @@ export function SpacesProvider({ children }) {
   const [spaces, setSpaces] = useState([]);
 
   useEffect(() => {
-    if (!user) {
+    if (!user?.id) {
       return;
     }
     async function getSpaces() {
@@ -21,7 +21,7 @@ export function SpacesProvider({ children }) {
     getSpaces();
   }, [user]);
 
-  if (!user) {
+  if (!user?.id) {
     return children;
   }
 

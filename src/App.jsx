@@ -11,7 +11,7 @@ export default function App() {
   const { user, login, logout } = useAuth({});
 
   useEffect(() => {
-    if (user || !localStorage.getItem("login")) {
+    if (user?.id || !localStorage.getItem("login")) {
       return;
     }
     const fetchUser = async () => {
@@ -22,9 +22,9 @@ export default function App() {
         });
         const json = await res.json();
         const refetchUser = json.data;
-        if (!user && refetchUser) {
+        if (!user?.id && refetchUser) {
           login(refetchUser);
-        } else if (!user) {
+        } else if (!user?.id) {
           logout();
         }
       } catch (err) {
