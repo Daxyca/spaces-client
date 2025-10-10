@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Loading } from "../components/Loading.jsx";
 
 const loadingMessages = [
   "🧠 Booting up the AI neurons...",
@@ -37,7 +38,10 @@ export default function LoadingPage() {
         const json = await res.json();
         if (!json.error) {
           setLoading(false);
-          navigate("/auth/login");
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            navigate("/auth/login");
+          }, 1000);
           return;
         }
       } catch {
@@ -59,18 +63,22 @@ export default function LoadingPage() {
 
   return (
     <main className="loading-container">
-      {loading ? (
-        <p className="loading-text">
-          Server loading...
-          <br />
-          {loadingMessage}
-        </p>
-      ) : (
-        <p className="loading-text">
-          ✅ Backend is ready! <br />
-          Redirecting to Login page...
-        </p>
-      )}
+      <Loading />
+      <p className="loading-text">
+        {loading ? (
+          <>
+            Server loading...
+            <br />
+            {loadingMessage}
+          </>
+        ) : (
+          <>
+            ✅ Backend is ready!
+            <br />
+            Redirecting to Login page...
+          </>
+        )}
+      </p>
     </main>
   );
 }
