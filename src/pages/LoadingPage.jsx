@@ -40,7 +40,7 @@ export default function LoadingPage() {
           navigate("/auth/login");
           return;
         }
-      } catch (err) {
+      } catch {
         // ignore; server may still be starting
       }
       const randomIndex = Math.floor(Math.random() * loadingMessages.length);
@@ -49,7 +49,7 @@ export default function LoadingPage() {
     };
     checkServerHealth();
     return () => clearTimeout(timeout);
-  }, []);
+  }, [navigate]);
 
   return (
     <main className="loading-container">
