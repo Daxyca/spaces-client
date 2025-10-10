@@ -5,7 +5,7 @@ import { useAuth } from "./contexts/AuthContext.js";
 import { useEffect } from "react";
 import { SpacesProvider } from "./contexts/SpacesProvider.jsx";
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, { basename: "/" });
 
 export default function App() {
   const { user, login, logout } = useAuth({});
