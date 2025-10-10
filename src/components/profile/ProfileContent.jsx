@@ -21,8 +21,8 @@ const PROFILE_KEY = {
 export default function ProfileContent() {
   const { isCurrentUser, user } = useOutletContext();
   const { profile, setProfile } = useProfile();
-  const [posts, setPosts] = useState(profile.posts);
-  const [picture, setPicture] = useState(profile.picture);
+  const [posts, setPosts] = useState(profile?.posts || []);
+  const [picture, setPicture] = useState(profile?.picture || null);
   const pending = useRef();
 
   function handlePictureFormSubmit(event) {
@@ -244,17 +244,21 @@ export default function ProfileContent() {
         </div>
         <div className="profile-right-container">
           <h2>Posts</h2>
-          {posts.map((post) => (
-            <PostCard
-              post={post}
-              key={post.id}
-              currentUserPicture={picture}
-              alreadyLiked={post.likes.length > 0 ? true : false}
-              handleLikeUnlikeClick={handleLikeUnlikeClick}
-              setPosts={setPosts}
-              userId={user.id}
-            />
-          ))}
+          {posts.length > 0 ? (
+            posts.map((post) => (
+              <PostCard
+                post={post}
+                key={post.id}
+                currentUserPicture={picture}
+                alreadyLiked={post.likes.length > 0 ? true : false}
+                handleLikeUnlikeClick={handleLikeUnlikeClick}
+                setPosts={setPosts}
+                userId={user.id}
+              />
+            ))
+          ) : (
+            <p>No posts yet...</p>
+          )}
         </div>
       </div>
     </>

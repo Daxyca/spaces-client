@@ -7,7 +7,7 @@ export default function Comments({
   handleSubmitComment,
   post,
 }) {
-  const [comments, setComments] = useState(post.comments);
+  const [comments, setComments] = useState(post?.comments || []);
   const [errors, setErrors] = useState({});
   const pending = useRef();
   const { user } = useOutletContext();
