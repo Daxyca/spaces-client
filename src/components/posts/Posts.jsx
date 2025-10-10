@@ -83,6 +83,7 @@ export default function Posts() {
     if (content) {
       createPost();
     } else {
+      pending.current = false;
       setErrors({ content: "Post must not be empty or whitespaces only." });
     }
   };

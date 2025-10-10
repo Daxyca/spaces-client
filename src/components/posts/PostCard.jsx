@@ -144,6 +144,7 @@ export default function PostCard({
     if (content) {
       editPost();
     } else {
+      pending.current = false;
       setErrors({ content: "Post must not be empty or whitespaces only." });
     }
   };
