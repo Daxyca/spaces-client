@@ -9,7 +9,7 @@ export default function ProtectedPage() {
 
   if (
     !localStorage.getItem("login") ||
-    (!user && !localStorage.getItem("login"))
+    (!user?.id && !localStorage.getItem("login"))
   ) {
     return <Navigate to="/loading" replace />;
   }

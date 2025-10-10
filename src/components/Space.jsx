@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import Avatar from "./Avatar.jsx";
+import redTrashCanImage from "../assets/red-trash-can.svg";
 
 export default function Space() {
   const { users, spaceName, setSpaces } = useOutletContext();
@@ -123,7 +124,7 @@ export default function Space() {
             >
               <img
                 className="delete-space-image"
-                src="/red-trash-can.svg"
+                src={redTrashCanImage}
                 alt="red trash can"
               />
             </button>

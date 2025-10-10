@@ -1,12 +1,9 @@
 import { useRef, useState } from "react";
 import CommentCard from "./CommentCard.jsx";
 import { useOutletContext } from "react-router";
+import { parseValidationErrors } from "../../utils.js";
 
-export default function Comments({
-  currentUserPicture,
-  handleSubmitComment,
-  post,
-}) {
+export default function Comments({ currentUserPicture, post }) {
   const [comments, setComments] = useState(post?.comments || []);
   const [errors, setErrors] = useState({});
   const pending = useRef();

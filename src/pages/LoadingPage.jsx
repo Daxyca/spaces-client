@@ -40,15 +40,21 @@ export default function LoadingPage() {
           navigate("/auth/login");
           return;
         }
-      } catch (err) {
+      } catch {
         // ignore; server may still be starting
       }
-      const randomIndex = Math.floor(Math.random() * loadingMessages.length);
-      setLoadingMessage(loadingMessages[randomIndex]);
       timeout = setTimeout(checkServerHealth, 3000);
     };
     checkServerHealth();
     return () => clearTimeout(timeout);
+  }, [navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * loadingMessages.length);
+      setLoadingMessage(loadingMessages[randomIndex]);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

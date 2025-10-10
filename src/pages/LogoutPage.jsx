@@ -7,7 +7,7 @@ export default function LoginPage() {
   const { user, logout } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (!user?.id) {
       return;
     }
     const submit = async () => {
@@ -29,7 +29,7 @@ export default function LoginPage() {
     submit();
   }, [user, logout]);
 
-  if (!user) {
+  if (!user?.id) {
     return <Navigate to="/auth/login" replace />;
   }
 

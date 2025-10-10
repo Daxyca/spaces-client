@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AuthContext } from "./AuthContext.js";
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   const login = (userData) => {
     localStorage.setItem("login", "true");

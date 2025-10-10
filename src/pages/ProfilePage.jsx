@@ -12,7 +12,7 @@ export default function ProfilePage() {
     return;
   }
 
-  const isCurrentUser = !userId || userId === user.id;
+  const isCurrentUser = !userId || userId === user?.id;
 
   return <Outlet context={{ profile, setProfile, user, isCurrentUser }} />;
 }
