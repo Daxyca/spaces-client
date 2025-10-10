@@ -217,6 +217,7 @@ export default function PostCard({
               defaultValue={post.content}
               onKeyDown={handlePostInputKeyDown}
               autoFocus
+              required
             ></textarea>
             <div className="edit-post-buttons-container">
               <span className="shortcut-key">Ctrl + ↵</span>

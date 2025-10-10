@@ -195,6 +195,7 @@ export default function CommentCard({
             defaultValue={comment.content}
             onKeyDown={handleCommentInputKeyDown}
             autoFocus
+            required
           ></input>
           <div className="edit-comment-buttons-container">
             <span className="shortcut-key">↵</span>
