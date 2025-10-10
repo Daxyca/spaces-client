@@ -74,10 +74,7 @@ export default function CommentCard({
   };
 
   const handleCommentInputKeyDown = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      editCommentForm.current.requestSubmit();
-    } else if (event.key === "Escape") {
+    if (event.key === "Escape") {
       setIsEditing(false);
     }
   };
@@ -200,7 +197,7 @@ export default function CommentCard({
             autoFocus
           ></input>
           <div className="edit-comment-buttons-container">
-            <span className="shortcut-key">Ctrl + ↵</span>
+            <span className="shortcut-key">↵</span>
             <button className="button" type="submit" name="save">
               Save Edit
             </button>
