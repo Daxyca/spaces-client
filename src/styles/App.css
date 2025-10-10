@@ -328,14 +328,14 @@ button:hover {
   word-break: break-all;
 }
 
-.edit-post-form {
+.edit-post-form,
+.edit-comment-form {
   display: grid;
 }
 
-.edit-post-content-input {
+.edit-post-content-input,
+.edit-comment-content-input {
   width: 100%;
-  resize: none;
-  height: 4rem;
   width: 100%;
   align-self: center;
   padding: 0rem 0.25rem;
@@ -343,7 +343,13 @@ button:hover {
   border-radius: 0.5rem;
 }
 
-.edit-post-buttons-container {
+.edit-post-content-input {
+  resize: none;
+  height: 4rem;
+}
+
+.edit-post-buttons-container,
+.edit-comment-buttons-container {
   margin-left: auto;
   padding-top: 0.5rem;
   padding-right: 0.25rem;
