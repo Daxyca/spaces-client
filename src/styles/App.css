@@ -1,3 +1,12 @@
+.loading-container {
+  margin: auto;
+}
+
+.loading-text {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 .header {
   position: sticky;
   top: 0;

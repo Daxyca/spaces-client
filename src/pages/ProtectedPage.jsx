@@ -11,7 +11,7 @@ export default function ProtectedPage() {
     !localStorage.getItem("login") ||
     (!user && !localStorage.getItem("login"))
   ) {
-    return <Navigate to="/auth/login" replace />;
+    return <Navigate to="/loading" replace />;
   }
 
   return (
