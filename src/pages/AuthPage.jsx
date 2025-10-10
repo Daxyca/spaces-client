@@ -12,7 +12,6 @@ export default function AuthPage() {
         const res = await fetch(import.meta.env.VITE_API_URL + "/health");
         const json = await res.json();
         if (!json.error) {
-          console.log(json);
           setLoading(false);
           return;
         }
