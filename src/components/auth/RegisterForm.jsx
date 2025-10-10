@@ -43,7 +43,7 @@ export default function RegisterForm() {
   return (
     <>
       <form className="auth-form" onSubmit={handleRegisterSubmit} method="post">
-        <label className="visually-hidden" htmlFor="username">
+        <label className="sr-only" htmlFor="username">
           Username:
         </label>
         <input
@@ -56,7 +56,7 @@ export default function RegisterForm() {
           required
         />
         {errors.username && <p className="field-error">{errors.username}</p>}
-        <label className="visually-hidden" htmlFor="email">
+        <label className="sr-only" htmlFor="email">
           Email:
         </label>
         <input
@@ -67,7 +67,7 @@ export default function RegisterForm() {
           required
         />
         {errors.email && <p className="field-error">{errors.email}</p>}
-        <label className="visually-hidden" htmlFor="password">
+        <label className="sr-only" htmlFor="password">
           Password:
         </label>
         <input

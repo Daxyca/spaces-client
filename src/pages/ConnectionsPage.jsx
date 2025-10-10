@@ -7,7 +7,7 @@ export default function ConnectionsPage() {
 
   return (
     <>
-      <h2 className="visually-hidden">Connections</h2>
+      <h2 className="sr-only">Connections</h2>
       <div className="connections-container">
         <div className="connections-left-container">
           <div className="connections-left-main">

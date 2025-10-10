@@ -97,10 +97,10 @@ export default function Posts() {
 
   return (
     <div className="posts-container">
-      <h2 className="posts-heading visually-hidden">
+      <h2 className="posts-heading sr-only">
         {spaceName ? `${spaceName} Posts` : "Main Space Posts"}
       </h2>
-      <h3 id="create-post-heading" className="visually-hidden">
+      <h3 id="create-post-heading" className="sr-only">
         Create a post
       </h3>
       {!spaceName ? (
@@ -112,7 +112,7 @@ export default function Posts() {
             ref={createPostForm}
             aria-labelledby="create-post-heading"
           >
-            <label className="visually-hidden" htmlFor="post-content-input">
+            <label className="sr-only" htmlFor="post-content-input">
               Post content:
             </label>
             <textarea

@@ -379,28 +379,3 @@ button:hover {
   border: none;
   box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.3);
 }
-
-/* The two classes below are somewhat functionally the same */
-
-.sr-only {
-  position: absolute;
-  width: 0.0625rem;
-  height: 0.0625rem;
-  padding: 0;
-  margin: -0.0625rem;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 0.0625rem;
-  margin: -0.0625rem;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 0.0625rem;
-}
