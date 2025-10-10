@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import CommentCard from "./CommentCard.jsx";
+import { useOutletContext } from "react-router";
 
 export default function Comments({
   currentUserPicture,
@@ -9,6 +10,7 @@ export default function Comments({
   const [comments, setComments] = useState(post.comments);
   const [errors, setErrors] = useState({});
   const pending = useRef();
+  const { user } = useOutletContext();
 
   async function handleSubmitComment(event) {
     event.preventDefault();
@@ -45,6 +47,7 @@ export default function Comments({
     if (content) {
       createComment();
     } else {
+      pending.current = false;
       setErrors({ content: "Comment must not be empty or whitespaces only." });
     }
   }
@@ -57,6 +60,8 @@ export default function Comments({
             key={comment.id}
             comment={comment}
             currentUserPicture={currentUserPicture}
+            userId={user.id}
+            setComments={setComments}
           />
         ))
       ) : (
