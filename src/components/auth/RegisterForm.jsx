@@ -49,7 +49,7 @@ export default function RegisterForm() {
     register();
   }
 
-  const handlePasswordInput = (event) => {
+  const handlePasswordInput = () => {
     const password = passwordInput.current.value;
     const confirmPassword = confirmPasswordInput.current.value;
     if (confirmPassword === "" || password !== confirmPassword) {
