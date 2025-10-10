@@ -11,6 +11,11 @@
   box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.3);
 }
 
+.auth-server-loading-text {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
 .auth-heading {
   color: var(--primary);
   font-size: 2rem;

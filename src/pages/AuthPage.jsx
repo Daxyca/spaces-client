@@ -1,9 +1,37 @@
 import { Outlet } from "react-router";
 import "../styles/App.css";
+import { useEffect, useState } from "react";
 
 export default function AuthPage() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkServerHealth = async () => {
+      for (let i = 0; i < 5; i++) {
+        if (!loading) {
+          return;
+        }
+        try {
+          const res = await fetch(import.meta.env.VITE_API_URL + "/health");
+          const json = await res.json();
+          if (!json.error) {
+            return setLoading(false);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
+    checkServerHealth();
+  }, []);
+
   return (
-    <main className="auth-form-container ">
+    <main className="auth-form-container">
+      {loading ? (
+        <p className="auth-server-loading-text">
+          Server loading... Please wait.
+        </p>
+      ) : null}
       <div className="auth-header">
         <img className="auth-icon" src="/spaces.svg" alt="spaces icon" />
         <h1 className="auth-heading"> Spaces</h1>
