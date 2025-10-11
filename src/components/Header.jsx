@@ -11,17 +11,17 @@ export default function Header() {
 
   return (
     <header className="header">
-      <Link to="/">
+      <Link to="/" className="header-icon-link">
         <img className="header-icon" src={spacesIcon} alt="spaces icon" />
       </Link>
-      <nav className="nav">
+      <nav className="nav nav-center nav-spaces">
         <ul className="nav-list nav-center-list">
           <NavListItem href="/" name="Home" />
           <NavListCenter spacesNavlist={spacesNavList} />
           <NavListItem href="/connections" name="Connections" />
         </ul>
       </nav>
-      <nav className="nav">
+      <nav className="nav nav-right nav-user">
         <ul className="nav-list nav-user-list">
           <NavListRight userNavList={userNavList} />
         </ul>

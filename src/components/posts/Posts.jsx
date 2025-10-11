@@ -97,14 +97,16 @@ export default function Posts() {
 
   return (
     <div className="posts-container">
-      <h2 className="posts-heading sr-only">
-        {spaceName ? `${spaceName} Posts` : "Main Space Posts"}
-      </h2>
-      <h3 id="create-post-heading" className="sr-only">
-        Create a post
-      </h3>
+      {spaceName ? (
+        <h2 className="posts-heading">{spaceName} Posts</h2>
+      ) : (
+        <h2 className="posts-heading sr-only">Main Space Posts</h2>
+      )}
       {!spaceName ? (
         <>
+          <h3 id="create-post-heading" className="sr-only">
+            Create a post
+          </h3>
           <form
             className="create-post-form"
             onSubmit={handlePostFormSubmit}
