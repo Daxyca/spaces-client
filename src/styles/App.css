@@ -331,7 +331,10 @@ input:focus {
 .comment-content {
   padding: 0.25rem;
   display: grid;
-  gap: 0.5rem;
+}
+
+.post-edited-date {
+  margin-top: 0.5rem;
 }
 
 .post-edited-date,
