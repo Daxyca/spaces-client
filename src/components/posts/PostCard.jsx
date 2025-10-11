@@ -154,8 +154,7 @@ export default function PostCard({
       <div className="post-info-container">
         <Avatar
           picture={
-            post.author.picture?.split("?")[0] ===
-            currentUserPicture?.split("?")[0]
+            currentUserPicture?.includes(userId)
               ? currentUserPicture
               : post.author.picture
           }

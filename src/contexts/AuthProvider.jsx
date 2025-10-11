@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     localStorage.removeItem("login");
-    setUser(null);
+    setUser({});
   };
 
   return <AuthContext value={{ user, login, logout }}>{children}</AuthContext>;

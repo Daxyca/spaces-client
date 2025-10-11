@@ -169,6 +169,10 @@ button:hover {
   opacity: 0.85;
 }
 
+input:focus {
+  outline: 0.0625rem solid var(--neutral-900);
+}
+
 .avatar-container {
   width: 2.25rem;
   height: 2.25rem;
