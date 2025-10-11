@@ -33,10 +33,10 @@ Spaces is a social media site where users can interact with others through posts
 1. View, create, edit and delete comments on posts.
 1. View, create, edit and delete spaces. Each space includes only the posts of selected followed users.
 1. View and follow unfollowed users.
-1. Cancel pending follow requests.
+1. View and cancel pending follow requests.
 1. View and unfollow followed users.
 1. View, accept and decline follower requests.
-1. Remove followers.
+1. View and remove followers.
 
 ## Running the Project
 
