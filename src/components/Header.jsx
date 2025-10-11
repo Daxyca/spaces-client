@@ -64,7 +64,7 @@ function NavListCenter({ spacesNavlist }) {
           Spaces <DownSymbol />
         </p>
         <Link className="nav-link nav-space-link" to="/spaces">
-          <span className="sr-only">View and Edit </span>Spaces ✎
+          <span className="sr-only">View and </span>Edit Spaces
         </Link>
         {spaces.map((space) => (
           <Link
