@@ -15,7 +15,7 @@ export default function Socials({ loginForm = true }) {
         method="get"
       >
         <button type="submit">
-          {loginForm ? "Login" : "Register"} with Github
+          {loginForm ? "Login" : "Register"} with GitHub
         </button>
       </form>
     </>
