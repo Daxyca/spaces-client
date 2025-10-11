@@ -97,14 +97,16 @@ export default function Posts() {
 
   return (
     <div className="posts-container">
-      <h2 className="posts-heading sr-only">
-        {spaceName ? `${spaceName} Posts` : "Main Space Posts"}
-      </h2>
-      <h3 id="create-post-heading" className="sr-only">
-        Create a post
-      </h3>
+      {spaceName ? (
+        <h2 className="posts-heading">{spaceName} Posts</h2>
+      ) : (
+        <h2 className="posts-heading sr-only">Main Space Posts</h2>
+      )}
       {!spaceName ? (
         <>
+          <h3 id="create-post-heading" className="sr-only">
+            Create a post
+          </h3>
           <form
             className="create-post-form"
             onSubmit={handlePostFormSubmit}
@@ -124,9 +126,17 @@ export default function Posts() {
               maxLength="1000"
               required
             ></textarea>
-            <button className="button post-submit-button" type="submit">
-              Post
-            </button>
+            <div className="post-submit-container">
+              <span className="shortcut-key">
+                <span className="sr-only">
+                  Shortcut to post is contorl key plus enter key
+                </span>
+                <span aria-hidden>Ctrl + ↵</span>
+              </span>
+              <button className="button post-submit-button" type="submit">
+                Post
+              </button>
+            </div>
           </form>
           {errors.content && <p className="field-error">{errors.content}</p>}
         </>

@@ -47,7 +47,7 @@ export default function LoadingPage() {
       } catch {
         // ignore; server may still be starting
       }
-      timeout = setTimeout(checkServerHealth, 3000);
+      timeout = setTimeout(checkServerHealth, 5000);
     };
     checkServerHealth();
     return () => clearTimeout(timeout);

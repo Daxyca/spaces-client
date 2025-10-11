@@ -57,9 +57,18 @@
   text-align: center;
 }
 
-.github-form button {
+.github-auth-link {
+  text-align: center;
+  border-radius: 0.5rem;
   background-color: var(--neutral-900);
   color: var(--neutral-100);
+  padding: 0.375rem;
+  width: 100%;
+}
+
+.github-auth-link:hover {
+  color: var(--neutral-100);
+  opacity: 0.85;
 }
 
 .auth-link {
