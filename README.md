@@ -50,7 +50,7 @@ Spaces is a social media site where users can interact with others through posts
 1. Create a `.env` file for the server (to place in the root of your "server" repository later) with the following keys and values (change the values according to your setup):
 
    ```bash
-   NODE_ENV="development" # other posssible values: [test, production]
+   NODE_ENV="dev" # other posssible values: [test, prod]
    COOKIE_SECRET="<secret_string>"
 
    SERVER_BASE_URL="http://localhost:3000" # replace if needed
@@ -74,28 +74,27 @@ Spaces is a social media site where users can interact with others through posts
 
 1. Create a `.env` file for the client (to place in the root of your "client" repository later) with the following keys and values (change the values according to your setup):
 
-```bash
-VITE_API_URL="http://localhost:3000/api" # replace if needed
-VITE_BASENAME="" # optional, if you want a separate base path for the client
-```
+   ```bash
+   VITE_API_URL="http://localhost:3000/api" # replace if needed
+   VITE_BASENAME="" # optional, if you want a separate base path for the client
+   ```
 
 ### Setting up the Server
 
-1. Clone [the server repo](<(https://github.com/Daxyca/spaces-server)>).
+1. Clone [the server repo](<(https://github.com/Daxyca/spaces-server)>) and `cd` into it.
 1. Run `npm install` in your bash/command line.
-1. Place the corresponding `.env` file in the root of your server repository.
+1. Place the corresponding `.env` file from the pre-requisites in the root of your server repository.
 1. Run `npx prisma migrate` in your bash/command line to initialize the database.
 1. (Optional) Run `npm run seed` in your bash/command line for initial database seeding (includes the guest/default user).
 1. Run `npm run dev` in your bash/command line.
-1. Create
 
 ### Setting up the Client
 
-1. Clone [the client repo](https://github.com/Daxyca/spaces-client).
+1. Clone [the client repo](https://github.com/Daxyca/spaces-client) and `cd` into it.
 1. Run `npm install` in your bash/command line.
-1. Place the corresponding `.env` file in the root of your server repository.
+1. Place the corresponding `.env` file from the pre-requisites in the root of your client repository.
 1. Run `npm run dev` in your bash/command line.
-1. Visit the [website](http://localhost:5173)!
+1. Visit the [website](http://localhost:5173) and have fun posting!
 1. (Optional) Register a user for guest if you skipped seeding above (username: `user` | password: `123`).
 
 ## Dependencies
