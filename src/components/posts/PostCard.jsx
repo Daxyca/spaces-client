@@ -219,11 +219,21 @@ export default function PostCard({
               required
             ></textarea>
             <div className="edit-post-buttons-container">
-              <span className="shortcut-key">Ctrl + ↵</span>
+              <span className="shortcut-key">
+                <span className="sr-only">
+                  Shortcut to save edit is control key plus enter key
+                </span>
+                <span aria-hidden>Ctrl + ↵</span>
+              </span>
               <button className="button" type="submit" name="save">
                 Save Edit
               </button>
-              <span className="shortcut-key">Esc</span>
+              <span className="shortcut-key">
+                <span className="sr-only">
+                  Shortcut to cancel edit is escape key
+                </span>
+                <span aria-hidden>Esc</span>
+              </span>
               <button
                 className="button alt"
                 type="submit"

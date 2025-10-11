@@ -126,9 +126,17 @@ export default function Posts() {
               maxLength="1000"
               required
             ></textarea>
-            <button className="button post-submit-button" type="submit">
-              Post
-            </button>
+            <div className="post-submit-container">
+              <span className="shortcut-key">
+                <span className="sr-only">
+                  Shortcut to post is contorl key plus enter key
+                </span>
+                <span aria-hidden>Ctrl + ↵</span>
+              </span>
+              <button className="button post-submit-button" type="submit">
+                Post
+              </button>
+            </div>
           </form>
           {errors.content && <p className="field-error">{errors.content}</p>}
         </>

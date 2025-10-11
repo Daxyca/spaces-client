@@ -198,11 +198,21 @@ export default function CommentCard({
             required
           ></input>
           <div className="edit-comment-buttons-container">
-            <span className="shortcut-key">↵</span>
+            <span className="shortcut-key">
+              <span className="sr-only">
+                Shortcut to save edit is enter key
+              </span>
+              <span aria-hidden>↵</span>
+            </span>
             <button className="button" type="submit" name="save">
               Save Edit
             </button>
-            <span className="shortcut-key">Esc</span>
+            <span className="shortcut-key">
+              <span className="sr-only">
+                Shortcut to cancel edit is escape key
+              </span>
+              <span aria-hidden>Esc</span>
+            </span>
             <button
               className="button alt"
               type="submit"

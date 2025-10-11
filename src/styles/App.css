@@ -212,9 +212,9 @@ input:focus {
   padding: 0.5rem;
 }
 
-.post-submit-button {
-  height: 3rem;
-  align-self: center;
+.post-submit-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 .submit-post-content {
