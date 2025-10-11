@@ -20,8 +20,10 @@ Spaces is a social media site where users can interact with others through posts
    - [Server](#setting-up-the-server)
    - [Client](#setting-up-the-client)
 1. [Dependencies](#dependencies)
-   - [Server](#server-dependencies)
-   - [Client](#client-dependencies)
+   - [Server Dependencies](#server-dependencies)
+   - [Server Dev Dependencies](#server-dev-dependencies)
+   - [Client Dependencies](#client-dependencies)
+   - [Client Dev Dependencies](#client-dev-dependencies)
 
 ## Features
 
@@ -98,6 +100,45 @@ VITE_BASENAME="" # optional, if you want a separate base path for the client
 
 ## Dependencies
 
+The project is structured as a full-stack application:
+
+- **Server**: Node.js/Express backend with PostgreSQL and Prisma ORM
+- **Client**: React-based frontend built with Vite
+
 ### Server Dependencies
 
+- [Express](https://expressjs.com/)
+- [CORS](https://github.com/expressjs/cors)
+- [Dotenv](https://github.com/motdotla/dotenv)
+- [Multer](https://github.com/expressjs/multer)
+- [Express Session](https://github.com/expressjs/session)
+- [Express Validator](https://express-validator.github.io/docs/)
+- [Passport](https://www.passportjs.org/)
+- [BcryptJS](https://github.com/dcodeIO/bcrypt.js)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Prisma](https://www.prisma.io/)
+- [Supabase](https://supabase.com/)
+
+### Server Dev Dependencies
+
+- [Babel](https://babeljs.io/)
+- [Prisma CLI](https://www.prisma.io/docs)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Jest](https://jestjs.io/)
+- [Supertest](https://github.com/ladjs/supertest)
+- [Faker](https://fakerjs.dev/)
+
 ### Client Dependencies
+
+- [React](https://react.dev/)
+- [React DOM](https://react.dev/reference/react-dom)
+- [React Router](https://reactrouter.com/)
+- [React Router DOM](https://reactrouter.com/en/main)
+- [NProgress](https://ricostacruz.com/nprogress/)
+
+### Client Dev Dependencies
+
+- [Vite](https://vitejs.dev/)
+- [ESLint](https://eslint.org/)
+- [Dotenv](https://github.com/motdotla/dotenv)
