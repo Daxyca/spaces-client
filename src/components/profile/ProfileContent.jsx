@@ -159,7 +159,7 @@ export default function ProfileContent() {
                   method="post"
                   encType="multipart/form-data"
                 >
-                  <label htmlFor="new-profile-picture">
+                  <label htmlFor="new-profile-picture" className="sr-only">
                     Change Profile Picture:
                   </label>
                   <input
@@ -169,7 +169,10 @@ export default function ProfileContent() {
                     name="picture"
                     required
                   />
-                  <button className="button" type="submit">
+                  <button
+                    className="button upload-picture-button"
+                    type="submit"
+                  >
                     Upload Picture
                   </button>
                 </form>
