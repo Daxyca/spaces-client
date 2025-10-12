@@ -6,7 +6,7 @@ Spaces is a social media site where users can interact with others through posts
 
 ### Links
 
-- [LIVE Link](https://daxyca.github.io/spaces-client)
+- [LIVE Link](https://spaces-six-rho.vercel.app/)
 - [Client Repository](https://github.com/Daxyca/spaces-client)
 - [Server Repository](https://github.com/Daxyca/spaces-server)
 
@@ -45,14 +45,15 @@ Spaces is a social media site where users can interact with others through posts
 ### Pre-requisites
 
 1. Make sure you have a SQL database such as PostgreSQL.
-1. Prepare a supabase storage and bucket for storing the avatars. The bucket base URL and a supabase anon key is needed.
-1. For [GitHub OAuth](https://github.com/settings/developers), prepare the Client ID and the Client secret. Set the Homepage URL to the server URL (e.g. `http://localhost:3000`) and Authorization Callback URL to `<server_url>/api/auth/github/callback`.
-1. Create a `.env` file for the server (to place in the root of your "server" repository later) with the following keys and values (change the values according to your setup):
+1. (Optional) Supabase is used for cloud storage of avatars. To be able to change avatars, prepare a supabase storage and bucket for storing the avatars. The bucket base URL and a supabase anon key is needed.
+1. (Optional) To be able to use [GitHub OAuth](https://github.com/settings/developers), create an OAuth app in GitHub and prepare your Client ID and Client secret. Set your OAuth app's the Homepage URL to the server URL (e.g. `http://localhost:3000`) and Authorization Callback URL to `<server_url>/api/auth/github/callback`.
+1. Create a `.env` file for the server and another for the client (to place in the root of the respective repositories later) with the following keys and values (change the values according to your setup):
+
+   #### Server `.env` file
 
    ```bash
    NODE_ENV="dev" # other posssible values: [test, prod]
    COOKIE_SECRET="<secret_string>"
-
    SERVER_BASE_URL="http://localhost:3000" # replace if needed
    CLIENT_BASE_URL="http://localhost:5173" # replace if needed
    CLIENT_REDIRECT_URL="http://localhost:5173" # replace if needed
@@ -62,17 +63,17 @@ Spaces is a social media site where users can interact with others through posts
    DEVELOPMENT_DATABASE_URL="<database_provider_name>://<database_username>:<database_password>@localhost:5432/<database_name>?schema=public"
    TEST_DATABASE_URL="<database_provider_name>://<database_username>:<database_password>@localhost:5432/test_<database_name>?schema=public"
 
-   # Supabase
-   SUPABASE_URL="https://<subdomain_name>.supabase.co"
-   AVATARS_BASE_URL="https://<subdomain_name>.supabase.co/storage/v1/object/public/<bucket_name>"
-   SUPABASE_ANON_KEY="<supabase_anon_key>"
+   # Supabase (optional, for changing avatars)
+   SUPABASE_URL="https://<subdomain_name>.supabase.co" # replace with "https://supabase.co" if you don't have any
+   AVATARS_BASE_URL="https://<subdomain_name>.supabase.co/storage/v1/object/public/<bucket_name>" # replace with "https://supabase.co" if you don't have any
+   SUPABASE_ANON_KEY="<supabase_anon_key>" # replace with "1" if you don't have any
 
-   # GitHub OAuth
-   GITHUB_CLIENT_ID="<20_character_string>"
-   GITHUB_CLIENT_SECRET="<40_character_string>"
+   # GitHub OAuth  (optional, for GitHub OAuth)
+   GITHUB_CLIENT_ID="<20_character_string>" # replace with "1" if you don't have any or comment out
+   GITHUB_CLIENT_SECRET="<40_character_string>" # replace with "1" if you don't have any or comment out
    ```
 
-1. Create a `.env` file for the client (to place in the root of your "client" repository later) with the following keys and values (change the values according to your setup):
+   #### Client `.env` file
 
    ```bash
    VITE_API_URL="http://localhost:3000/api" # replace if needed
@@ -81,7 +82,7 @@ Spaces is a social media site where users can interact with others through posts
 
 ### Setting up the Server
 
-1. Clone [the server repo](<(https://github.com/Daxyca/spaces-server)>) and `cd` into it.
+1. Fork/clone the [server repo](<(https://github.com/Daxyca/spaces-server)>) and `cd` into it.
 1. Run `npm install` in your bash/command line.
 1. Place the corresponding `.env` file from the pre-requisites in the root of your server repository.
 1. Run `npx prisma migrate` in your bash/command line to initialize the database.
@@ -90,12 +91,12 @@ Spaces is a social media site where users can interact with others through posts
 
 ### Setting up the Client
 
-1. Clone [the client repo](https://github.com/Daxyca/spaces-client) and `cd` into it.
+1. Fork/clone the [client repo](https://github.com/Daxyca/spaces-client) and `cd` into it.
 1. Run `npm install` in your bash/command line.
 1. Place the corresponding `.env` file from the pre-requisites in the root of your client repository.
 1. Run `npm run dev` in your bash/command line.
 1. Visit the [website](http://localhost:5173) and have fun posting!
-1. (Optional) Register a user for guest if you skipped seeding above (username: `user` | password: `123`).
+1. (Optional) Register a user for guest if you skipped seeding in setting up the sever above (username: `user` | password: `123`).
 
 ## Dependencies
 
