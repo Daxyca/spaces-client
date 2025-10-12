@@ -142,7 +142,7 @@ export default function ProfileContent() {
             <h2 className="profile-heading">Profile</h2>
             {isCurrentUser ? (
               <Link to="/profile/edit" aria-label="Go to Edit Profile Page">
-                ✎
+                Edit ✎
               </Link>
             ) : null}
           </header>
