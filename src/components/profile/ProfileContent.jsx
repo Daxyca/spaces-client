@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar.jsx";
 import PostCard from "../posts/PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
@@ -24,6 +24,18 @@ export default function ProfileContent() {
   const [posts, setPosts] = useState(profile?.posts || []);
   const [picture, setPicture] = useState(profile?.picture || null);
   const pending = useRef();
+
+  useEffect(() => {
+    if (!profile.posts) {
+      return;
+    }
+    setPosts(profile.posts);
+    setPicture(profile.picture);
+  }, [profile]);
+
+  if (!profile.posts) {
+    return;
+  }
 
   function handlePictureFormSubmit(event) {
     event.preventDefault();
@@ -130,7 +142,7 @@ export default function ProfileContent() {
             <h2 className="profile-heading">Profile</h2>
             {isCurrentUser ? (
               <Link to="/profile/edit" aria-label="Go to Edit Profile Page">
-                ✎
+                Edit ✎
               </Link>
             ) : null}
           </header>
@@ -147,7 +159,7 @@ export default function ProfileContent() {
                   method="post"
                   encType="multipart/form-data"
                 >
-                  <label htmlFor="new-profile-picture">
+                  <label htmlFor="new-profile-picture" className="sr-only">
                     Change Profile Picture:
                   </label>
                   <input
@@ -157,7 +169,10 @@ export default function ProfileContent() {
                     name="picture"
                     required
                   />
-                  <button className="button" type="submit">
+                  <button
+                    className="button upload-picture-button"
+                    type="submit"
+                  >
                     Upload Picture
                   </button>
                 </form>

@@ -1,5 +1,6 @@
-import { Link, useOutletContext } from "react-router";
+import { Link } from "react-router";
 import { useRef, useState } from "react";
+import { useProfile } from "../../contexts/ProfileContext.js";
 
 const PROFILE_FIELDS = [
   "displayName",
@@ -12,7 +13,7 @@ const PROFILE_FIELDS = [
 ];
 
 export default function ProfileEdit() {
-  const { profile, setProfile } = useOutletContext();
+  const { profile, setProfile } = useProfile();
   const [errors, setErrors] = useState({});
   const pending = useRef();
 
@@ -45,7 +46,8 @@ export default function ProfileEdit() {
         if (!json.error) {
           setErrors({});
           setProfile((prev) => ({ ...prev, ...json }));
-          window.location.href = import.meta.env.VITE_BASENAME + "/profile";
+          window.location.href =
+            (import.meta.env.VITE_BASENAME || "") + "/profile";
         } else {
           if (res.status === 400 && json.error.errors) {
             const newErrors = {};

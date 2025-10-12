@@ -1,6 +1,6 @@
 .profile-container {
   display: grid;
-  grid-template-columns: 2fr 5fr;
+  grid-template-columns: 1fr 2fr;
   gap: 1rem;
 }
 
@@ -31,6 +31,40 @@
   font-weight: bold;
 }
 
+input[type="file"] {
+  font-size: 0.8rem;
+}
+
+input[type="file"]::file-selector-button {
+  border: none;
+  background: var(--secondary);
+  border-radius: 0.5rem;
+  color: var(--neutral-100);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.125rem 1rem;
+}
+
+input[type="file"]::file-selector-button:hover {
+  opacity: 0.85;
+}
+
+.change-picture-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.picture-input {
+  align-self: flex-start;
+}
+
+.upload-picture-button {
+  align-self: flex-start;
+  padding-inline: 2rem;
+}
+
 .profile-content {
   display: flex;
   flex-direction: column;
@@ -45,16 +79,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.change-picture-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.picture-input {
-  width: 100%;
 }
 
 .profile-right-container {
@@ -104,4 +128,17 @@
 .edit-profile-form button {
   padding: 0.25rem;
   width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+  .profile-container {
+    display: grid;
+    grid-template-columns: unset;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+
+  .profile-content {
+    align-self: flex-start;
+  }
 }
