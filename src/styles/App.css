@@ -130,6 +130,14 @@
   border-radius: 1rem 1rem 0 0;
 }
 
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
 a {
   color: var(--primary);
   text-decoration: none;
@@ -239,7 +247,6 @@ input:focus {
 
 .posts-heading {
   align-self: center;
-  font-size: 1.5rem;
 }
 
 .post-info-container,
