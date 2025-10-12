@@ -45,7 +45,8 @@ export default function ProfileEdit() {
         if (!json.error) {
           setErrors({});
           setProfile((prev) => ({ ...prev, ...json }));
-          window.location.href = import.meta.env.VITE_BASENAME + "/profile";
+          window.location.href =
+            (import.meta.env.VITE_BASENAME || "") + "/profile";
         } else {
           if (res.status === 400 && json.error.errors) {
             const newErrors = {};
