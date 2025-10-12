@@ -1,7 +1,6 @@
 import AuthPage from "../pages/AuthPage.jsx";
 import RegisterForm from "../components/auth/RegisterForm.jsx";
 import LoginForm from "../components/auth/LoginForm.jsx";
-import AuthCallback from "../pages/AuthCallback.jsx";
 
 export default {
   path: "/auth",
@@ -14,10 +13,6 @@ export default {
     {
       path: "login",
       element: <LoginForm />,
-    },
-    {
-      path: "callback",
-      element: <AuthCallback />,
     },
   ],
 };
