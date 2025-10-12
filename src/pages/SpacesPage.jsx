@@ -92,13 +92,17 @@ export default function SpacesPage() {
         <div className="spaces-left-main">
           <h3 className="spaces-heading">Spaces List</h3>
           <ul className="spaces-list">
-            {spaces.map((space) => (
-              <li key={space.id} className="spaces-list-item">
-                <Link key={space.id} to={`/spaces/${space.name}/edit`}>
-                  {space.name}
-                </Link>
-              </li>
-            ))}
+            {spaces.length > 0 ? (
+              spaces.map((space) => (
+                <li key={space.id} className="spaces-list-item">
+                  <Link key={space.id} to={`/spaces/${space.name}/edit`}>
+                    {space.name}
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <p style={{ opacity: 0.5 }}>(Empty)</p>
+            )}
           </ul>
           <hr />
           <form
