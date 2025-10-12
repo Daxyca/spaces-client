@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar.jsx";
 import PostCard from "../posts/PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
@@ -24,6 +24,18 @@ export default function ProfileContent() {
   const [posts, setPosts] = useState(profile?.posts || []);
   const [picture, setPicture] = useState(profile?.picture || null);
   const pending = useRef();
+
+  useEffect(() => {
+    if (!profile.posts) {
+      return;
+    }
+    setPosts(profile.posts);
+    setPicture(profile.picture);
+  }, [profile]);
+
+  if (!profile.posts) {
+    return;
+  }
 
   function handlePictureFormSubmit(event) {
     event.preventDefault();

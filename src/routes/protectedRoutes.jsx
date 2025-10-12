@@ -13,7 +13,6 @@ import Posts from "../components/posts/Posts.jsx";
 import Space from "../components/Space.jsx";
 import ProfileContent from "../components/profile/ProfileContent.jsx";
 import ProfileEdit from "../components/profile/ProfileEdit.jsx";
-import { ProfileProvider } from "../contexts/ProfileProvider.jsx";
 import ProtectedPage from "../pages/ProtectedPage.jsx";
 
 const protectedRoutes = [
@@ -54,11 +53,7 @@ const protectedRoutes = [
 
       {
         path: "/profile",
-        element: (
-          <ProfileProvider>
-            <ProfilePage />
-          </ProfileProvider>
-        ),
+        element: <ProfilePage />,
         HydrateFallback: () => null,
         children: [
           {
