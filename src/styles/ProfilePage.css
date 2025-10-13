@@ -1,6 +1,6 @@
 .profile-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto;
   gap: 1rem;
 }
 
@@ -128,17 +128,4 @@ input[type="file"]::file-selector-button:hover {
 .edit-profile-form button {
   padding: 0.25rem;
   width: 100%;
-}
-
-@media only screen and (max-width: 480px) {
-  .profile-container {
-    display: grid;
-    grid-template-columns: unset;
-    grid-template-rows: auto auto;
-    gap: 1rem;
-  }
-
-  .profile-content {
-    align-self: flex-start;
-  }
 }
