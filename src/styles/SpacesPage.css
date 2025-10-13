@@ -8,11 +8,24 @@
 
 /* Space Left */
 
+.spaces-left-container {
+  margin-inline: auto;
+  height: fit-content;
+}
+
+.spaces-left-main {
+  width: fit-content;
+}
+
 .spaces-left-main,
 .spaces-right-container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.spaces-left-container,
+.spaces-right-container {
   padding: 1rem;
   background-color: white;
   border-radius: 0.5rem;
@@ -36,7 +49,7 @@
 
 .space-name-input {
   padding: 0.25rem 0.5rem;
-  width: 100%;
+  max-width: 10rem;
   border-radius: 0.25rem;
   border: 0.0625rem solid black;
 }
@@ -123,4 +136,17 @@ form .bottom-button {
   padding: 0.5rem 1.5rem;
   align-self: center;
   min-width: 40%;
+}
+
+@media only screen and (max-width: 480px) {
+  .spaces-main-container {
+    display: grid;
+    grid-template-columns: none;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+
+  .spaces-left-main {
+    text-align: center;
+  }
 }
