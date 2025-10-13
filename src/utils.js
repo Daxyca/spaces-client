@@ -8,3 +8,23 @@ export function parseValidationErrors(status, json) {
   }
   return { unexpected: "An unexpected error occured." };
 }
+
+export function formatDateTime(date) {
+  return new Date(date)
+    .toLocaleString("en-US", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(",", "");
+}
+
+export function formatDate(date) {
+  return new Date(date).toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+}

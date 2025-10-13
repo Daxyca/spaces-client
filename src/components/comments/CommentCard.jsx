@@ -1,17 +1,7 @@
 import { useRef, useState } from "react";
 import Avatar from "../Avatar.jsx";
 import { Link } from "react-router";
-import { parseValidationErrors } from "../../utils.js";
-
-function formatDate(date) {
-  return new Date(date).toLocaleString("en-US", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
+import { formatDateTime, parseValidationErrors } from "../../utils.js";
 
 export default function CommentCard({
   comment,
@@ -26,7 +16,7 @@ export default function CommentCard({
   const editCommentForm = useRef();
   const [errors, setErrors] = useState({});
 
-  const commentCreatedAt = formatDate(comment.createdAt);
+  const commentCreatedAt = formatDateTime(comment.createdAt);
 
   const handleToggleCommentMenuClick = () => {
     setMenuShown((prev) => !prev);
@@ -229,7 +219,7 @@ export default function CommentCard({
       )}
       {comment.updatedAt !== comment.createdAt ? (
         <div className="comment-edited-date">
-          Last edited on {formatDate(comment.updatedAt)}
+          Last edited on {formatDateTime(comment.updatedAt)}
         </div>
       ) : null}
     </div>

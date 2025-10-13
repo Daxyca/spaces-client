@@ -2,18 +2,8 @@ import { useRef, useState } from "react";
 import { Link } from "react-router";
 import Avatar from "../Avatar.jsx";
 import LikeImage from "../LikeImage.jsx";
-import { parseValidationErrors } from "../../utils.js";
+import { formatDateTime, parseValidationErrors } from "../../utils.js";
 import Comments from "../comments/Comments.jsx";
-
-function formatDate(date) {
-  return new Date(date).toLocaleString("en-US", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
 
 export default function PostCard({
   post,
@@ -47,7 +37,7 @@ export default function PostCard({
   }
 
   const postContent = post.content.trim();
-  const postCreatedAt = formatDate(post.createdAt);
+  const postCreatedAt = formatDateTime(post.createdAt);
 
   const handleTogglePostMenuClick = () => {
     setMenuShown((prev) => !prev);
@@ -260,7 +250,7 @@ export default function PostCard({
         )}
         {post.updatedAt !== post.createdAt ? (
           <div className="post-edited-date">
-            Last edited on {formatDate(post.updatedAt)}
+            Last edited on {formatDateTime(post.updatedAt)}
           </div>
         ) : null}
       </div>

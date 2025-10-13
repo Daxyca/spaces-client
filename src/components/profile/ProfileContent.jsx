@@ -3,6 +3,7 @@ import Avatar from "../Avatar.jsx";
 import PostCard from "../posts/PostCard.jsx";
 import { Link, useOutletContext } from "react-router";
 import { useProfile } from "../../contexts/ProfileContext.js";
+import { formatDate } from "../../utils.js";
 
 const FOLLOW_ENDPOINTS = {
   follow: ["POST", "following"],
@@ -180,7 +181,7 @@ export default function ProfileContent() {
             ) : null}
             <p>First Name: {profile.firstName || "-"}</p>
             <p>Last Name: {profile.lastName || "-"}</p>
-            <p>Birth Date: {profile.birthDate || "-"}</p>
+            <p>Birth Date: {formatDate(profile.birthDate) || "-"}</p>
             <p>Bio: {profile.bio || "-"}</p>
             <p>Sex at Birth: {profile.sexAtBirth || "-"}</p>
             <p>Location: {profile.location || "-"}</p>
